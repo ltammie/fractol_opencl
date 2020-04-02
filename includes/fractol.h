@@ -6,6 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <OpenCL/opencl.h>
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 #endif
