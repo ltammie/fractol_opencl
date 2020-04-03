@@ -4,7 +4,7 @@ int main()
 {
 	cl_int				ret;
 	cl_context			context;
-	cl_command_queue	command_queue;
+	cl_command_queue	queue;
 
 	cl_platform_id		platform_id;
 	cl_uint				ret_num_platforms;
@@ -17,11 +17,17 @@ int main()
 	/* получить доступные устройства */
 	ret = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, &ret_num_devices);
 
+	/* check it later */
+//	cl_int max_dims;
+//	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS,
+//			sizeof(max_dims), &max_dims, NULL);
+//	printf("Preferred max dims: %d\n", max_dims);
+
 	/* создать контекст */
 	context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &ret);
 
 	/* создать очередь команд */
-	command_queue = clCreateCommandQueue(context, device_id, 0, &ret);
+	queue = clCreateCommandQueue(context, device_id, 0, &ret);
 
 	cl_program program = NULL;
 	cl_kernel kernel = NULL;
@@ -60,7 +66,7 @@ int main()
 		strlen = ft_strlen(line);
 		source[i] = (char *)malloc(sizeof(char) * strlen);
 		ft_strcpy(source[i], line);
-		printf("%s\n", line);
+//		printf("%s\n", line);
 		free(line);
 		i++;
 	}
@@ -72,30 +78,32 @@ int main()
 	ret = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 
 	/* создать кернел, передваемое имя - название kernela в файле .cl */
-	kernel = clCreateKernel(program, "test", &ret);
+	kernel = clCreateKernel(program, "array_add", &ret);
 
-	cl_mem memobj = NULL;
-	int memLenth = 10;
-	cl_int* mem = (cl_int *)malloc(sizeof(cl_int) * memLenth);
+	int data[24];
+	int result[24];
 
-	/* создать буфер */
-	memobj = clCreateBuffer(context, CL_MEM_READ_WRITE, memLenth * sizeof(cl_int), NULL, &ret);
+	for (int j = 0; j < 24; ++j)
+	{
+		data[j] = j + 1;
+	}
 
-	/* записать данные в буфер
-	 * clEnqueueWriteBuffer записывает данные из массива mem в буфер memobj
-	 */
-	ret = clEnqueueWriteBuffer(command_queue, memobj, CL_TRUE, 0, memLenth * sizeof(cl_int), mem, 0, NULL, NULL);
+	cl_mem input_buffer;
+	cl_mem output_buffer;
 
-	/* устанавливаем параметр */
-	ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void *)&memobj);
+	input_buffer = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(int) * 24, data, &ret);
+	output_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(int) * 24, NULL, &ret);
+	clSetKernelArg(kernel, 0, sizeof(cl_mem), &input_buffer);
+	clSetKernelArg(kernel, 1, sizeof(cl_mem), &output_buffer);
 
-	size_t global_work_size[1] = { 10 };
+	size_t dim = 1;
+	size_t global_size = 24;
+	ret = clEnqueueNDRangeKernel(queue, kernel, dim, NULL, &global_size, NULL, 0, NULL, NULL);
+	ret = clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(int) * 24, result, 0, NULL, NULL);
 
-	/* выполнить кернел */
-	ret = clEnqueueNDRangeKernel(command_queue, kernel, 1, NULL, global_work_size, NULL, 0, NULL, NULL);
-
-	/* считать данные из буфера */
-	ret = clEnqueueReadBuffer(command_queue, memobj, CL_TRUE, 0, memLenth * sizeof(float), mem, 0, NULL, NULL);
-
+	for (int j = 0; j < 24; ++j)
+	{
+		printf("result[%d] = %d\n", j + 1, result[j]);
+	}
 	return 0;
 }

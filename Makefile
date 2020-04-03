@@ -6,7 +6,7 @@
 #    By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 19:18:13 by ltammie           #+#    #+#              #
-#    Updated: 2020/03/23 06:41:37 by sauron           ###   ########.fr        #
+#    Updated: 2020/04/03 02:29:22 by sauron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ lib:
 		make -C minilibx
 
 $(NAME): $(OBJS) lib
-		$(GCC) $(OBJS) $(LIB) -o $(NAME) -lpthread
+		$(GCC) $(OBJS) $(LIB) -o $(NAME)
 
 clean:
 		rm -f $(OBJS)

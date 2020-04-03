@@ -1,7 +1,5 @@
-__kernel void test(__global int* message)
+__kernel void array_add(__global int *input, __global int *output)
 {
-	// получаем текущий id.
-	int gid = get_global_id(0);
-
-	message[gid] += gid;
+   int i = get_global_id(0);
+   output[i] = input[i] * 2;
 }
