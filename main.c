@@ -3,19 +3,18 @@
 int main()
 {
 	cl_int				ret;
+	cl_platform_id		platform_id;
+	cl_device_id		device_id;
 	cl_context			context;
 	cl_command_queue	queue;
-
-	cl_platform_id		platform_id;
-	cl_uint				ret_num_platforms;
-	cl_device_id		device_id;
-	cl_uint 			ret_num_devices;
+	cl_program			program;
+	cl_kernel			kernel;
 
 	/* получить доступные платформы */
-	ret = clGetPlatformIDs(1, &platform_id, &ret_num_platforms);
+	ret = clGetPlatformIDs(1, &platform_id, NULL);
 
 	/* получить доступные устройства */
-	ret = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, &ret_num_devices);
+	ret = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, NULL);
 
 	/* check it later */
 //	cl_int max_dims;
@@ -29,9 +28,6 @@ int main()
 	/* создать очередь команд */
 	queue = clCreateCommandQueue(context, device_id, 0, &ret);
 
-	cl_program program = NULL;
-	cl_kernel kernel = NULL;
-
 	/*
 	 * считать код ядра
 	 * массив строк кода ядра
@@ -39,7 +35,7 @@ int main()
 	int		i;
 	int 	strlen;
 	int		fd;
-	int 	count;
+	size_t 	count;
 	char	**source;
 	char	*line;
 
@@ -57,6 +53,7 @@ int main()
 		count++;
 		free(line);
 	}
+	printf("str count = %zu\n", count);
 	close(fd);
 	/* выделяем память под массив count-строк */
 	source = (char **)malloc(sizeof(char *) * count);
@@ -66,13 +63,12 @@ int main()
 		strlen = ft_strlen(line);
 		source[i] = (char *)malloc(sizeof(char) * strlen);
 		ft_strcpy(source[i], line);
-//		printf("%s\n", line);
 		free(line);
 		i++;
 	}
 
 	/* создать бинарник из кода программы */
-	program = clCreateProgramWithSource(context, 1, (const char **)&source, NULL, &ret);
+	program = clCreateProgramWithSource(context, count, (const char **)source, NULL, &ret);
 
 	/* скомпилировать программу */
 	ret = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
@@ -86,6 +82,7 @@ int main()
 	for (int j = 0; j < 24; ++j)
 	{
 		data[j] = j + 1;
+		printf("data[%d] = %d\n", j + 1, data[j]);
 	}
 
 	cl_mem input_buffer;
@@ -96,14 +93,19 @@ int main()
 	clSetKernelArg(kernel, 0, sizeof(cl_mem), &input_buffer);
 	clSetKernelArg(kernel, 1, sizeof(cl_mem), &output_buffer);
 
-	size_t dim = 1;
 	size_t global_size = 24;
-	ret = clEnqueueNDRangeKernel(queue, kernel, dim, NULL, &global_size, NULL, 0, NULL, NULL);
-	ret = clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(int) * 24, result, 0, NULL, NULL);
+	clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &global_size, NULL, 0, NULL, NULL);
+	clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(int) * 24, result, 0, NULL, NULL);
 
-	for (int j = 0; j < 24; ++j)
+	for (int k = 0; k < 24; ++k)
 	{
-		printf("result[%d] = %d\n", j + 1, result[j]);
+		printf("result[%d] = %d\n", k + 1, result[k]);
 	}
+	clReleaseMemObject(input_buffer);
+	clReleaseMemObject(output_buffer);
+	clReleaseKernel(kernel);
+	clReleaseCommandQueue(queue);
+	clReleaseProgram(program);
+	clReleaseContext(context);
 	return 0;
 }
