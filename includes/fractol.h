@@ -28,11 +28,18 @@ typedef struct	s_image
 	int			endian;
 }				t_image;
 
+typedef	struct	s_view
+{
+	float 		minValue;
+	float 		maxValue;
+}				t_view;
+
 typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*win;
 	t_image		img;
+	t_view		view;
 	char 		*fractal_type;
 	int 		max_iter;
 }				t_mlx;
@@ -81,6 +88,7 @@ int				draw_image(t_mlx *data);
  ** --------------controls--------------
  */
 
+int				zoom(int key, t_mlx *data);
 void			close_fractol(t_mlx *data);
 
 /*

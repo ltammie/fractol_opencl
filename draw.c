@@ -68,10 +68,10 @@ int		draw_image(t_mlx *data)
 	while (get_next_line(fd, &line))
 	{
 		count++;
-		printf("line %zu: %s\n", count, line);
+//		printf("line %zu: %s\n", count, line);
 		free(line);
 	}
-	printf("lines count = %zu\n", count);
+//	printf("lines count = %zu\n", count);
 	close(fd);
 	/* выделяем память под массив count-строк */
 	source = (char **)malloc(sizeof(char *) * count);
@@ -79,20 +79,20 @@ int		draw_image(t_mlx *data)
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		size_t strlen = ft_strlen(line);
-		printf("line %d length: %zu\n", i, strlen);
+//		size_t strlen = ft_strlen(line);
+//		printf("line %d length: %zu\n", i, strlen);
 //		source[i] = (char *)malloc(sizeof(char) * strlen);
 		source[i] = ft_strdup(line);
-		printf("line %d: %s\n", i, source[i]);
+//		printf("line %d: %s\n", i, source[i]);
 		free(line);
 		line = NULL;
 		i++;
 	}
 
-	for (int j = 0; j < 12; ++j)
-	{
-		printf("%s\n", source[j]);
-	}
+//	for (int j = 0; j < 12; ++j)
+//	{
+//		printf("%s\n", source[j]);
+//	}
 	/* создать бинарник из кода программы */
 	program = clCreateProgramWithSource(context, count, (const char **)source, NULL, &ret);
 	printf("program creation ret = %d\n", ret);
@@ -114,35 +114,40 @@ int		draw_image(t_mlx *data)
 	printf("kernel creation ret = %d\n", ret);
 
 
-	float		result[50];
+	int 	size = WIDTH  * HEIGHT;
+	printf("size = %d\n", size);
+	int		result[size];
 	int 	max_iter = data->max_iter;
-	if (max_iter)
-		;
+	int 	min_value = data->view.minValue;
+	int 	max_value = data->view.maxValue;
 
 	cl_mem output_buffer;
 
-	output_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * 50, NULL, &ret);
+	output_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(int) * size, NULL, &ret);
 	printf("buffer ret = %d\n", ret);
-//	clSetKernelArg(kernel, 0, sizeof(int), &max_iter);
-	clSetKernelArg(kernel, 0, sizeof(cl_mem), &output_buffer);
+	clSetKernelArg(kernel, 0, sizeof(int), &max_iter);
+	clSetKernelArg(kernel, 1, sizeof(int), &min_value);
+	clSetKernelArg(kernel, 2, sizeof(int), &max_value);
+	clSetKernelArg(kernel, 3, sizeof(cl_mem), &output_buffer);
 
 	size_t dim = 2;
-	size_t global_size[] = {5,10};
+	size_t global_size[] = {HEIGHT,WIDTH};
 	clEnqueueNDRangeKernel(queue, kernel, dim, NULL, global_size, NULL, 0, NULL, NULL);
-	clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(float) * 50, result, 0, NULL, NULL);
+	clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(int) * size, result, 0, NULL, NULL);
 
-//	for (int i = 0; i  < 50 ; i++)
-//	{
-//		printf("%d\n", result[i]);
-//	}
-	for (int i = 0; i < 5 ; ++i)
+	for (int i = 0; i < HEIGHT ; ++i)
 	{
-		for (int j = 0; j < 10; ++j)
+		for (int j = 0; j < WIDTH; ++j)
 		{
-			printf("%f\t", result[i * 10 + j]);
+//			printf("%f\t", result[i * WIDTH + j]);
+			data->img.img_data[i * WIDTH + j] = result[i * WIDTH + j];
 		}
-		printf("\n");
+//		printf("\n");
 	}
+//	for (int i = 0; i < size ; ++i)
+//	{
+//		data->img.img_data[i] = result[i];
+//	}
 
 	printf("free started\n");
 	clReleaseMemObject(output_buffer);
@@ -151,6 +156,6 @@ int		draw_image(t_mlx *data)
 	clReleaseProgram(program);
 	clReleaseContext(context);
 	printf("free done\n");
-//	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 	return (0);
 }
