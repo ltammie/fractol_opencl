@@ -53,13 +53,11 @@ int		draw_image(t_mlx *data)
 	 * массив строк кода ядра
 	 */
 	int		i;
-	int 	strlen;
 	int		fd;
 	size_t 	count;
 	char	**source;
 	char	*line;
 
-	i = 0;
 	count = 0;
 	line = NULL;
 	if (((fd = open(krnlMandelbrot, O_RDONLY)) < 0) || ((read(fd, line, 0)) < 0))
@@ -70,21 +68,31 @@ int		draw_image(t_mlx *data)
 	while (get_next_line(fd, &line))
 	{
 		count++;
+		printf("line %zu: %s\n", count, line);
 		free(line);
 	}
+	printf("lines count = %zu\n", count);
 	close(fd);
 	/* выделяем память под массив count-строк */
 	source = (char **)malloc(sizeof(char *) * count);
 	fd = open(krnlMandelbrot, O_RDONLY);
+	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		strlen = ft_strlen(line);
-		source[i] = (char *)malloc(sizeof(char) * strlen);
-		ft_strcpy(source[i], line);
+		size_t strlen = ft_strlen(line);
+		printf("line %d length: %zu\n", i, strlen);
+//		source[i] = (char *)malloc(sizeof(char) * strlen);
+		source[i] = ft_strdup(line);
+		printf("line %d: %s\n", i, source[i]);
 		free(line);
+		line = NULL;
 		i++;
 	}
 
+	for (int j = 0; j < 12; ++j)
+	{
+		printf("%s\n", source[j]);
+	}
 	/* создать бинарник из кода программы */
 	program = clCreateProgramWithSource(context, count, (const char **)source, NULL, &ret);
 	printf("program creation ret = %d\n", ret);
@@ -93,36 +101,35 @@ int		draw_image(t_mlx *data)
 	/* скомпилировать программу */
 	ret = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 	printf("program build ret = %d\n", ret);
-	if (ret != 0) {
-		size_t log_size;
-		clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
 
-		char *log = (char *) malloc(log_size);
-
-		clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
-
-		printf("%s\n", log);
-	}
+	size_t log_size;
+	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
+	printf("log size ret = %d\n", ret);
+	char *log = (char *)malloc(sizeof(char) * log_size);
+	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
+	write(open("log.txt", O_WRONLY), log, log_size);
 
 	/* создать кернел, передваемое имя - название kernela в файле .cl */
 	kernel = clCreateKernel(program, "array_add", &ret);
 	printf("kernel creation ret = %d\n", ret);
 
 
-	int		result[50];
+	float		result[50];
 	int 	max_iter = data->max_iter;
+	if (max_iter)
+		;
 
 	cl_mem output_buffer;
 
-	output_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(int) * 50, NULL, &ret);
+	output_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * 50, NULL, &ret);
 	printf("buffer ret = %d\n", ret);
-	clSetKernelArg(kernel, 0, sizeof(int), &max_iter);
-	clSetKernelArg(kernel, 1, sizeof(cl_mem), &output_buffer);
+//	clSetKernelArg(kernel, 0, sizeof(int), &max_iter);
+	clSetKernelArg(kernel, 0, sizeof(cl_mem), &output_buffer);
 
 	size_t dim = 2;
 	size_t global_size[] = {5,10};
 	clEnqueueNDRangeKernel(queue, kernel, dim, NULL, global_size, NULL, 0, NULL, NULL);
-	clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(int) * 50, result, 0, NULL, NULL);
+	clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(float) * 50, result, 0, NULL, NULL);
 
 //	for (int i = 0; i  < 50 ; i++)
 //	{
@@ -132,17 +139,18 @@ int		draw_image(t_mlx *data)
 	{
 		for (int j = 0; j < 10; ++j)
 		{
-			printf("%d\t", result[i * 10 + j]);
+			printf("%f\t", result[i * 10 + j]);
 		}
 		printf("\n");
 	}
 
+	printf("free started\n");
 	clReleaseMemObject(output_buffer);
 	clReleaseKernel(kernel);
 	clReleaseCommandQueue(queue);
 	clReleaseProgram(program);
 	clReleaseContext(context);
-
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
+	printf("free done\n");
+//	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 	return (0);
 }

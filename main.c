@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	data = init_data(argv[1]);
 	printf("fractal type: %s\n", data->fractal_type);
 	draw_image(data);
-	mlx_hook(data->win, 2, (1L << 0), key_press, data);
-	mlx_loop(data->mlx);
+//	mlx_hook(data->win, 2, (1L << 0), key_press, data);
+//	mlx_loop(data->mlx);
 	return (0);
 }
