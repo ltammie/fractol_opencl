@@ -25,11 +25,21 @@ int		draw_image(t_mlx *data)
 	cl_kernel			kernel;
 
 	ret = clGetPlatformIDs(1, &platform_id, NULL);
-
 	ret = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, NULL);
+	cl_uint tmp;
+	clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(tmp), &tmp, NULL);
+	printf("max compute_units = %d\n", tmp);
+	clGetDeviceInfo(device_id, CL_DEVICE_IMAGE_SUPPORT, sizeof(tmp), &tmp, NULL);
+	printf("image support = %s\n", tmp ? "true" : "false");;
+	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, sizeof(tmp), &tmp, NULL);
+	printf("max dimensions = %d\n", tmp);
+	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(tmp), &tmp, NULL);
+	printf("max work_group size = %d\n", tmp);
+	clGetDeviceInfo(device_id, CL_DEVICE_TYPE_GPU, sizeof(tmp), &tmp, NULL);
+	printf("max INT vector width = %d\n", tmp);
+
 
 	context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &ret);
-
 	queue = clCreateCommandQueue(context, device_id, 0, &ret);
 
 	/*
@@ -42,7 +52,6 @@ int		draw_image(t_mlx *data)
 	size_t 	count;
 	char	**source;
 	char	*line;
-
 
 	i = 0;
 	count = 0;
@@ -80,18 +89,19 @@ int		draw_image(t_mlx *data)
 	/* создать кернел, передваемое имя - название kernela в файле .cl */
 	kernel = clCreateKernel(program, "array_add", &ret);
 
-	int		result[WIDTH][HEIGHT];
+	int		result[WIDTH * HEIGHT];
+	int 	width = WIDTH;
 
 	cl_mem output_buffer;
 
-	output_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * WIDTH * HEIGHT, NULL, &ret);
-	clSetKernelArg(kernel, 0, sizeof(data->max_iter), &data->max_iter);
-	clSetKernelArg(kernel, 1, sizeof(cl_mem), &output_buffer);
+	output_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(int) * WIDTH * HEIGHT, NULL, &ret);
+	clSetKernelArg(kernel, 0, sizeof(int), &data->max_iter);
+	clSetKernelArg(kernel, 1, sizeof(int), &width);
+	clSetKernelArg(kernel, 2, sizeof(cl_mem), &output_buffer);
 
-	size_t dim = 2;
-	size_t offset[] = {0, 0};
-	size_t global_size[] = {WIDTH, HEIGHT};
-	clEnqueueNDRangeKernel(queue, kernel, dim, offset, global_size, NULL, 0, NULL, NULL);
+	size_t dim = 1;
+	size_t global_size = WIDTH * HEIGHT;
+	clEnqueueNDRangeKernel(queue, kernel, dim, NULL, &global_size, NULL, 0, NULL, NULL);
 	clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(int) * WIDTH * HEIGHT, result, 0, NULL, NULL);
 	clReleaseMemObject(output_buffer);
 	clReleaseKernel(kernel);
@@ -101,17 +111,18 @@ int		draw_image(t_mlx *data)
 
 	i = 0;
 	int j;
-	while (i < IMH)
+	while (i < HEIGHT)
 	{
 		j = 0;
-		while (j < IMW)
+		while (j < WIDTH)
 		{
-			printf("value = %d\n", result[j][i]);
-//			data->img.img_data[i * IMW + j] = get_color((float)result[j][i] / (float)data->max_iter);
+//			data->img.img_data[i * WIDTH + j] = result[i * WIDTH + j];
+//			printf("value = %d\n", result[i * WIDTH + j]);
 			j++;
 		}
 		i++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
+//	printf("value = %d\n", result[2]);
+//	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 	return (0);
 }

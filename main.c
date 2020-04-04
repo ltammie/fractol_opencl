@@ -8,8 +8,6 @@ static	void check_argv(char *fr)
 
 int		key_press(int key, t_mlx *data)
 {
-	if (key == MIN || key == PLUS)
-		zoom(key, data);
 	if (key == ESC)
 		close_fractol(data);
 	return (0);
