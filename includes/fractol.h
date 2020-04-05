@@ -30,8 +30,17 @@ typedef struct	s_image
 
 typedef	struct	s_view
 {
-	float 		minValue;
+	float 		zoom;
+	float 		minX;
+	float 		maxX;
+	float 		minY;
+	float 		maxY;
 	float 		maxValue;
+	float 		prev_mouseX;
+	float 		prev_mouseY;
+	float 		mouseShiftX;
+	float 		mouseShiftY;
+
 }				t_view;
 
 typedef struct	s_mlx
@@ -49,7 +58,6 @@ typedef struct	s_mlx
  ** ----------start functions---------
  */
 
-
 t_mlx			*init_data(char *argv);
 
 /*
@@ -57,7 +65,6 @@ t_mlx			*init_data(char *argv);
  */
 
 int				draw_image(t_mlx *data);
-//void			draw_background(t_mlx *data);
 //void			*drawMandelbrot(void *data);
 //int			mandelbrotIter(int x, int y, int max, t_view view);
 //void			*drawJulia(void *data);
@@ -76,8 +83,8 @@ int				draw_image(t_mlx *data);
 //t_complex		complex_add_complex(t_complex n1, t_complex n2);
 //t_complex		complex_sub_complex(t_complex n1, t_complex n2);
 //t_complex		complex_mult_complex(t_complex n1, t_complex n2);
-//double 			complex_abs(t_complex n);
-//double 			complex_len(t_complex n);
+//double 		complex_abs(t_complex n);
+//double 		complex_len(t_complex n);
 //
 //
 //void			print_complex(t_complex n);
@@ -89,6 +96,7 @@ int				draw_image(t_mlx *data);
  */
 
 int				zoom(int key, t_mlx *data);
+int				mouse_move(int x, int y, t_mlx *data);
 void			close_fractol(t_mlx *data);
 
 /*

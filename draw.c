@@ -16,6 +16,7 @@
 
 int		draw_image(t_mlx *data)
 {
+
 	cl_int				ret;
 	cl_platform_id		platform_id;
 	cl_device_id		device_id;
@@ -25,9 +26,9 @@ int		draw_image(t_mlx *data)
 	cl_kernel			kernel;
 
 	ret = clGetPlatformIDs(1, &platform_id, NULL);
-	printf("platfrom ret = %d\n", ret);
+//	printf("platfrom ret = %d\n", ret);
 	ret = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, NULL);
-	printf("device ret = %d\n", ret);
+//	printf("device ret = %d\n", ret);
 //	cl_uint tmp;
 //	clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(tmp), &tmp, NULL);
 //	printf("max compute_units = %d\n", tmp);
@@ -43,9 +44,9 @@ int		draw_image(t_mlx *data)
 
 
 	context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &ret);
-	printf("context ret = %d\n", ret);
+//	printf("context ret = %d\n", ret);
 	queue = clCreateCommandQueue(context, device_id, 0, &ret);
-	printf("queue ret = %d\n", ret);
+//	printf("queue ret = %d\n", ret);
 
 
 	/*
@@ -95,67 +96,66 @@ int		draw_image(t_mlx *data)
 //	}
 	/* создать бинарник из кода программы */
 	program = clCreateProgramWithSource(context, count, (const char **)source, NULL, &ret);
-	printf("program creation ret = %d\n", ret);
+//	printf("program creation ret = %d\n", ret);
 
 
 	/* скомпилировать программу */
 	ret = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
-	printf("program build ret = %d\n", ret);
+//	printf("program build ret = %d\n", ret);
 
 	size_t log_size;
 	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
-	printf("log size ret = %d\n", ret);
+//	printf("log size ret = %d\n", ret);
 	char *log = (char *)malloc(sizeof(char) * log_size);
 	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
 	write(open("log.txt", O_WRONLY), log, log_size);
 
 	/* создать кернел, передваемое имя - название kernela в файле .cl */
 	kernel = clCreateKernel(program, "array_add", &ret);
-	printf("kernel creation ret = %d\n", ret);
+//	printf("kernel creation ret = %d\n", ret);
 
 
 	int 	size = WIDTH  * HEIGHT;
-	printf("size = %d\n", size);
 	int		result[size];
 	int 	max_iter = data->max_iter;
-	int 	min_value = data->view.minValue;
-	int 	max_value = data->view.maxValue;
+	float 	minX = data->view.minX;
+	float 	maxX = data->view.maxX;
+	float 	minY = data->view.minY;
+	float 	maxY = data->view.maxY;
 
 	cl_mem output_buffer;
 
 	output_buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(int) * size, NULL, &ret);
-	printf("buffer ret = %d\n", ret);
+//	printf("buffer ret = %d\n", ret);
 	clSetKernelArg(kernel, 0, sizeof(int), &max_iter);
-	clSetKernelArg(kernel, 1, sizeof(int), &min_value);
-	clSetKernelArg(kernel, 2, sizeof(int), &max_value);
-	clSetKernelArg(kernel, 3, sizeof(cl_mem), &output_buffer);
+	clSetKernelArg(kernel, 1, sizeof(float), &minX);
+	clSetKernelArg(kernel, 2, sizeof(float), &maxX);
+	clSetKernelArg(kernel, 3, sizeof(float), &minY);
+	clSetKernelArg(kernel, 4, sizeof(float), &maxY);
+	clSetKernelArg(kernel, 5, sizeof(cl_mem), &output_buffer);
 
 	size_t dim = 2;
 	size_t global_size[] = {HEIGHT,WIDTH};
 	clEnqueueNDRangeKernel(queue, kernel, dim, NULL, global_size, NULL, 0, NULL, NULL);
 	clEnqueueReadBuffer(queue, output_buffer, CL_TRUE, 0, sizeof(int) * size, result, 0, NULL, NULL);
 
+	printf("started drawing\n");
 	for (int i = 0; i < HEIGHT ; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-//			printf("%f\t", result[i * WIDTH + j]);
 			data->img.img_data[i * WIDTH + j] = result[i * WIDTH + j];
 		}
-//		printf("\n");
 	}
-//	for (int i = 0; i < size ; ++i)
-//	{
-//		data->img.img_data[i] = result[i];
-//	}
+	printf("finished drawing\n");
 
-	printf("free started\n");
-	clReleaseMemObject(output_buffer);
-	clReleaseKernel(kernel);
-	clReleaseCommandQueue(queue);
-	clReleaseProgram(program);
-	clReleaseContext(context);
-	printf("free done\n");
+//	clReleaseMemObject(output_buffer);
+//	clReleaseKernel(kernel);
+//	clReleaseCommandQueue(queue);
+//	clReleaseProgram(program);
+//	clReleaseContext(context);
+
+	printf("finished free\n");
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 	return (0);
 }

@@ -2,24 +2,42 @@
 
 int		zoom(int key, t_mlx *data)
 {
+	float 	zoom;
+
+	zoom = 0.9501f;
 	if (key == MIN)
 	{
-		if (data->view.minValue >= -2 && data->view.maxValue >= 0)
-		{
-			data->view.minValue -= 0.01f * 10.0f;
-			data->view.minValue -= 0.01f * 10.0f;
-		}
+//		if (data->view.minX > -2.0f && data->view.maxX < 2.0f
+//			&& data->view.minY > -1.17f && data->view.maxY < 1.0f)
+//		{
+			data->view.minX /= zoom;
+			data->view.maxX /= zoom;
+			data->view.minY /= zoom;
+			data->view.maxY /= zoom;
+//		}
 	}
 	if (key == PLUS)
 	{
-		if (data->view.minValue <= 0 && data->view.maxValue <= 1)
-		{
-			data->view.minValue += 0.01f * 0.1;
-			data->view.minValue += 0.01f * 0.1;
-		}
+		data->view.minX *= zoom;
+		data->view.maxX *= zoom;
+		data->view.minY *= zoom;
+		data->view.maxY *= zoom;
 	}
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
+	return (0);
+}
+
+int 	mouse_move(int x, int y, t_mlx *data)
+{
+	data->view.mouseShiftX = data->view.prev_mouseX - x;
+	data->view.mouseShiftY = data->view.prev_mouseY - y;
+	data->view.prev_mouseX = x;
+	data->view.prev_mouseY = y;
+
+	printf("prev_mouseX = %f\n", data->view.prev_mouseX);
+	printf("prev_mouseY = %f\n", data->view.prev_mouseY);
+
 	return (0);
 }
 
