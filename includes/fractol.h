@@ -43,22 +43,44 @@ typedef	struct	s_view
 
 }				t_view;
 
+typedef struct	s_cl
+{
+	cl_platform_id		platform_id;
+	cl_device_id		device_id;
+	cl_context			context;
+	cl_command_queue	queue;
+	cl_program			program;
+	cl_kernel			kernel;
+	char 				**kernel_source;
+	int 				count;
+}				t_cl;
+
 typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*win;
 	t_image		img;
 	t_view		view;
+	t_cl 		cl;
 	char 		*fractal_type;
 	int 		max_iter;
 }				t_mlx;
 
 
 /*
- ** ----------start functions---------
+ ** ----------init functions---------
  */
 
 t_mlx			*init_data(char *argv);
+void			init_view(t_view *view);
+
+/*
+ ** ----------OpenCl functions---------
+ */
+
+void			cl_init(t_cl *cl);
+void			cl_free(t_cl *cl);
+char			**get_kernel_source(t_cl *cl);
 
 /*
  ** ----------draw functions---------
@@ -96,6 +118,8 @@ int				draw_image(t_mlx *data);
  */
 
 int				zoom(int key, t_mlx *data);
+int				refresh(int key, t_mlx *data);
+int				redraw(int key, t_mlx *data);
 int				mouse_move(int x, int y, t_mlx *data);
 void			close_fractol(t_mlx *data);
 

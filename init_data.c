@@ -1,6 +1,6 @@
 #include "includes/fractol.h"
 
-static void init_view(t_view *view)
+void	init_view(t_view *view)
 {
 	view->zoom = 1.0f;
 	view->minX = -2.0f;

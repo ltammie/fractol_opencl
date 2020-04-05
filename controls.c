@@ -2,6 +2,7 @@
 
 int		zoom(int key, t_mlx *data)
 {
+	printf("-----------------\nzoom\n");
 	float 	zoom;
 
 	zoom = 0.9501f;
@@ -24,22 +25,44 @@ int		zoom(int key, t_mlx *data)
 		data->view.maxY *= zoom;
 	}
 	mlx_clear_window(data->mlx, data->win);
+	printf("draw_started\n");
 	draw_image(data);
 	return (0);
 }
 
-int 	mouse_move(int x, int y, t_mlx *data)
+int 	redraw(int key, t_mlx *data)
 {
-	data->view.mouseShiftX = data->view.prev_mouseX - x;
-	data->view.mouseShiftY = data->view.prev_mouseY - y;
-	data->view.prev_mouseX = x;
-	data->view.prev_mouseY = y;
-
-	printf("prev_mouseX = %f\n", data->view.prev_mouseX);
-	printf("prev_mouseY = %f\n", data->view.prev_mouseY);
-
+	if (key == SPACE)
+	{
+		init_view(&data->view);
+		mlx_clear_window(data->mlx, data->win);
+		draw_image(data);
+	}
 	return (0);
 }
+
+int 	refresh(int key, t_mlx *data)
+{
+	if (key == R)
+	{
+		mlx_clear_window(data->mlx, data->win);
+		draw_image(data);
+	}
+	return (0);
+}
+
+//int 	mouse_move(int x, int y, t_mlx *data)
+//{
+//	data->view.mouseShiftX = data->view.prev_mouseX - x;
+//	data->view.mouseShiftY = data->view.prev_mouseY - y;
+//	data->view.prev_mouseX = x;
+//	data->view.prev_mouseY = y;
+//
+//	printf("prev_mouseX = %f\n", data->view.prev_mouseX);
+//	printf("prev_mouseY = %f\n", data->view.prev_mouseY);
+//
+//	return (0);
+//}
 
 void	close_fractol(t_mlx *data)
 {

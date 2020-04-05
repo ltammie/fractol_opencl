@@ -17,7 +17,8 @@ SRCS = main.c\
 		controls.c\
 		init_data.c\
 		error.c\
-		draw.c
+		draw.c\
+		cl_init.c
 OBJS = $(SRCS:.c=.o)
 HEAD = -c -I fractol.h
 LIB = -L libft -lft -L minilibx -lmlx -framework OpenGL -framework Appkit -framework OpenCL
