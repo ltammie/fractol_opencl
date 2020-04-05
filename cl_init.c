@@ -6,7 +6,7 @@
 /*   By: sauron <sauron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 12:23:20 by sauron            #+#    #+#             */
-/*   Updated: 2020/04/05 14:30:43 by sauron           ###   ########.fr       */
+/*   Updated: 2020/04/05 15:05:49 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static int get_lines(int fd)
 	while (get_next_line(fd, &line))
 	{
 		count++;
-//		printf("line %d: %s\n", count, line);
 		free(line);
 	}
 	return (count);
@@ -36,6 +35,7 @@ char	**get_kernel_source(t_cl *cl)
 	char	*line;
 
 	line = NULL;
+	fd = 0;
 	if (((fd = open(krnlMandelbrot, O_RDONLY)) < 0) || ((read(fd, line, 0)) < 0))
 		error(0);
 	cl->count = get_lines(fd);
@@ -50,6 +50,7 @@ char	**get_kernel_source(t_cl *cl)
 		line = NULL;
 		i++;
 	}
+	close(fd);
 	return (source);
 }
 
