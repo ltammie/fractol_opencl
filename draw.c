@@ -5,13 +5,14 @@ int		draw_image(t_mlx *data)
 	cl_init(&data->cl);
 	cl_int				ret;
 
-	int 	size = WIDTH  * HEIGHT;
-	int		result[size];
+	int 	size = WIDTH * HEIGHT;
+	int		*result;
 
+	result = (int *)malloc(sizeof(int) * size);
 	cl_mem output_buffer;
 
 	output_buffer = clCreateBuffer(data->cl.context, CL_MEM_WRITE_ONLY, sizeof(int) * size, NULL, &ret);
-//	printf("buffer ret = %d\n", ret);
+	printf("buffer ret = %d\n", ret);
 	clSetKernelArg(data->cl.kernel, 0, sizeof(int), &data->max_iter);
 	clSetKernelArg(data->cl.kernel, 1, sizeof(float), &data->view.minX);
 	clSetKernelArg(data->cl.kernel, 2, sizeof(float), &data->view.maxX);
@@ -22,7 +23,7 @@ int		draw_image(t_mlx *data)
 	size_t dim = 2;
 	size_t global_size[] = {HEIGHT,WIDTH};
 	clEnqueueNDRangeKernel(data->cl.queue, data->cl.kernel, dim, NULL, global_size, NULL, 0, NULL, NULL);
-	ret = clFinish(data->cl.queue);
+	clFinish(data->cl.queue);
 	clEnqueueReadBuffer(data->cl.queue, output_buffer, CL_TRUE, 0, sizeof(int) * size, result, 0, NULL, NULL);
 	clFinish(data->cl.queue);
 

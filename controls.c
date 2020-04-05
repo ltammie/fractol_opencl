@@ -2,7 +2,7 @@
 
 int		zoom(int key, t_mlx *data)
 {
-	printf("-----------------\nzoom\n");
+	printf("---------zoom started--------\n");
 	float 	zoom;
 
 	zoom = 0.9501f;
@@ -27,6 +27,7 @@ int		zoom(int key, t_mlx *data)
 	mlx_clear_window(data->mlx, data->win);
 	printf("draw_started\n");
 	draw_image(data);
+	printf("--------zoom finished----------\n");
 	return (0);
 }
 
