@@ -3,6 +3,11 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define MIN_RE -2.0f
+# define MAX_RE 2.0f
+# define MIN_IM -1.17f
+# define MAX_IM 1.08f
+# define ZOOM 0.9501f
 # define krnlMandelbrot "krnl.cl"
 
 #include <stdlib.h>
@@ -30,12 +35,11 @@ typedef struct	s_image
 
 typedef	struct	s_view
 {
-	float 		zoom;
+	int 		zf;
 	float 		minX;
 	float 		maxX;
 	float 		minY;
 	float 		maxY;
-	float 		maxValue;
 	float 		prev_mouseX;
 	float 		prev_mouseY;
 	float 		mouseShiftX;
@@ -120,6 +124,7 @@ int				draw_image(t_mlx *data);
 int				zoom(int key, t_mlx *data);
 int				refresh(int key, t_mlx *data);
 int				redraw(int key, t_mlx *data);
+int				arrow_move(int key, t_mlx *data);
 int				mouse_move(int x, int y, t_mlx *data);
 void			close_fractol(t_mlx *data);
 
