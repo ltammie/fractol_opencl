@@ -2,11 +2,14 @@
 
 void	init_view(t_view *view)
 {
-	view->zf = 1;
+	view->zf = 1.0f;
+	view->zoom = 1.0f;
 	view->minX = -2.0f;
 	view->maxX = 2.0f;
 	view->minY = -1.17f;
 	view->maxY = 1.08f;
+	view->offsetX = 0.0f;
+	view->offsetY = 0.0f;
 	view->prev_mouseX = 0.0f;
 	view->prev_mouseY = 0.0f;
 	view->mouseShiftX = 0.0f;
@@ -29,6 +32,6 @@ t_mlx	*init_data(char *argv)
 	data->fractal_type = argv;
 	init_view(&data->view);
 	data->cl.kernel_source = get_kernel_source(&data->cl);
-	data->max_iter = 500;
+	data->max_iter = 10000;
 	return(data);
 }

@@ -8,6 +8,7 @@
 # define MIN_IM -1.17f
 # define MAX_IM 1.08f
 # define ZOOM 0.9501f
+# define OFFSET 0.05f
 # define krnlMandelbrot "krnl.cl"
 
 #include <stdlib.h>
@@ -35,11 +36,14 @@ typedef struct	s_image
 
 typedef	struct	s_view
 {
-	int 		zf;
+	float 		zf;
+	float 		zoom;
 	float 		minX;
 	float 		maxX;
 	float 		minY;
 	float 		maxY;
+	float 		offsetX;
+	float 		offsetY;
 	float 		prev_mouseX;
 	float 		prev_mouseY;
 	float 		mouseShiftX;

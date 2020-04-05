@@ -9,14 +9,18 @@ int		zoom(int key, t_mlx *data)
 {
 	printf("---------zoom started--------\n");
 
+	float 	zoom;
+
 	if (key == MIN && data->view.zf > 1)
 		data->view.zf -= 1.0f;
 	if (key == PLUS)
 		data->view.zf += 1.0f;
-	data->view.minX = MIN_RE * powf(ZOOM, data->view.zf);
-	data->view.maxX = MAX_RE * powf(ZOOM, data->view.zf);
-	data->view.minY = MIN_IM * powf(ZOOM, data->view.zf);
-	data->view.maxY = MAX_IM * powf(ZOOM, data->view.zf);
+	zoom = powf(ZOOM, data->view.zf);
+	data->view.zoom = zoom;
+	data->view.minX = MIN_RE * zoom + data->view.offsetX;
+	data->view.maxX = MAX_RE * zoom + data->view.offsetX;
+	data->view.minY = MIN_IM * zoom + data->view.offsetY;
+	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
 	mlx_clear_window(data->mlx, data->win);
 	printf("draw_started\n");
 	draw_image(data);
@@ -26,28 +30,27 @@ int		zoom(int key, t_mlx *data)
 
 int 	arrow_move(int key, t_mlx *data)
 {
+	float	offset;
+	float	zoom;
+
+	zoom = data->view.zoom;
+	offset = OFFSET * zoom;
 	if (key == A)
-	{
-		data->view.minX -= 0.09 * powf(ZOOM, data->view.zf);
-		data->view.maxX -= 0.09 * powf(ZOOM, data->view.zf);
-	}
+		data->view.offsetX -= offset;
 	if (key == D)
-	{
-		data->view.minX += 0.09 * powf(ZOOM, data->view.zf);
-		data->view.maxX += 0.09 * powf(ZOOM, data->view.zf);
-	}
+		data->view.offsetX += offset;
 	if (key == W)
-	{
-		data->view.maxY -= 0.09 * powf(ZOOM, data->view.zf);
-		data->view.minY -= 0.09 * powf(ZOOM, data->view.zf);
-	}
+		data->view.offsetY -= offset;
 	if (key == S)
-	{
-		data->view.maxY += 0.09 * powf(ZOOM, data->view.zf);
-		data->view.minY += 0.09 * powf(ZOOM, data->view.zf);
-	}
+		data->view.offsetY += offset;
+	data->view.minX = MIN_RE * zoom + data->view.offsetX;
+	data->view.maxX = MAX_RE * zoom + data->view.offsetX;
+	data->view.minY = MIN_IM * zoom + data->view.offsetY;
+	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
+	printf("offset x = %f\n", data->view.offsetX);
+	printf("offset y = %f\n", data->view.offsetY);
 	return (0);
 }
 
