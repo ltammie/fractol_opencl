@@ -126,6 +126,7 @@ int				draw_image(t_mlx *data);
  */
 
 int				zoom(int key, t_mlx *data);
+int				max_iter_change(int x, t_mlx *data);
 int				refresh(int key, t_mlx *data);
 int				redraw(int key, t_mlx *data);
 int				arrow_move(int key, t_mlx *data);

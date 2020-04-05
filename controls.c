@@ -1,14 +1,7 @@
 #include "includes/fractol.h"
 
-static float 	map(float value, float fmin, float fmax, float tmin, float tmax)
-{
-	return ((value - fmin) * (tmax - tmin) / (fmax - fmin) + tmin);
-}
-
 int		zoom(int key, t_mlx *data)
 {
-	printf("---------zoom started--------\n");
-
 	float 	zoom;
 
 	if (key == MIN && data->view.zf > 1)
@@ -22,9 +15,7 @@ int		zoom(int key, t_mlx *data)
 	data->view.minY = MIN_IM * zoom + data->view.offsetY;
 	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
 	mlx_clear_window(data->mlx, data->win);
-	printf("draw_started\n");
 	draw_image(data);
-	printf("--------zoom finished----------\n");
 	return (0);
 }
 
@@ -49,8 +40,19 @@ int 	arrow_move(int key, t_mlx *data)
 	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
-	printf("offset x = %f\n", data->view.offsetX);
-	printf("offset y = %f\n", data->view.offsetY);
+//	printf("offset x = %f\n", data->view.offsetX);
+//	printf("offset y = %f\n", data->view.offsetY);
+	return (0);
+}
+
+int 	max_iter_change(int key, t_mlx *data)
+{
+	if (key == Q)
+		data->max_iter--;
+	if (key == E)
+		data->max_iter++;
+	mlx_clear_window(data->mlx, data->win);
+	draw_image(data);
 	return (0);
 }
 
@@ -72,33 +74,6 @@ int 	refresh(int key, t_mlx *data)
 		mlx_clear_window(data->mlx, data->win);
 		draw_image(data);
 	}
-	return (0);
-}
-
-
-//not working need fix or recode
-
-int 	mouse_move(int x, int y, t_mlx *data)
-{
-	data->view.mouseShiftX = data->view.prev_mouseX - x;
-	data->view.mouseShiftY = data->view.prev_mouseY - y;
-	data->view.prev_mouseX = x;
-	data->view.prev_mouseY = y;
-	printf("new x = %d\n", x);
-	printf("new y = %d\n", y);
-
-	data->view.mouseShiftX = map(data->view.mouseShiftX, 0, 1279, data->view.minX, data->view.maxX);
-	data->view.mouseShiftY = map(data->view.mouseShiftY, -45, 754, data->view.minY, data->view.maxY);
-	data->view.minX += data->view.mouseShiftX;
-	data->view.maxX += data->view.mouseShiftX;
-	data->view.minY += data->view.mouseShiftY;
-	data->view.maxY += data->view.mouseShiftY;
-
-	printf("shift X = %f\n", data->view.mouseShiftX);
-	printf("shift Y = %f\n", data->view.mouseShiftY);
-
-	mlx_clear_window(data->mlx, data->win);
-	draw_image(data);
 	return (0);
 }
 

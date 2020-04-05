@@ -60,9 +60,9 @@ void	cl_init(t_cl *cl)
 
 
 	ret = clGetPlatformIDs(1, &cl->platform_id, NULL);
-	printf("platfrom ret = %d\n", ret);
+//	printf("platfrom ret = %d\n", ret);
 	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_GPU, 1, &cl->device_id, NULL);
-	printf("device ret = %d\n", ret);
+//	printf("device ret = %d\n", ret);
 
 //	cl_uint tmp;
 //	clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(tmp), &tmp, NULL);
@@ -78,12 +78,12 @@ void	cl_init(t_cl *cl)
 //	printf("max kernel parameter size = %zu\n", max_par);
 
 	cl->context = clCreateContext(NULL, 1, &cl->device_id, NULL, NULL, &ret);
-	printf("context ret = %d\n", ret);
+//	printf("context ret = %d\n", ret);
 
 
 //	cl->kernel_source = get_kernel_source(cl);
 	cl->program = clCreateProgramWithSource(cl->context, cl->count, (const char **)cl->kernel_source, NULL, &ret);
-	printf("program creation ret = %d\n", ret);
+//	printf("program creation ret = %d\n", ret);
 //	for (int i = 0; i < cl->count ; ++i)
 //		free(cl->kernel_source[i]);
 //	free(cl->kernel_source);
@@ -91,7 +91,7 @@ void	cl_init(t_cl *cl)
 
 	/* скомпилировать программу */
 	ret = clBuildProgram(cl->program, 1, &cl->device_id, NULL, NULL, NULL);
-	printf("program build ret = %d\n", ret);
+//	printf("program build ret = %d\n", ret);
 
 //	size_t log_size;
 //	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
@@ -102,10 +102,10 @@ void	cl_init(t_cl *cl)
 
 	/* создать кернел, передваемое имя - название kernela в файле .cl */
 	cl->kernel = clCreateKernel(cl->program, "array_add", &ret);
-	printf("kernel creation ret = %d\n", ret);
+//	printf("kernel creation ret = %d\n", ret);
 	cl->queue = clCreateCommandQueue(cl->context, cl->device_id, 0, &ret);
-	printf("queue ret = %d\n", ret);
-	printf("source code read\n");
+//	printf("queue ret = %d\n", ret);
+//	printf("source code read\n");
 }
 
 void	cl_free(t_cl *cl)
@@ -113,11 +113,11 @@ void	cl_free(t_cl *cl)
 	cl_int				ret;
 
 	ret = clReleaseKernel(cl->kernel);
-	printf("kernel free ret = %d\n", ret);
+//	printf("kernel free ret = %d\n", ret);
 	ret = clReleaseProgram(cl->program);
-	printf("program free ret = %d\n", ret);
+//	printf("program free ret = %d\n", ret);
 	ret = clReleaseCommandQueue(cl->queue);
-	printf("queue free ret = %d\n", ret);
+//	printf("queue free ret = %d\n", ret);
 	ret = clReleaseContext(cl->context);
-	printf("context free ret = %d\n", ret);
+//	printf("context free ret = %d\n", ret);
 }

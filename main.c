@@ -12,6 +12,8 @@ int		key_press(int key, t_mlx *data)
 		zoom(key, data);
 	if (key == W || key == A || key == S || key == D)
 		arrow_move(key, data);
+	if (key == Q || key == E)
+		max_iter_change(key, data);
 	if (key == R)
 		refresh(key, data);
 	if (key == SPACE)

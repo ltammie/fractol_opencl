@@ -17,7 +17,6 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 	c.y = map((float)y, 0, height - 1, minY, maxY);
 	while (i < max_iter)
 	{
-
 		float2 tmp;
 
         tmp.x = z.x * z.x + (-1) * (z.y * z.y);
@@ -27,8 +26,5 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 			break;
 		i++;
 	}
-	if (i < max_iter)
-		output[y * width + x] = 0xff0000;
-	else
-		output[y * width + x] = 0x000000;
+	output[y * width + x] = i;
 }

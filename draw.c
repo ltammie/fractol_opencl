@@ -1,5 +1,26 @@
 #include "includes/fractol.h"
 
+static int 	linear_sin(int x, int max)
+{
+	int r;
+	int g;
+	int b;
+	int intensity;
+
+	if (x == max)
+		return (0);
+	intensity = M_PI_2 * x / max;
+	r = (int)(sin(intensity) * 255);
+	g = (int)(sin(intensity * 2) * 255);
+	b = (int)(cos(intensity) * 255);
+
+//	r = (r >> 16 | 0xff);
+//	g = (g >> 8 | 0xff);
+//	b = (b | 0xff);
+	return (r << 16 | g << 8 | b);
+}
+
+
 int		draw_image(t_mlx *data)
 {
 	cl_init(&data->cl);
@@ -12,7 +33,7 @@ int		draw_image(t_mlx *data)
 	cl_mem output_buffer;
 
 	output_buffer = clCreateBuffer(data->cl.context, CL_MEM_WRITE_ONLY, sizeof(int) * size, NULL, &ret);
-	printf("buffer ret = %d\n", ret);
+//	printf("buffer ret = %d\n", ret);
 	clSetKernelArg(data->cl.kernel, 0, sizeof(int), &data->max_iter);
 	clSetKernelArg(data->cl.kernel, 1, sizeof(float), &data->view.minX);
 	clSetKernelArg(data->cl.kernel, 2, sizeof(float), &data->view.maxX);
@@ -27,20 +48,20 @@ int		draw_image(t_mlx *data)
 	clEnqueueReadBuffer(data->cl.queue, output_buffer, CL_TRUE, 0, sizeof(int) * size, result, 0, NULL, NULL);
 	clFinish(data->cl.queue);
 
-	printf("started drawing\n");
+//	printf("started drawing\n");
 	for (int i = 0; i < HEIGHT ; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
-			data->img.img_data[i * WIDTH + j] = result[i * WIDTH + j];
+			data->img.img_data[i * WIDTH + j] = linear_sin(result[i * WIDTH + j], data->max_iter);
 	}
-	printf("finished drawing\n");
+//	printf("finished drawing\n");
 
-	printf("----------started free------------\n");
+//	printf("----------started free------------\n");
 	cl_free(&data->cl);
 	ret = clReleaseMemObject(output_buffer);
-	printf("output free ret = %d\n", ret);
-	printf("----------finished free------------\n");
+//	printf("output free ret = %d\n", ret);
+//	printf("----------finished free------------\n");
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
-	printf("image put\n");
+//	printf("image put\n");
 	return (0);
 }
