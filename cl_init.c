@@ -6,7 +6,7 @@
 /*   By: sauron <sauron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 12:23:20 by sauron            #+#    #+#             */
-/*   Updated: 2020/04/05 12:47:56 by sauron           ###   ########.fr       */
+/*   Updated: 2020/04/05 12:48:14 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	**get_kernel_source(t_cl *cl)
 		line = NULL;
 		i++;
 	}
-	printf("source code read\n");
 	return (source);
 }
 
@@ -83,6 +82,9 @@ void	cl_init(t_cl *cl)
 	/* создать бинарник из кода программы */
 	cl->program = clCreateProgramWithSource(cl->context, cl->count, (const char **)cl->kernel_source, NULL, &ret);
 //	printf("program creation ret = %d\n", ret);
+	for (int i = 0; i < cl->count ; ++i)
+		free(cl->kernel_source[i]);
+	free(cl->kernel_source);
 
 
 	/* скомпилировать программу */
@@ -101,7 +103,7 @@ void	cl_init(t_cl *cl)
 //	printf("kernel creation ret = %d\n", ret);
 	cl->queue = clCreateCommandQueue(cl->context, cl->device_id, 0, &ret);
 //	printf("queue ret = %d\n", ret);
-
+	printf("source code read\n");
 }
 
 void	cl_free(t_cl *cl)
