@@ -71,8 +71,9 @@ int 	refresh(int key, t_mlx *data)
 {
 	if (key == R)
 	{
-		printf("minX = %.20f\tmaxX = %.20f\n",data->view.minX, data->view.maxX);
-		printf("minY = %.20f\tmaxY = %.20f\n",data->view.minY, data->view.maxY);
+		printf("minX = %.8f\tmaxX = %.8f\n",data->view.minX, data->view.maxX);
+		printf("minY = %.8f\tmaxY = %.8f\n",data->view.minY, data->view.maxY);
+		printf("iterations = %d\n", data->max_iter);
 		mlx_clear_window(data->mlx, data->win);
 		draw_image(data);
 	}

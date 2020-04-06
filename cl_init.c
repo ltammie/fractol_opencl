@@ -6,7 +6,7 @@
 /*   By: sauron <sauron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 12:23:20 by sauron            #+#    #+#             */
-/*   Updated: 2020/04/05 15:19:42 by sauron           ###   ########.fr       */
+/*   Updated: 2020/04/06 10:52:37 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ void	cl_init(t_cl *cl)
 //	size_t max_par;
 //	clGetDeviceInfo(device_id, CL_DEVICE_MAX_PARAMETER_SIZE, sizeof(size_t), &max_par, NULL);
 //	printf("max kernel parameter size = %zu\n", max_par);
+//	char ext[4096];
+//	clGetDeviceInfo(cl->device_id, CL_DEVICE_EXTENSIONS, sizeof(ext), ext, NULL);
+//	printf("EXTENSIONS: %s\n",ext);
 
 	cl->context = clCreateContext(NULL, 1, &cl->device_id, NULL, NULL, &ret);
 //	printf("context ret = %d\n", ret);
@@ -94,10 +97,10 @@ void	cl_init(t_cl *cl)
 //	printf("program build ret = %d\n", ret);
 
 //	size_t log_size;
-//	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
+//	clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
 //	printf("log size ret = %d\n", ret);
 //	char *log = (char *)malloc(sizeof(char) * log_size);
-//	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
+//	clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
 //	write(open("log.txt", O_WRONLY), log, log_size);
 
 	/* создать кернел, передваемое имя - название kernela в файле .cl */

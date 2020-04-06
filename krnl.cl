@@ -22,7 +22,7 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
         tmp.x = z.x * z.x + (-1) * (z.y * z.y);
         tmp.y = z.y * z.x + z.x * z.y;
 		z = tmp + c;
-		if ((z.x * z.x + z.y * z.y) > 4)
+		if (dot(z,z) > 4)
 			break;
 		i++;
 	}
