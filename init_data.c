@@ -32,6 +32,6 @@ t_mlx	*init_data(char *argv)
 	data->fractal_type = argv;
 	init_view(&data->view);
 	data->cl.kernel_source = get_kernel_source(&data->cl);
-	data->max_iter = 250;
+	data->max_iter = 50;
 	return(data);
 }
