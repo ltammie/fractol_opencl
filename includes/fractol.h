@@ -24,6 +24,18 @@
 //	double 		im;
 //}				t_complex;
 
+typedef union rgb
+{
+	unsigned int c;
+	struct rgba
+	{
+		unsigned char b;
+		unsigned char g;
+		unsigned char r;
+		unsigned char a;
+	} rgba;
+} COLOR4;
+
 typedef struct	s_image
 {
 	void		*img_ptr;

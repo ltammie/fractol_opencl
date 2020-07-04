@@ -1,31 +1,23 @@
 #include "includes/fractol.h"
 
-//static int 	linear_sin(int x, int max)
+//static int black_and_white(int x, int max)
 //{
-//	int r;
-//	int g;
-//	int b;
-//	int intensity;
-//
 //	if (x == max)
 //		return (0);
-//	intensity = M_PI_2 * x / max;
-//	r = (int)(sin(intensity) * 255);
-//	g = (int)(sin(intensity * 2) * 255);
-//	b = (int)(cos(intensity) * 255);
-//
-////	r = (r >> 16 | 0xff);
-////	g = (g >> 8 | 0xff);
-////	b = (b | 0xff);
-//	return (r << 16 | g << 8 | b);
+//	else
+//		return (0x34aeeb);
 //}
 
-static int black_and_white(int x, int max)
+static int sin_coloring(int x)
 {
-	if (x == max)
-		return (0);
-	else
-		return (0xffffff);
+	COLOR4 color;
+
+	color.rgba.r = sin(0.016 * x + 30) * 200 + 55;
+	color.rgba.g = sin(0.013 * x + 15) * 200 + 55;
+	color.rgba.b = sin(0.01 * x + 10) * 200 + 55;
+
+//	printf("r = %d | g = %d | b = %d\n", r, g, b);
+	return (color.c);
 }
 
 
@@ -60,7 +52,7 @@ int		draw_image(t_mlx *data)
 	for (int i = 0; i < HEIGHT ; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
-			data->img.img_data[i * WIDTH + j] = black_and_white(result[i * WIDTH + j], data->max_iter);
+			data->img.img_data[i * WIDTH + j] = sin_coloring(result[i * WIDTH + j]);
 	}
 //	printf("finished drawing\n");
 
