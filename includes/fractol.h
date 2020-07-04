@@ -9,7 +9,6 @@
 # define MAX_IM 1.08f
 # define ZOOM 0.9501f
 # define OFFSET 0.05f
-# define krnlMandelbrot "krnl.cl"
 
 #include <stdlib.h>
 #include <math.h>
@@ -88,7 +87,7 @@ void			init_view(t_view *view);
 
 void			cl_init(t_cl *cl);
 void			cl_free(t_cl *cl);
-char			**get_kernel_source(t_cl *cl);
+char			**get_kernel_source(t_cl *cl, char *type);
 
 /*
  ** ----------draw functions---------

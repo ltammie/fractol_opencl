@@ -10,11 +10,6 @@ void	error(int err)
 		write(1, "Julia\n", 6);
 		exit(0);
 	}
-	else if (err == 2)
-	{
-		write(1, "invalid map\n", 12);
-		exit(0);
-	}
 	else
 	{
 		write(1, "error\n", 6);

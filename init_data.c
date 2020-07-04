@@ -16,6 +16,15 @@ void	init_view(t_view *view)
 	view->mouseShiftY = 0.0f;
 }
 
+static	char	*return_fractal_type(char *argv)
+{
+	if (!ft_strcmp(argv, "Mandelbrot"))
+		return ("mandelbrot.cl");
+	if (!ft_strcmp(argv, "Julia"))
+		return ("julia.cl");
+	return ("meow");
+}
+
 t_mlx	*init_data(char *argv)
 {
 	t_mlx *data;
@@ -29,9 +38,8 @@ t_mlx	*init_data(char *argv)
 	data->img.img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->img.img_data = (int *)mlx_get_data_addr(data->img.img_ptr,
 			&data->img.bpp, &data->img.size_l, &data->img.endian);
-	data->fractal_type = argv;
+	data->fractal_type = return_fractal_type(argv);
 	init_view(&data->view);
-	data->cl.kernel_source = get_kernel_source(&data->cl);
 	data->max_iter = 50;
 	return(data);
 }

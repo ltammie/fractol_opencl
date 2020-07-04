@@ -5,10 +5,10 @@ static float 	map(float value, float fmin, float fmax, float tmin, float tmax)
 
 __kernel void array_add(int max_iter, float minX, float maxX, float minY, float maxY, __global int *output)
 {
-	int y = get_global_id(0);
-	int x = get_global_id(1);
-	int width = get_global_size(1);
-	int height = get_global_size(0);
+	int x = get_global_id(0);
+	int y = get_global_id(1);
+	int width = get_global_size(0);
+	int height = get_global_size(1);
 	int i = 0;
 
 	float2 z, c;

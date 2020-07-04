@@ -1,23 +1,31 @@
 #include "includes/fractol.h"
 
-static int 	linear_sin(int x, int max)
-{
-	int r;
-	int g;
-	int b;
-	int intensity;
+//static int 	linear_sin(int x, int max)
+//{
+//	int r;
+//	int g;
+//	int b;
+//	int intensity;
+//
+//	if (x == max)
+//		return (0);
+//	intensity = M_PI_2 * x / max;
+//	r = (int)(sin(intensity) * 255);
+//	g = (int)(sin(intensity * 2) * 255);
+//	b = (int)(cos(intensity) * 255);
+//
+////	r = (r >> 16 | 0xff);
+////	g = (g >> 8 | 0xff);
+////	b = (b | 0xff);
+//	return (r << 16 | g << 8 | b);
+//}
 
+static int black_and_white(int x, int max)
+{
 	if (x == max)
 		return (0);
-	intensity = M_PI_2 * x / max;
-	r = (int)(sin(intensity) * 255);
-	g = (int)(sin(intensity * 2) * 255);
-	b = (int)(cos(intensity) * 255);
-
-//	r = (r >> 16 | 0xff);
-//	g = (g >> 8 | 0xff);
-//	b = (b | 0xff);
-	return (r << 16 | g << 8 | b);
+	else
+		return (0xffffff);
 }
 
 
@@ -42,7 +50,7 @@ int		draw_image(t_mlx *data)
 	clSetKernelArg(data->cl.kernel, 5, sizeof(cl_mem), &output_buffer);
 
 	size_t dim = 2;
-	size_t global_size[] = {HEIGHT,WIDTH};
+	size_t global_size[] = {WIDTH,HEIGHT};
 	clEnqueueNDRangeKernel(data->cl.queue, data->cl.kernel, dim, NULL, global_size, NULL, 0, NULL, NULL);
 	clFinish(data->cl.queue);
 	clEnqueueReadBuffer(data->cl.queue, output_buffer, CL_TRUE, 0, sizeof(int) * size, result, 0, NULL, NULL);
@@ -52,7 +60,7 @@ int		draw_image(t_mlx *data)
 	for (int i = 0; i < HEIGHT ; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
-			data->img.img_data[i * WIDTH + j] = linear_sin(result[i * WIDTH + j], data->max_iter);
+			data->img.img_data[i * WIDTH + j] = black_and_white(result[i * WIDTH + j], data->max_iter);
 	}
 //	printf("finished drawing\n");
 

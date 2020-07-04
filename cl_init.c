@@ -6,7 +6,7 @@
 /*   By: sauron <sauron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 12:23:20 by sauron            #+#    #+#             */
-/*   Updated: 2020/04/06 10:52:37 by sauron           ###   ########.fr       */
+/*   Updated: 2020/07/04 13:48:40 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int get_lines(int fd)
 	return (count);
 }
 
-char	**get_kernel_source(t_cl *cl)
+char	**get_kernel_source(t_cl *cl, char *type)
 {
 	int		i;
 	int		fd;
@@ -36,12 +36,12 @@ char	**get_kernel_source(t_cl *cl)
 
 	line = NULL;
 	fd = 0;
-	if (((fd = open(krnlMandelbrot, O_RDONLY)) < 0) || ((read(fd, line, 0)) < 0))
+	if (((fd = open(type, O_RDONLY)) < 0) || ((read(fd, line, 0)) < 0))
 		error(0);
 	cl->count = get_lines(fd);
 	close(fd);
 	source = (char **)malloc(sizeof(char *) * cl->count);
-	fd = open(krnlMandelbrot, O_RDONLY);
+	fd = open(type, O_RDONLY);
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
@@ -64,27 +64,9 @@ void	cl_init(t_cl *cl)
 	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_GPU, 1, &cl->device_id, NULL);
 //	printf("device ret = %d\n", ret);
 
-//	cl_uint tmp;
-//	clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(tmp), &tmp, NULL);
-//	printf("max compute_units = %d\n", tmp);
-//	clGetDeviceInfo(device_id, CL_DEVICE_IMAGE_SUPPORT, sizeof(tmp), &tmp, NULL);
-//	printf("image support = %s\n", tmp ? "true" : "false");;
-//	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, sizeof(tmp), &tmp, NULL);
-//	printf("max dimensions = %d\n", tmp);
-//	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(tmp), &tmp, NULL);
-//	printf("max work_group size = %d\n", tmp);
-//	size_t max_par;
-//	clGetDeviceInfo(device_id, CL_DEVICE_MAX_PARAMETER_SIZE, sizeof(size_t), &max_par, NULL);
-//	printf("max kernel parameter size = %zu\n", max_par);
-//	char ext[4096];
-//	clGetDeviceInfo(cl->device_id, CL_DEVICE_EXTENSIONS, sizeof(ext), ext, NULL);
-//	printf("EXTENSIONS: %s\n",ext);
-
 	cl->context = clCreateContext(NULL, 1, &cl->device_id, NULL, NULL, &ret);
 //	printf("context ret = %d\n", ret);
 
-
-//	cl->kernel_source = get_kernel_source(cl);
 	cl->program = clCreateProgramWithSource(cl->context, cl->count, (const char **)cl->kernel_source, NULL, &ret);
 //	printf("program creation ret = %d\n", ret);
 //	for (int i = 0; i < cl->count ; ++i)
