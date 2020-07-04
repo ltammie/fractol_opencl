@@ -16,7 +16,6 @@ static int sin_coloring(int x)
 	color.rgba.g = sin(0.013 * x + 15) * 200 + 55;
 	color.rgba.b = sin(0.01 * x + 10) * 200 + 55;
 
-//	printf("r = %d | g = %d | b = %d\n", r, g, b);
 	return (color.c);
 }
 

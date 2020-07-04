@@ -6,7 +6,7 @@
 /*   By: sauron <sauron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 12:23:20 by sauron            #+#    #+#             */
-/*   Updated: 2020/07/04 14:03:25 by sauron           ###   ########.fr       */
+/*   Updated: 2020/07/04 18:00:21 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	cl_init(t_cl *cl)
 //	printf("context ret = %d\n", ret);
 
 	cl->program = clCreateProgramWithSource(cl->context, cl->count, (const char **)cl->kernel_source, NULL, &ret);
-	printf("program creation ret = %d\n", ret);
+//	printf("program creation ret = %d\n", ret);
 //	for (int i = 0; i < cl->count ; ++i)
 //		free(cl->kernel_source[i]);
 //	free(cl->kernel_source);
@@ -76,11 +76,11 @@ void	cl_init(t_cl *cl)
 
 	/* скомпилировать программу */
 	ret = clBuildProgram(cl->program, 1, &cl->device_id, NULL, NULL, NULL);
-	printf("program build ret = %d\n", ret);
+//	printf("program build ret = %d\n", ret);
 
 	size_t log_size;
 	clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
-	printf("log size ret = %d\n", ret);
+//	printf("log size ret = %d\n", ret);
 	char *log = (char *)malloc(sizeof(char) * log_size);
 	clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
 	write(open("log.txt", O_WRONLY), log, log_size);

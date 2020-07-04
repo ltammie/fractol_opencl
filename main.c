@@ -31,7 +31,6 @@ int main(int argc, char **argv)
 		error(1);
 	check_argv(argv[1]);
 	data = init_data(argv[1]);
-	printf("%s\n", data->fractal_type);
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->fractal_type);
 	draw_image(data);
 	mlx_hook(data->win, 2, (1L << 0), key_press, data);
