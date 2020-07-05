@@ -6,6 +6,17 @@ static	void check_argv(char *fr)
 		error(1);
 }
 
+static int		mouse_button_press(int button, int x, int y, t_mlx *data)
+{
+	if (x)
+		;
+	if (y)
+		;
+	if (button == LEFT_MB || button == RIGHT_MB)
+		zoom(button, data);
+	return (0);
+}
+
 int		key_press(int key, t_mlx *data)
 {
 	if (key == MIN || key == PLUS)
@@ -34,7 +45,7 @@ int main(int argc, char **argv)
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->fractal_type);
 	draw_image(data);
 	mlx_hook(data->win, 2, (1L << 0), key_press, data);
-//	mlx_hook(data->win, 6, (1L<<1), mouse_move, data);
+	mlx_hook(data->win, 4, (1L << 2), mouse_button_press, data); // 4 for press, 5 for release, 6 for movement
 	mlx_loop(data->mlx);
 	return (0);
 }

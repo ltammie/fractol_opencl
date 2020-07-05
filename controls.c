@@ -4,9 +4,9 @@ int		zoom(int key, t_mlx *data)
 {
 	float 	zoom;
 
-	if (key == MIN && data->view.zf > 1)
+	if ((key == MIN || key == RIGHT_MB) && data->view.zf > 1)
 		data->view.zf -= 1.0f;
-	if (key == PLUS)
+	if (key == PLUS || key == LEFT_MB)
 		data->view.zf += 1.0f;
 	zoom = powf(ZOOM, data->view.zf);
 	data->view.zoom = zoom;
@@ -38,10 +38,9 @@ int 	arrow_move(int key, t_mlx *data)
 	data->view.maxX = MAX_RE * zoom + data->view.offsetX;
 	data->view.minY = MIN_IM * zoom + data->view.offsetY;
 	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
+	printf("offsetX = %f, offsetY = %f\n", data->view.offsetX, data->view.offsetY);
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
-//	printf("offset x = %f\n", data->view.offsetX);
-//	printf("offset y = %f\n", data->view.offsetY);
 	return (0);
 }
 
@@ -87,3 +86,4 @@ void	close_fractol(t_mlx *data)
 	(void)data;
 	exit(0);
 }
+

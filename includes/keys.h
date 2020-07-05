@@ -30,5 +30,7 @@
 # define AR_DOWN 125
 # define AR_LEFT 123
 # define AR_RIGHT 124
+# define LEFT_MB 1
+# define RIGHT_MB 2
 
 #endif

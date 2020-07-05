@@ -141,7 +141,6 @@ int				max_iter_change(int x, t_mlx *data);
 int				refresh(int key, t_mlx *data);
 int				redraw(int key, t_mlx *data);
 int				arrow_move(int key, t_mlx *data);
-int				mouse_move(int x, int y, t_mlx *data);
 void			close_fractol(t_mlx *data);
 
 /*

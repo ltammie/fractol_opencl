@@ -15,6 +15,7 @@ static int sin_coloring(int x)
 	color.rgba.r = sin(0.016 * x + 30) * 200 + 55;
 	color.rgba.g = sin(0.013 * x + 15) * 200 + 55;
 	color.rgba.b = sin(0.01 * x + 10) * 200 + 55;
+	color.rgba.a = 0;
 
 	return (color.c);
 }
