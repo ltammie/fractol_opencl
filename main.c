@@ -2,7 +2,7 @@
 
 static	void check_argv(char *fr)
 {
-	if (ft_strcmp(fr, "Mandelbrot") != 0 && ft_strcmp(fr, "Julia") != 0)
+	if (ft_strcmp(fr, "Mandelbrot") != 0 && ft_strcmp(fr, "Julia") != 0  && ft_strcmp(fr, "Ship") != 0)
 		error(1);
 }
 

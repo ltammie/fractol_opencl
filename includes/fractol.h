@@ -6,7 +6,7 @@
 # define MIN_RE -2.0f
 # define MAX_RE 2.0f
 # define MIN_IM -1.17f
-# define MAX_IM 1.08f
+# define MAX_IM 1.17f
 # define ZOOM 0.9501f
 # define OFFSET 0.05f
 
