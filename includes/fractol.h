@@ -17,6 +17,7 @@
 #include "../libft/libft.h"
 #include <OpenCL/opencl.h>
 #include "keys.h"
+#include "color_schemes.h"
 
 //typedef struct	s_complex
 //{

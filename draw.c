@@ -8,18 +8,38 @@
 //		return (0x34aeeb);
 //}
 
-static int sin_coloring(int x)
+//static int sin_coloring(int x)
+//{
+//	COLOR4 color;
+//
+//	color.rgba.r = sin(0.016 * x + 30) * 200 + 55;
+//	color.rgba.g = sin(0.013 * x + 15) * 200 + 55;
+//	color.rgba.b = sin(0.01 * x + 10) * 200 + 55;
+//	color.rgba.a = 0;
+//
+//	return (color.c);
+//}
+
+//static int basic_color(int i, int max)
+//{
+//	if (i == max)
+//		return (WHITE);
+//	return (i * 10 % 256);
+//}
+
+static int zerg_theme(int i, int max)
 {
+	if (i == max)
+		return (BLACK);
 	COLOR4 color;
 
-	color.rgba.r = sin(0.016 * x + 30) * 200 + 55;
-	color.rgba.g = sin(0.013 * x + 15) * 200 + 55;
-	color.rgba.b = sin(0.01 * x + 10) * 200 + 55;
+	color.rgba.r = i * 6 % 255;
+	color.rgba.g = ;
+	color.rgba.b = i * 6 % 255;
 	color.rgba.a = 0;
 
 	return (color.c);
 }
-
 
 int		draw_image(t_mlx *data)
 {
@@ -52,7 +72,7 @@ int		draw_image(t_mlx *data)
 	for (int i = 0; i < HEIGHT ; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
-			data->img.img_data[i * WIDTH + j] = sin_coloring(result[i * WIDTH + j]);
+			data->img.img_data[i * WIDTH + j] = zerg_theme(result[i * WIDTH + j], data->max_iter);
 	}
 //	printf("finished drawing\n");
 

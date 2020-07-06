@@ -47,6 +47,6 @@ t_mlx	*init_data(char *argv)
 		data->view.maxY -= 0.7f; //maybe do some other shit-trick here? cause zoom works strange because of this
 		data->view.minY -= 0.7f;
 	}
-	data->max_iter = 50;
+	data->max_iter = 300;
 	return(data);
 }
