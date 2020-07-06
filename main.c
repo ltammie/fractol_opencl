@@ -8,19 +8,13 @@ static	void check_argv(char *fr)
 
 static int		mouse_button_press(int button, int x, int y, t_mlx *data)
 {
-	if (x)
-		;
-	if (y)
-		;
 	if (button == LEFT_MB || button == RIGHT_MB)
-		zoom(button, data);
+		zoom(button, data, x, y);
 	return (0);
 }
 
 int		key_press(int key, t_mlx *data)
 {
-	if (key == MIN || key == PLUS)
-		zoom(key, data);
 	if (key == W || key == A || key == S || key == D)
 		arrow_move(key, data);
 	if (key == Q || key == E)

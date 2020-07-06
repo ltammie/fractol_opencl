@@ -1,6 +1,8 @@
 #include "includes/fractol.h"
 
-int		zoom(int key, t_mlx *data)
+
+//save prev x and y for proper zoom out
+int		zoom(int key, t_mlx *data, int x, int y)
 {
 	float 	zoom;
 
@@ -10,6 +12,11 @@ int		zoom(int key, t_mlx *data)
 		data->view.zf += 1.0f;
 	zoom = powf(ZOOM, data->view.zf);
 	data->view.zoom = zoom;
+	data->view.offsetX += MAX_RE / (WIDTH / 2.0) * (x - 640) * zoom;
+	if (y >= 360)
+		data->view.offsetY += MIN_IM / (HEIGHT / 2.0)  * (360 - y) * zoom;
+	else
+		data->view.offsetY -= MAX_IM / (HEIGHT / 2.0)  * (360 - y) * zoom;
 	data->view.minX = MIN_RE * zoom + data->view.offsetX;
 	data->view.maxX = MAX_RE * zoom + data->view.offsetX;
 	data->view.minY = MIN_IM * zoom + data->view.offsetY;
