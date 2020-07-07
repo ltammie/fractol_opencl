@@ -14,7 +14,14 @@ int		draw_image(t_mlx *data)
 	clSetKernelArg(data->cl.kernel, 2, sizeof(float), &data->view.maxX);
 	clSetKernelArg(data->cl.kernel, 3, sizeof(float), &data->view.minY);
 	clSetKernelArg(data->cl.kernel, 4, sizeof(float), &data->view.maxY);
-	clSetKernelArg(data->cl.kernel, 5, sizeof(cl_mem), &output_buffer);
+	if (data->fractal_type == 2)
+	{
+		clSetKernelArg(data->cl.kernel, 5, sizeof(float), &data->view.mouse_re);
+		clSetKernelArg(data->cl.kernel, 6, sizeof(float), &data->view.mouse_im);
+		clSetKernelArg(data->cl.kernel, 7, sizeof(cl_mem), &output_buffer);
+	}
+	else
+		clSetKernelArg(data->cl.kernel, 5, sizeof(cl_mem), &output_buffer);
 
 	size_t dim = 2;
 	size_t global_size[] = {WIDTH,HEIGHT};
