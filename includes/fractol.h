@@ -82,7 +82,8 @@ typedef struct	s_mlx
 	t_image		img;
 	t_view		view;
 	t_cl 		cl;
-	char 		*fractal_type;
+	int 		fractal_type;
+	char		*cl_source;
 	int 		max_iter;
 }				t_mlx;
 
@@ -91,7 +92,7 @@ typedef struct	s_mlx
  ** ----------init functions---------
  */
 
-t_mlx			*init_data(char *argv);
+t_mlx			*init_data(int argv);
 void			init_view(t_view *view);
 
 /*
@@ -107,31 +108,6 @@ char			**get_kernel_source(t_cl *cl, char *type);
  */
 
 int				draw_image(t_mlx *data);
-//void			*drawMandelbrot(void *data);
-//int			mandelbrotIter(int x, int y, int max, t_view view);
-//void			*drawJulia(void *data);
-//int			juliaIteration(int x, int y, int max);
-//float			draw_julia(t_mlx *data, int x, int y);
-//
-//float			map(float value, float fmin, float fmax, float tmin, float tmax);
-
-
-
-
-/*
- ** -----complex numbers functions------
- */
-
-//t_complex		complex_add_complex(t_complex n1, t_complex n2);
-//t_complex		complex_sub_complex(t_complex n1, t_complex n2);
-//t_complex		complex_mult_complex(t_complex n1, t_complex n2);
-//double 		complex_abs(t_complex n);
-//double 		complex_len(t_complex n);
-//
-//
-//void			print_complex(t_complex n);
-
-
 
 /*
  ** --------------controls--------------

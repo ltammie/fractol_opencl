@@ -6,8 +6,9 @@ void	error(int err)
 	{
 		write(1, "usage: ./fractol {fractal_type}\n", 32);
 		write(1, "List of available fractals types:\n", 34);
-		write(1, "Mandelbrot\n", 11);
-		write(1, "Julia\n", 6);
+		write(1, "1 - Mandelbrot\n", 15);
+		write(1, "2 - Julia\n", 10);
+		write(1, "3 - Ship\n", 9);
 		exit(0);
 	}
 	else

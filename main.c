@@ -1,8 +1,8 @@
 #include "includes/fractol.h"
 
-static	void check_argv(char *fr)
+static	void check_argv(int type)
 {
-	if (ft_strcmp(fr, "Mandelbrot") != 0 && ft_strcmp(fr, "Julia") != 0  && ft_strcmp(fr, "Ship") != 0)
+	if (type != 1 && type != 2 && type != 3)
 		error(1);
 }
 
@@ -34,9 +34,9 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 		error(1);
-	check_argv(argv[1]);
-	data = init_data(argv[1]);
-	data->cl.kernel_source = get_kernel_source(&data->cl, data->fractal_type);
+	check_argv(ft_atoi(argv[1]));
+	data = init_data(ft_atoi(argv[1]));
+	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
 	draw_image(data);
 	mlx_hook(data->win, 2, (1L << 0), key_press, data);
 	mlx_hook(data->win, 4, (1L << 2), mouse_button_press, data); // 4 for press, 5 for release, 6 for movement
