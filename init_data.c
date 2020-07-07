@@ -14,6 +14,7 @@ void	init_view(t_view *view)
 	view->prev_mouseY = 0.0f;
 	view->mouseShiftX = 0.0f;
 	view->mouseShiftY = 0.0f;
+	view->color_type = 1;
 }
 
 static	char	*return_fractal_type(int argv)
@@ -49,5 +50,6 @@ t_mlx	*init_data(int argv)
 		data->view.minY -= 0.7f;
 	}
 	data->max_iter = 300;
+	data->result = (int *)malloc(sizeof(int) * (WIDTH * HEIGHT));
 	return(data);
 }

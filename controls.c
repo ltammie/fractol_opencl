@@ -1,7 +1,5 @@
 #include "includes/fractol.h"
 
-
-//save prev x and y for proper zoom out
 int		zoom(int key, t_mlx *data, int x, int y)
 {
 	float 	zoom;
@@ -45,7 +43,6 @@ int 	arrow_move(int key, t_mlx *data)
 	data->view.maxX = MAX_RE * zoom + data->view.offsetX;
 	data->view.minY = MIN_IM * zoom + data->view.offsetY;
 	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
-	printf("offsetX = %f, offsetY = %f\n", data->view.offsetX, data->view.offsetY);
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
 	return (0);
@@ -62,35 +59,15 @@ int 	max_iter_change(int key, t_mlx *data)
 	return (0);
 }
 
-int 	redraw(int key, t_mlx *data)
+int		change_color(int key, t_mlx *data)
 {
-	if (key == SPACE)
-	{
-		init_view(&data->view);
-		mlx_clear_window(data->mlx, data->win);
-		draw_image(data);
-	}
+	if (key == ONE)
+		data->view.color_type = 1;
+	if (key == TWO)
+		data->view.color_type = 2;
+	if (key == THREE)
+		data->view.color_type = 3;
+	color_fractal(data);
 	return (0);
-}
-
-int 	refresh(int key, t_mlx *data)
-{
-	if (key == R)
-	{
-		printf("minX = %.8f\tmaxX = %.8f\n",data->view.minX, data->view.maxX);
-		printf("minY = %.8f\tmaxY = %.8f\n",data->view.minY, data->view.maxY);
-		printf("iterations = %d\n", data->max_iter);
-		mlx_clear_window(data->mlx, data->win);
-		draw_image(data);
-	}
-	return (0);
-}
-
-void	close_fractol(t_mlx *data)
-{
-	mlx_clear_window(data->mlx, data->win);
-	mlx_destroy_image(data->mlx, data->img.img_ptr);
-	(void)data;
-	exit(0);
 }
 

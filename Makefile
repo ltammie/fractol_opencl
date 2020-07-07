@@ -17,6 +17,7 @@ SRCS = main.c\
 		cl_init.c\
 		coloring.c\
 		controls.c\
+		controls_2.c\
 		draw.c\
 		error.c\
 		init_data.c\

@@ -19,22 +19,16 @@
 #include "keys.h"
 #include "color_schemes.h"
 
-//typedef struct	s_complex
-//{
-//	double		re;
-//	double 		im;
-//}				t_complex;
-
 typedef union	u_rgb
 {
 	unsigned int c;
-	struct rgba
+	struct s_rgba
 	{
 		unsigned char b;
 		unsigned char g;
 		unsigned char r;
 		unsigned char a;
-	} rgba;
+	} t_rgba;
 }				t_rgb;
 
 typedef struct	s_image
@@ -60,6 +54,7 @@ typedef	struct	s_view
 	float 		prev_mouseY;
 	float 		mouseShiftX;
 	float 		mouseShiftY;
+	int			color_type;
 
 }				t_view;
 
@@ -85,6 +80,7 @@ typedef struct	s_mlx
 	int 		fractal_type;
 	char		*cl_source;
 	int 		max_iter;
+	int			*result;
 }				t_mlx;
 
 
@@ -127,6 +123,8 @@ void			close_fractol(t_mlx *data);
 int				sin_coloring(int x);
 int				zerg(int i, int max);
 int				basic_one(float i, int max);
+void			color_fractal(t_mlx *data);
+int				change_color(int key, t_mlx *data);
 
 
 /*

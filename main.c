@@ -23,6 +23,8 @@ int		key_press(int key, t_mlx *data)
 		refresh(key, data);
 	if (key == SPACE)
 		redraw(key, data);
+	if (key == ONE || key == TWO || key == THREE)
+		change_color(key,data);
 	if (key == ESC)
 		close_fractol(data);
 	return (0);
