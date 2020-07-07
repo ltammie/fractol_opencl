@@ -1,63 +1,5 @@
 #include "includes/fractol.h"
 
-//static int sin_coloring(int x)
-//{
-//	COLOR4 color;
-//
-//	color.rgba.r = sin(0.016 * x + 30) * 200 + 55;
-//	color.rgba.g = sin(0.013 * x + 15) * 200 + 55;
-//	color.rgba.b = sin(0.01 * x + 10) * 200 + 55;
-//	color.rgba.a = 0;
-//
-//	return (color.c);
-//}
-
-//static int zerg_theme(int i, int max)
-//{
-//	if (i == max)
-//		return (BLACK);
-//	t_rgb color;
-//
-//	color.rgba.r = i * 6 % 255;
-//	color.rgba.g = ;
-//	color.rgba.b = i * 6 % 255;
-//	color.rgba.a = 0;
-//
-//	return (color.c);
-//}
-
-static float gradient(float start, float end, float i)
-{
-	return(i * start + i * end);
-}
-
-//static int color_1(float i, int max)
-//{
-//	t_rgb color;
-//	float k;
-//
-//	if (i == max)
-//		return (BLACK);
-//	k = i / (float)max;
-//	color.rgba.r = (int)(9 * (1 - k) * (k * k * k) * 255);
-//	color.rgba.g = (int)(15 * ((1 - k) * (1 - k)) * (k * k) * 255);
-//	color.rgba.b = (int)(8.5 * ((1 - k) * (1 - k) * (1 - k)) * k * 255);
-//	color.rgba.a = 0;
-//	return (color.c);
-//}
-
-static int color_2(float i, int max)
-{
-	t_rgb color;
-
-	if (i == max)
-		return (BLACK);
-	color.rgba.r = (int)gradient((RED >> 16) & 0xFF, (YELLOW >> 16) & 0xFF, i);
-	color.rgba.g = (int)gradient((RED >> 8) & 0xFF, (YELLOW >> 8) & 0xFF, i);
-	color.rgba.b = (int)gradient(RED & 0xFF, YELLOW & 0xFF, i);
-	color.rgba.a = 0;
-	return (color.c);
-}
 
 int		draw_image(t_mlx *data)
 {
@@ -90,7 +32,7 @@ int		draw_image(t_mlx *data)
 	for (int i = 0; i < HEIGHT ; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
-			data->img.img_data[i * WIDTH + j] = color_2(result[i * WIDTH + j], data->max_iter);
+			data->img.img_data[i * WIDTH + j] = zerg(result[i * WIDTH + j], data->max_iter);
 	}
 //	printf("finished drawing\n");
 

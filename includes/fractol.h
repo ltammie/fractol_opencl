@@ -145,6 +145,15 @@ int				arrow_move(int key, t_mlx *data);
 void			close_fractol(t_mlx *data);
 
 /*
+ ** --------coloring_functions----------
+ */
+
+int				sin_coloring(int x);
+int				zerg(int i, int max);
+int				basic_one(float i, int max);
+
+
+/*
  ** ----------other functions---------
  */
 

@@ -6,7 +6,7 @@
 #    By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 19:18:13 by ltammie           #+#    #+#              #
-#    Updated: 2020/04/03 14:25:55 by sauron           ###   ########.fr        #
+#    Updated: 2020/07/07 23:38:17 by sauron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,13 @@
 GCC = gcc -Wall -Wextra -Werror
 NAME = fractol
 SRCS = main.c\
+		cl_init.c\
+		coloring.c\
 		controls.c\
-		init_data.c\
-		error.c\
 		draw.c\
-		cl_init.c
+		error.c\
+		init_data.c\
+
 OBJS = $(SRCS:.c=.o)
 HEAD = -c -I fractol.h
 LIB = -L libft -lft -L minilibx -lmlx -framework OpenGL -framework Appkit -framework OpenCL
