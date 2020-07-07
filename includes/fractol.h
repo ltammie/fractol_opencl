@@ -25,7 +25,7 @@
 //	double 		im;
 //}				t_complex;
 
-typedef union rgb
+typedef union	u_rgb
 {
 	unsigned int c;
 	struct rgba
@@ -35,7 +35,7 @@ typedef union rgb
 		unsigned char r;
 		unsigned char a;
 	} rgba;
-} COLOR4;
+}				t_rgb;
 
 typedef struct	s_image
 {

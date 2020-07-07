@@ -44,7 +44,7 @@ t_mlx	*init_data(char *argv)
 	init_view(&data->view);
 	if (!ft_strcmp(data->fractal_type, "ship.cl"))
 	{
-		data->view.maxY -= 0.7f; //maybe do some other shit-trick here? cause zoom works strange because of this
+		data->view.maxY -= 0.7f;
 		data->view.minY -= 0.7f;
 	}
 	data->max_iter = 300;
