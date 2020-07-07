@@ -15,6 +15,8 @@ void	init_view(t_view *view)
 	view->mouseShiftX = 0.0f;
 	view->mouseShiftY = 0.0f;
 	view->color_type = 1;
+	view->mouse_re = 0.0f;
+	view->mouse_im = 0.0f;
 }
 
 static	char	*return_fractal_type(int argv)

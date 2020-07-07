@@ -26,5 +26,8 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 			break;
 		i++;
 	}
-	output[y * width + x] = i + 1 - (log(log(sqrt(dot(z,z))))) / log((float)(2.0));
+	if (i == max_iter)
+		output[y * width + x] = i;
+	else
+		output[y * width + x] = i + 4 - (log(log(sqrt(dot(z,z)))));
 }

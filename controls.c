@@ -21,6 +21,7 @@ int		zoom(int key, t_mlx *data, int x, int y)
 	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
+	mlx_do_sync(data->mlx);
 	return (0);
 }
 
@@ -45,6 +46,22 @@ int 	arrow_move(int key, t_mlx *data)
 	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
+	mlx_do_sync(data->mlx);
+	return (0);
+}
+
+int		change_julia(int x, int y, t_mlx *data)
+{
+	float re_factor;
+	float im_factor;
+
+	re_factor = (MAX_RE - MIN_RE) / (WIDTH);
+	im_factor = (MAX_IM - MIN_IM) / (HEIGHT);
+	data->view.mouse_re = MIN_RE + x * re_factor;
+	data->view.mouse_im = MAX_IM - y * im_factor;
+	mlx_clear_window(data->mlx, data->win);
+	draw_image(data);
+	mlx_do_sync(data->mlx);
 	return (0);
 }
 
@@ -56,6 +73,7 @@ int 	max_iter_change(int key, t_mlx *data)
 		data->max_iter++;
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
+	mlx_do_sync(data->mlx);
 	return (0);
 }
 
@@ -68,6 +86,7 @@ int		change_color(int key, t_mlx *data)
 	if (key == THREE)
 		data->view.color_type = 3;
 	color_fractal(data);
+	mlx_do_sync(data->mlx);
 	return (0);
 }
 

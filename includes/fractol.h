@@ -55,6 +55,8 @@ typedef	struct	s_view
 	float 		mouseShiftX;
 	float 		mouseShiftY;
 	int			color_type;
+	float		mouse_re;
+	float		mouse_im;
 
 }				t_view;
 
@@ -115,6 +117,7 @@ int				refresh(int key, t_mlx *data);
 int				redraw(int key, t_mlx *data);
 int				arrow_move(int key, t_mlx *data);
 void			close_fractol(t_mlx *data);
+int				change_julia(int x, int y, t_mlx *data);
 
 /*
  ** --------coloring_functions----------

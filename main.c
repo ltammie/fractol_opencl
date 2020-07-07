@@ -41,7 +41,8 @@ int main(int argc, char **argv)
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
 	draw_image(data);
 	mlx_hook(data->win, 2, (1L << 0), key_press, data);
-	mlx_hook(data->win, 4, (1L << 2), mouse_button_press, data); // 4 for press, 5 for release, 6 for movement
+	mlx_hook(data->win, 4, (1L << 2), mouse_button_press, data);
+	mlx_hook(data->win, 6, (1L << 2), change_julia, data);// 4 for press, 5 for release, 6 for movement
 	mlx_loop(data->mlx);
 	return (0);
 }
