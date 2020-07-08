@@ -82,7 +82,7 @@ typedef struct	s_mlx
 	int 		fractal_type;
 	char		*cl_source;
 	int 		max_iter;
-	int			*result;
+	float		*result;
 }				t_mlx;
 
 
@@ -123,7 +123,7 @@ int				change_julia(int x, int y, t_mlx *data);
  ** --------coloring_functions----------
  */
 
-int				sin_coloring(int x);
+int				sin_coloring(float x);
 int				zerg(int i, int max);
 int				basic_one(float i, int max);
 int				black_hole(int i, int max);
