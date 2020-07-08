@@ -20,7 +20,6 @@ void			color_fractal(t_mlx *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 }
 
-//fix
 int				sin_coloring(float x, int max)
 {
 	t_rgb color;
@@ -34,15 +33,16 @@ int				sin_coloring(float x, int max)
 	return (color.c);
 }
 
-int				zerg(int i, int max)
+//fix
+int				zerg(float x, int max)
 {
 	t_rgb color;
 
-	if (i == max)
+	if (x == max)
 		return (BLACK);
-	color.t_rgba.r = i * 6 % 255;
-	color.t_rgba.g = 0;
-	color.t_rgba.b = i * 6 % 255;
+	color.t_rgba.r = sin(0.016 * x + 30) * 100 + 55;
+	color.t_rgba.g = sin(0.016 * x + 30) * 1 + 55;
+	color.t_rgba.b = sin(0.016 * x + 10) * 30 + 15;
 	color.t_rgba.a = 0;
 	return (color.c);
 }
@@ -62,6 +62,7 @@ int				basic_one(float i, int max)
 	return (color.c);
 }
 
+//fix
 int				black_hole(int i, int max)
 {
 	t_rgb color;
