@@ -6,14 +6,14 @@ static	void check_argv(int type)
 		error(1);
 }
 
-static int		mouse_button_press(int button, int x, int y, t_mlx *data)
+static int	mouse_button_press(int button, int x, int y, t_mlx *data)
 {
 	if (button == LEFT_MB || button == RIGHT_MB)
 		zoom(button, data, x, y);
 	return (0);
 }
 
-int		key_press(int key, t_mlx *data)
+static int	key_press(int key, t_mlx *data)
 {
 	if (key == W || key == A || key == S || key == D)
 		arrow_move(key, data);
@@ -21,6 +21,8 @@ int		key_press(int key, t_mlx *data)
 		max_iter_change(key, data);
 	if (key == R)
 		refresh(key, data);
+	if (key == H)
+		help_menu(key, data);
 	if (key == SPACE)
 		redraw(key, data);
 	if (key == ONE || key == TWO || key == THREE || key == FOUR)
@@ -30,7 +32,9 @@ int		key_press(int key, t_mlx *data)
 	return (0);
 }
 
-int main(int argc, char **argv)
+
+
+int			main(int argc, char **argv)
 {
 	t_mlx *data;
 

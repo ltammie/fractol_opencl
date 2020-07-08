@@ -76,6 +76,8 @@ typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*win;
+	void		*help;
+	int			help_status;
 	t_image		img;
 	t_view		view;
 	t_cl 		cl;
@@ -118,6 +120,7 @@ int				redraw(int key, t_mlx *data);
 int				arrow_move(int key, t_mlx *data);
 void			close_fractol(t_mlx *data);
 int				change_julia(int x, int y, t_mlx *data);
+int				help_menu(int key, t_mlx *data);
 
 /*
  ** --------coloring_functions----------

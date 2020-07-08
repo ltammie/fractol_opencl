@@ -20,6 +20,7 @@
 # define Q 12
 # define E 14
 # define R 15
+# define H 4
 # define ESC 53
 # define SPACE 49
 # define ONE 18
