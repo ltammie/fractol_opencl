@@ -126,6 +126,7 @@ int				change_julia(int x, int y, t_mlx *data);
 int				sin_coloring(int x);
 int				zerg(int i, int max);
 int				basic_one(float i, int max);
+int				black_hole(int i, int max);
 void			color_fractal(t_mlx *data);
 int				change_color(int key, t_mlx *data);
 

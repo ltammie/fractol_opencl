@@ -25,6 +25,7 @@
 # define ONE 18
 # define TWO 19
 # define THREE 20
+# define FOUR 21
 # define MIN 27
 # define PLUS 24
 # define AR_UP 126

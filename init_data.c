@@ -27,6 +27,8 @@ static	char	*return_fractal_type(int argv)
 		return ("julia.cl");
 	if (argv == 3)
 		return ("ship.cl");
+	if (argv == 4)
+		return ("black_hole.cl");
 	return ("meow");
 }
 

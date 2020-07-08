@@ -2,7 +2,7 @@
 
 static	void check_argv(int type)
 {
-	if (type != 1 && type != 2 && type != 3)
+	if (type != 1 && type != 2 && type != 3 && type != 4)
 		error(1);
 }
 
@@ -23,7 +23,7 @@ int		key_press(int key, t_mlx *data)
 		refresh(key, data);
 	if (key == SPACE)
 		redraw(key, data);
-	if (key == ONE || key == TWO || key == THREE)
+	if (key == ONE || key == TWO || key == THREE || key == FOUR)
 		change_color(key,data);
 	if (key == ESC)
 		close_fractol(data);

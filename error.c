@@ -9,6 +9,7 @@ void	error(int err)
 		write(1, "1 - Mandelbrot\n", 15);
 		write(1, "2 - Julia\n", 10);
 		write(1, "3 - Ship\n", 9);
+		write(1, "4 - Black Hole\n", 15);
 		exit(0);
 	}
 	else
