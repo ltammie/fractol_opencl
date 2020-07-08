@@ -43,7 +43,7 @@ int		help_menu(int key, t_mlx *data)
 	{
 		if (data->help_status == 0)
 		{
-			if (!(data->help = mlx_new_window(data->mlx, 300, 300, "Help")))
+			if (!(data->help = mlx_new_window(data->mlx, HELP_WIDTH, HELP_HEIGHT, "Help")))
 				error(0);
 			data->help_status = 1;
 			mlx_hook(data->help, 2, (1L << 0), close_menu, data);

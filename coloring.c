@@ -25,7 +25,7 @@ int				sin_coloring(float x, int max)
 	t_rgb color;
 
 	if (x == max)
-		return (BLACK);
+		return (RED);
 	color.t_rgba.r = sin(0.016 * x + 30) * 200 + 55;
 	color.t_rgba.g = sin(0.013 * x + 15) * 200 + 55;
 	color.t_rgba.b = sin(0.01 * x + 10) * 200 + 55;
@@ -33,16 +33,15 @@ int				sin_coloring(float x, int max)
 	return (color.c);
 }
 
-//fix
 int				zerg(float x, int max)
 {
 	t_rgb color;
 
 	if (x == max)
 		return (BLACK);
-	color.t_rgba.r = sin(0.016 * x + 30) * 100 + 55;
-	color.t_rgba.g = sin(0.016 * x + 30) * 1 + 55;
-	color.t_rgba.b = sin(0.016 * x + 10) * 30 + 15;
+	color.t_rgba.r = sin(0.03 * x + 25) * 200 + 55;
+	color.t_rgba.g = 0;
+	color.t_rgba.b = sin(0.05 * x + 50) * 200 + 55;
 	color.t_rgba.a = 0;
 	return (color.c);
 }
@@ -62,16 +61,18 @@ int				basic_one(float i, int max)
 	return (color.c);
 }
 
-//fix
-int				black_hole(int i, int max)
+int				black_hole(float i, int max)
 {
+	float k;
 	t_rgb color;
 
 	if (i == max)
-		return (BLACK);
-	color.t_rgba.r = i * 15 % 255;
-	color.t_rgba.g = i * 7 % 255;
-	color.t_rgba.b = 0;
-	color.t_rgba.a = 0;
+		return (WHITE);
+	k = (i / max);
+	if (i > 70)
+		color = new_rgb_color(0, 0, (int)(255.0 * k));
+	else
+		color = new_rgb_color((int)(255.0 * k), 0, 0);
 	return (color.c);
+
 }

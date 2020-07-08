@@ -23,6 +23,10 @@ static int	key_press(int key, t_mlx *data)
 		refresh(key, data);
 	if (key == H)
 		help_menu(key, data);
+	if (key == P)
+	{
+		write(open("screenshot.png", O_WRONLY | O_CREAT), data->img.img_data, WIDTH * HEIGHT);
+	}
 	if (key == SPACE)
 		redraw(key, data);
 	if (key == ONE || key == TWO || key == THREE || key == FOUR)
@@ -44,6 +48,10 @@ int			main(int argc, char **argv)
 	data = init_data(ft_atoi(argv[1]));
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
 	draw_image(data);
+//
+//	t_rgb color = hsv_to_rgb(360, 0.15f, 1.0f);
+//	printf("r = %d | g = %d | b = %d\n", color.t_rgba.r, color.t_rgba.g, color.t_rgba.b);
+//
 	mlx_hook(data->win, 2, (1L << 0), key_press, data);
 	mlx_hook(data->win, 4, (1L << 2), mouse_button_press, data);
 	mlx_hook(data->win, 6, (1L << 2), change_julia, data);// 4 for press, 5 for release, 6 for movement

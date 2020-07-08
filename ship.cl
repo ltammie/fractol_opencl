@@ -30,5 +30,5 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 	if (i == max_iter)
     		output[y * width + x] = i;
     	else
-    		output[y * width + x] = i - (log2(log2(dot(z,z)))) + 15.0;
+    		output[y * width + x] = i - (log2(log2(dot(z,z)))) + 4.0;
 }

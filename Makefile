@@ -21,6 +21,7 @@ SRCS = main.c\
 		draw.c\
 		error.c\
 		init_data.c\
+		rgb.c
 
 OBJS = $(SRCS:.c=.o)
 HEAD = -c -I fractol.h

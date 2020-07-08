@@ -3,6 +3,8 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define HELP_WIDTH 600
+# define HELP_HEIGHT 400
 # define MIN_RE -2.0f
 # define MAX_RE 2.0f
 # define MIN_IM -1.17f
@@ -129,7 +131,7 @@ int				help_menu(int key, t_mlx *data);
 int				sin_coloring(float x, int max);
 int				zerg(float x, int max);
 int				basic_one(float i, int max);
-int				black_hole(int i, int max);
+int				black_hole(float i, int max);
 void			color_fractal(t_mlx *data);
 int				change_color(int key, t_mlx *data);
 
@@ -139,6 +141,8 @@ int				change_color(int key, t_mlx *data);
  */
 
 void			error(int err);
+t_rgb			new_rgb_color(unsigned char r, unsigned char g, unsigned char b);
+t_rgb			hsv_to_rgb(float h, float s, float v);
 
 #endif
 

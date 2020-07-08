@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 20:10:34 by ltammie           #+#    #+#             */
-/*   Updated: 2020/02/24 20:33:01 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/07/08 22:55:42 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define E 14
 # define R 15
 # define H 4
+# define P 35
 # define ESC 53
 # define SPACE 49
 # define ONE 18
