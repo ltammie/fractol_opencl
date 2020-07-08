@@ -123,7 +123,7 @@ int				change_julia(int x, int y, t_mlx *data);
  ** --------coloring_functions----------
  */
 
-int				sin_coloring(float x);
+int				sin_coloring(float x, int max);
 int				zerg(int i, int max);
 int				basic_one(float i, int max);
 int				black_hole(int i, int max);

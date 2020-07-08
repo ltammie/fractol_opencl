@@ -11,7 +11,7 @@ void			color_fractal(t_mlx *data)
 			if (data->view.color_type == 2)
 				data->img.img_data[i * WIDTH + j] = zerg(data->result[i * WIDTH + j], data->max_iter);
 			if (data->view.color_type == 3)
-				data->img.img_data[i * WIDTH + j] = sin_coloring(data->result[i * WIDTH + j]);
+				data->img.img_data[i * WIDTH + j] = sin_coloring(data->result[i * WIDTH + j], data->max_iter);
 			if (data->view.color_type == 4)
 				data->img.img_data[i * WIDTH + j] = black_hole(data->result[i * WIDTH + j], data->max_iter);
 		}
@@ -21,11 +21,11 @@ void			color_fractal(t_mlx *data)
 }
 
 //fix
-int				sin_coloring(float x)
+int				sin_coloring(float x, int max)
 {
 	t_rgb color;
 
-	if (x == 300)
+	if (x == max)
 		return (BLACK);
 	color.t_rgba.r = sin(0.016 * x + 30) * 200 + 55;
 	color.t_rgba.g = sin(0.013 * x + 15) * 200 + 55;

@@ -53,7 +53,7 @@ t_mlx	*init_data(int argv)
 		data->view.maxY -= 0.7f;
 		data->view.minY -= 0.7f;
 	}
-	data->max_iter = 300;
+	data->max_iter = 50;
 	data->result = (float *)malloc(sizeof(float) * (WIDTH * HEIGHT));
 	return(data);
 }
