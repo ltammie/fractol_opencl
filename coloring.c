@@ -21,26 +21,15 @@ void			color_fractal(t_mlx *data)
 }
 
 //fix
-//int				sin_coloring(float x)
-//{
-//	t_rgb color;
-//
-//	color.t_rgba.r = sin(0.016 * x + 30) * 200 + 55;
-//	color.t_rgba.g = sin(0.013 * x + 15) * 200 + 55;
-//	color.t_rgba.b = sin(0.01 * x + 10) * 200 + 55;
-//	color.t_rgba.a = 0;
-//	return (color.c);
-//}
-
 int				sin_coloring(float x)
 {
 	t_rgb color;
 
 	if (x == 300)
 		return (BLACK);
-	color.t_rgba.r = (0.5 + 0.5 * cos(0.5 * x + (3.0 * RED))) * 255;
-	color.t_rgba.g = (0.5 + 0.5 * cos(0.5 * x + (15.6 * RED / 2))) * 255;
-	color.t_rgba.b = (0.5 + 0.5 * cos(0.5 * x + (5.6 * (-RED)))) * 255;
+	color.t_rgba.r = sin(0.016 * x + 30) * 200 + 55;
+	color.t_rgba.g = sin(0.013 * x + 15) * 200 + 55;
+	color.t_rgba.b = sin(0.01 * x + 10) * 200 + 55;
 	color.t_rgba.a = 0;
 	return (color.c);
 }

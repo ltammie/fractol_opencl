@@ -22,12 +22,12 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
         tmp.x = z.x * z.x + (-1) * (z.y * z.y);
         tmp.y = z.y * z.x + z.x * z.y;
 		z = tmp + c;
-		if (dot(z,z) > 4)
+		if (dot(z,z) > 4.0)
 			break;
 		i++;
 	}
 	if (i == max_iter)
 		output[y * width + x] = i;
 	else
-		output[y * width + x] = i - (log2(log2(dot(z,z)))) + 4.0;
+		output[y * width + x] = i - (log2(log2(dot(z,z)))) + 20.0;
 }
