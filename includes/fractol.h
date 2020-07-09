@@ -128,7 +128,6 @@ int				help_menu(int key, t_mlx *data);
  ** --------coloring_functions----------
  */
 
-int				sin_coloring(float x, int max);
 int				zerg(float x, int max);
 int				basic_one(float i, int max);
 int				black_hole(float i, int max);
