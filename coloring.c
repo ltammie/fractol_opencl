@@ -6,7 +6,7 @@ void			color_fractal(t_mlx *data)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			if (data->view.color_type == 1)
+			if (data->view.color_type == 1 )
 				data->img.img_data[i * WIDTH + j] = basic_one(data->result[i * WIDTH + j], data->max_iter);
 			if (data->view.color_type == 2)
 				data->img.img_data[i * WIDTH + j] = zerg(data->result[i * WIDTH + j], data->max_iter);
@@ -14,6 +14,7 @@ void			color_fractal(t_mlx *data)
 				data->img.img_data[i * WIDTH + j] = black_hole(data->result[i * WIDTH + j], data->max_iter);
 			if (data->view.color_type == 4)
 				data->img.img_data[i * WIDTH + j] = mix(data->result[i * WIDTH + j], data->max_iter);
+
 		}
 	}
 	mlx_clear_window(data->mlx, data->win);
