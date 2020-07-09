@@ -21,8 +21,8 @@ t_rgb hsv_to_rgb(float h, float s, float v)
 
 	if (s == 0.0)
 		return (new_rgb_color(v * 255, v * 255, v * 255));
-	i = (int)(h * 6.0);
-	f = (h * 6.0) - i;
+	i = (int)(h / 60.0);
+	f = (h / 60.0) - i;
 	p = 255 * v * (1.0 - s);
 	q = 255 * v * (1.0 - s * f);
 	t = 255 * v * (1.0 - s * (1.0 - f));

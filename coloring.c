@@ -69,10 +69,13 @@ int				black_hole(float i, int max)
 	if (i == max)
 		return (WHITE);
 	k = (i / max);
-	if (i > 70)
-		color = new_rgb_color(0, 0, (int)(255.0 * k));
-	else
-		color = new_rgb_color((int)(255.0 * k), 0, 0);
+//	if (i > 70)
+//		color = new_rgb_color(0, 0, (int)(255.0 * k));
+//	else
+//		color = new_rgb_color((int)(255.0 * k), 0, 0);
+	color = hsv_to_rgb(95 + 10 * k, 0.6f, 1.0f);
+//	printf("%f\n", k);
+//	printf("r = %d | g = %d | b = %d\n", color.t_rgba.r, color.t_rgba.g, color.t_rgba.b);
 	return (color.c);
 
 }

@@ -49,8 +49,10 @@ int			main(int argc, char **argv)
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
 	draw_image(data);
 //
-//	t_rgb color = hsv_to_rgb(360, 0.15f, 1.0f);
-//	printf("r = %d | g = %d | b = %d\n", color.t_rgba.r, color.t_rgba.g, color.t_rgba.b);
+	t_rgb color = hsv_to_rgb(120, 0.6f, 1.0f);
+	printf("r = %d | g = %d | b = %d\n", color.t_rgba.r, color.t_rgba.g, color.t_rgba.b);
+//	t_rgb color1 = new_rgb_color(157, 177, 204);
+//	printf("r = %d | g = %d | b = %d\n", color1.t_rgba.r, color1.t_rgba.g, color1.t_rgba.b);
 //
 	mlx_hook(data->win, 2, (1L << 0), key_press, data);
 	mlx_hook(data->win, 4, (1L << 2), mouse_button_press, data);
