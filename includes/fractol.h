@@ -143,6 +143,7 @@ int				change_color(int key, t_mlx *data);
 void			error(int err);
 t_rgb			new_rgb_color(unsigned char r, unsigned char g, unsigned char b);
 t_rgb			hsv_to_rgb(float h, float s, float v);
+t_rgb			*new_palette(t_rgb start, t_rgb end, int steps);
 
 #endif
 

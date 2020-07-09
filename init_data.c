@@ -51,8 +51,8 @@ t_mlx	*init_data(int argv)
 	init_view(&data->view);
 	if (data->fractal_type == 3)
 	{
-		data->view.maxY -= 0.7f;
-		data->view.minY -= 0.7f;
+		data->view.maxY -= 0.6f;
+		data->view.minY -= 0.6f;
 	}
 	data->max_iter = 100;
 	data->result = (float *)malloc(sizeof(float) * (WIDTH * HEIGHT));

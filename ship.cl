@@ -18,17 +18,15 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 	while (i < max_iter)
 	{
 		float2 tmp;
-
-        tmp.x = z.x * z.x + (-1) * (z.y * z.y);
-        tmp.y = z.y * z.x + z.x * z.y;
+		tmp = (float2)(z.x * z.x + (-1) * (z.y * z.y),z.y * z.x + z.x * z.y);
 		z = tmp + c;
 		z = (float2)(fabs(z.x), fabs(z.y));
-		if (dot(z,z) > 4)
+		if (dot(z,z) > 20.0)
 			break;
 		i++;
 	}
 	if (i == max_iter)
     		output[y * width + x] = i;
     	else
-    		output[y * width + x] = i - (log2(log2(dot(z,z)))) + 4.0;
+    		output[y * width + x] = i - (log2(log2(dot(z,z)))) + 20.0;
 }

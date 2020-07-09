@@ -56,19 +56,22 @@ int				black_hole(float i, int max)
 	if (i == max)
 		return (WHITE);
 	k = (i / max);
-	color = hsv_to_rgb(180, 0.8, 0.5 * k);
+	color = hsv_to_rgb(15, 1, 1 * k);
 	return (color.c);
 
 }
 
 int				mix(float i, int max)
 {
-	float k;
 	t_rgb color;
+	float k;
 
 	if (i == max)
 		return (BLACK);
-	k = (i / max);
-		color = hsv_to_rgb(360 * k, 1, 1 * k);
+	k = i / (float)max;
+	color.t_rgba.r = (int)(6.4 * ((1 - k) * (1 - k) * (1 - k)) * k * 255);
+	color.t_rgba.g = (int)(9.2 * ((1 - k) * (1 - k)) * (k * k) * 255);
+	color.t_rgba.b = (int)(12.7 * (1 - k) * (k * k * k) * 255);
+	color.t_rgba.a = 0;
 	return (color.c);
 }
