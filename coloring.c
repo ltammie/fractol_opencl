@@ -12,6 +12,8 @@ void			color_fractal(t_mlx *data)
 				data->img.img_data[i * WIDTH + j] = zerg(data->result[i * WIDTH + j], data->max_iter);
 			if (data->view.color_type == 3)
 				data->img.img_data[i * WIDTH + j] = black_hole(data->result[i * WIDTH + j], data->max_iter);
+			if (data->view.color_type == 4)
+				data->img.img_data[i * WIDTH + j] = mix(data->result[i * WIDTH + j], data->max_iter);
 		}
 	}
 	mlx_clear_window(data->mlx, data->win);
@@ -66,4 +68,7 @@ int				mix(float i, int max)
 
 	if (i == max)
 		return (BLACK);
+	k = (i / max);
+		color = hsv_to_rgb(360 * k, 1, 1 * k);
+	return (color.c);
 }

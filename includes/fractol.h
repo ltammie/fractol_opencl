@@ -131,6 +131,7 @@ int				help_menu(int key, t_mlx *data);
 int				zerg(float x, int max);
 int				basic_one(float i, int max);
 int				black_hole(float i, int max);
+int				mix(float i, int max);
 void			color_fractal(t_mlx *data);
 int				change_color(int key, t_mlx *data);
 
