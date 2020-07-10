@@ -1,6 +1,5 @@
 #include "includes/fractol.h"
 
-
 int		draw_image(t_mlx *data)
 {
 	cl_init(&data->cl);

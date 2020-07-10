@@ -6,7 +6,7 @@
 /*   By: sauron <sauron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 12:23:20 by sauron            #+#    #+#             */
-/*   Updated: 2020/07/04 18:00:21 by sauron           ###   ########.fr       */
+/*   Updated: 2020/07/10 19:04:27 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	cl_init(t_cl *cl)
 
 void	cl_free(t_cl *cl)
 {
-	cl_int				ret;
+	cl_int		ret;
 
 	ret = clReleaseKernel(cl->kernel);
 //	printf("kernel free ret = %d\n", ret);

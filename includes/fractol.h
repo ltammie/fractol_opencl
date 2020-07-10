@@ -1,6 +1,7 @@
 #ifndef FRACTOL_H
 #define FRACTOL_H
 
+# define CL_SILENCE_DEPRECATION TRUE
 # define WIDTH 1280
 # define HEIGHT 720
 # define HELP_WIDTH 600
