@@ -13,22 +13,23 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 
     float2 z;
   	float2 z_prev;
-  	float2 p;
-  	float2 c;
+  	float2 c_im_z;
+  	float2 c_re, c_im;
 
    	z = (float2)(map((float)x, 0, width - 1, minX, maxX), map((float)y, 0, height - 1, minY, maxY));
-   	c = (float2)(0.5667, 0.0);
-   	p = (float2)(0.0, -0.5);
-	z_prev = (float2)(0.0, 0.0);
+   	z_prev = z;
+   	c_re = (float2)(0.5667, 0.0);
+   	c_im = (float2)(0.0, -0.5);
     while (i < max_iter)
     {
-    	z_prev = (float2)(z.x, z.y);
-    	float2 tmp;
-        tmp = (float2)(z.x * z.x - (z.y * z.y), z.y * z.x + z.x * z.y);
-        float2 pz;
-        pz = (float2)(z_prev.x * p.x - (z_prev.y * p.y), z_prev.x * p.y + z_prev.y * p.x);
-        z = tmp + c + pz;
-        z_prev = (float2)(z.x, z.y);
+        z = (float2)(z.x * z.x - (z.y * z.y), z.y * z.x + z.x * z.y);
+
+        c_im_z = (float2)(z_prev.x * c_im.x - (z_prev.y * c_im.y), z_prev.x * c_im.y + z_prev.y * c_im.x);
+
+        z = z + c_re + c_im_z;
+
+        z_prev = z;
+
     	if (dot(z,z) > 20.0)
     		break;
     	i++;
