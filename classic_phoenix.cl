@@ -11,24 +11,24 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
     int height = get_global_size(1);
     int i = 0;
 
-    float2 z;
-  	float2 z_prev;
+    float2 z, tmp;
+  	float2 z_prev1, z_prev2;
   	float2 c_im_z;
   	float2 c_re, c_im;
 
    	z = (float2)(map((float)x, 0, width - 1, minX, maxX), map((float)y, 0, height - 1, minY, maxY));
-   	z_prev = z;
+	z_prev1 = z;
+	z_prev2 = z;
    	c_re = (float2)(0.5667, 0.0);
    	c_im = (float2)(0.0, -0.5);
     while (i < max_iter)
     {
-        z = (float2)(z.x * z.x - (z.y * z.y), z.y * z.x + z.x * z.y);
+        tmp = (float2)(z_prev1.x * z_prev1.x - (z_prev1.y * z_prev1.y), z_prev1.y * z_prev1.x + z_prev1.x * z_prev1.y);
+        c_im_z = (float2)(z_prev2.x * c_im.x - (z_prev2.y * c_im.y), z_prev2.x * c_im.y + z_prev2.y * c_im.x);
+		z_prev2 = z_prev1;
+        z_prev1 = z;
+        z = tmp + c_re + c_im_z;
 
-        c_im_z = (float2)(z_prev.x * c_im.x - (z_prev.y * c_im.y), z_prev.x * c_im.y + z_prev.y * c_im.x);
-
-        z = z + c_re + c_im_z;
-
-        z_prev = z;
 
     	if (dot(z,z) > 20.0)
     		break;
