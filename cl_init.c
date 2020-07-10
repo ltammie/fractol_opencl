@@ -6,7 +6,7 @@
 /*   By: sauron <sauron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 12:23:20 by sauron            #+#    #+#             */
-/*   Updated: 2020/07/10 19:04:27 by sauron           ###   ########.fr       */
+/*   Updated: 2020/07/10 19:23:08 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,18 @@ void	cl_init(t_cl *cl)
 //	printf("platfrom ret = %d\n", ret);
 	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_GPU, 1, &cl->device_id, NULL);
 //	printf("device ret = %d\n", ret);
+//	cl_uint tmp;
+//	clGetDeviceInfo(cl->device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(tmp), &tmp, NULL);
+//	printf("max compute_units = %d\n", tmp);
+//	clGetDeviceInfo(cl->device_id, CL_DEVICE_IMAGE_SUPPORT, sizeof(tmp), &tmp, NULL);
+//	printf("image support = %s\n", tmp ? "true" : "false");;
+//	clGetDeviceInfo(cl->device_id, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, sizeof(tmp), &tmp, NULL);
+//	printf("max dimensions = %d\n", tmp);
+//	clGetDeviceInfo(cl->device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(tmp), &tmp, NULL);
+//	printf("max work_group size = %d\n", tmp);
+//	char ext[4096];
+//	clGetDeviceInfo(cl->device_id, CL_DEVICE_EXTENSIONS, sizeof(ext), ext, NULL);
+//	printf("EXTENSIONS: %s\n",ext);
 
 	cl->context = clCreateContext(NULL, 1, &cl->device_id, NULL, NULL, &ret);
 //	printf("context ret = %d\n", ret);
