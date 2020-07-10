@@ -12,14 +12,14 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 	int i = 0;
 
 	float2 z, c;
-	z = (float2)(0.0, 0.0);
+	z = (float2)(0.5, 0.3));
 	c.x = map((float)x, 0, width - 1, minX, maxX);
 	c.y = map((float)y, 0, height - 1, minY, maxY);
 	while (i < max_iter)
 	{
 		float2 tmp;
     	tmp = (float2)(z.x * z.x + (-1) * (z.y * z.y),z.y * z.x + z.x * z.y);
-		z = tmp + c;
+		z = z * sin(z);
 		if (dot(z,z) > 20.0)
 			break;
 		i++;

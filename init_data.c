@@ -28,7 +28,9 @@ static	char	*return_fractal_type(int argv)
 	if (argv == 3)
 		return ("ship.cl");
 	if (argv == 4)
-		return ("black_hole.cl");
+		return ("wrong_phoenix.cl");
+	if (argv == 5)
+		return ("classic_phoenix.cl");
 	return ("meow");
 }
 
@@ -48,6 +50,7 @@ t_mlx	*init_data(int argv)
 			&data->img.bpp, &data->img.size_l, &data->img.endian);
 	data->fractal_type = argv;
 	data->cl_source = return_fractal_type(argv);
+	printf("%s\n", data->cl_source);
 	init_view(&data->view);
 	if (data->fractal_type == 3)
 	{
