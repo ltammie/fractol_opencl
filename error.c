@@ -14,7 +14,7 @@ void	error(int err)
 	}
 	else
 	{
-		write(1, "error\n", 6);
+		ft_putnbr(err);
 		exit(0);
 	}
 }

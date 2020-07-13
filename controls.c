@@ -1,7 +1,41 @@
 #include "includes/fractol.h"
 
+//original zoom
+
+//int		zoom(int key, t_mlx *data, int x, int y)
+//{
+//
+//	if ((key == MIN || key == RIGHT_MB) && data->view.zf > 1)
+//	{
+//		data->max_iter -= 3;
+//		data->view.zf -= 1.0f;
+//	}
+//	if (key == PLUS || key == LEFT_MB)
+//	{
+//		data->max_iter += 3;
+//		data->view.zf += 1.0f;
+//	}
+//	data->view.zoom = powf(ZOOM, data->view.zf);
+//	data->view.offsetX += MAX_RE / (WIDTH / 2.0) * (x - 640) * data->view.zoom;
+//	if (y >= 360)
+//		data->view.offsetY += MIN_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
+//	else
+//		data->view.offsetY -= MAX_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
+//	data->view.minX = MIN_RE * data->view.zoom + data->view.offsetX;
+//	data->view.maxX = MAX_RE * data->view.zoom + data->view.offsetX;
+//	data->view.minY = MIN_IM * data->view.zoom + data->view.offsetY;
+//	data->view.maxY = MAX_IM * data->view.zoom + data->view.offsetY;
+//	mlx_clear_window(data->mlx, data->win);
+//	draw_image(data);
+//	mlx_do_sync(data->mlx);
+//	return (0);
+//}
+
+//translate, scale, translate back
+
 int		zoom(int key, t_mlx *data, int x, int y)
 {
+
 	if ((key == MIN || key == RIGHT_MB) && data->view.zf > 1)
 	{
 		data->max_iter -= 3;
@@ -13,20 +47,34 @@ int		zoom(int key, t_mlx *data, int x, int y)
 		data->view.zf += 1.0f;
 	}
 	data->view.zoom = powf(ZOOM, data->view.zf);
-	data->view.offsetX += MAX_RE / (WIDTH / 2.0) * (x - 640) * data->view.zoom;
+	data->view.offsetX = MAX_RE / (WIDTH / 2.0) * (x - 640) * data->view.zoom;
 	if (y >= 360)
-		data->view.offsetY += MIN_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
+		data->view.offsetY = MIN_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
 	else
-		data->view.offsetY -= MAX_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
-	data->view.minX = MIN_RE * data->view.zoom + data->view.offsetX;
-	data->view.maxX = MAX_RE * data->view.zoom + data->view.offsetX;
-	data->view.minY = MIN_IM * data->view.zoom + data->view.offsetY;
-	data->view.maxY = MAX_IM * data->view.zoom + data->view.offsetY;
+		data->view.offsetY = MAX_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
+	data->view.minX -= data->view.offsetX;
+	data->view.maxX -= data->view.offsetX;
+	data->view.minY -= data->view.offsetY;
+	data->view.maxY -= data->view.offsetY;
+
+	data->view.minX *= data->view.zoom;
+	data->view.maxX *= data->view.zoom;
+	data->view.minY *= data->view.zoom;
+	data->view.maxY *= data->view.zoom;
+
+	data->view.minX += data->view.offsetX;
+	data->view.maxX += data->view.offsetX;
+	data->view.minY += data->view.offsetY;
+	data->view.maxY += data->view.offsetY;
+
+
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
 	mlx_do_sync(data->mlx);
+
 	return (0);
 }
+
 
 int 	arrow_move(int key, t_mlx *data)
 {

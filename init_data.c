@@ -17,6 +17,7 @@ void	init_view(t_view *view)
 	view->color_type = 1;
 	view->mouse_re = 0.0f;
 	view->mouse_im = 0.0f;
+	view->b = 0;
 }
 
 static	char	*return_fractal_type(int argv)
@@ -39,11 +40,11 @@ t_mlx	*init_data(int argv)
 	t_mlx *data;
 
 	if (!(data = (t_mlx *)malloc(sizeof(t_mlx))))
-		error(0);
+		error(MLX_MALLOC_ERROR);
 	if (!(data->mlx = mlx_init()))
-		error(0);
+		error(MLX_INIT_ERROR);
 	if (!(data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "fractol")))
-		error(0);
+		error(MLX_MAIN_WINDOW_CREATE_ERROR);
 	data->help_status = 0;
 	data->img.img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->img.img_data = (int *)mlx_get_data_addr(data->img.img_ptr,

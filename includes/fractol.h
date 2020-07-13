@@ -1,7 +1,10 @@
 #ifndef FRACTOL_H
 #define FRACTOL_H
 
-# define CL_SILENCE_DEPRECATION TRUE
+# ifndef GL_SILENCE_DEPRECATION
+# define GL_SILENCE_DEPRECATION 1
+# endif
+
 # define WIDTH 1280
 # define HEIGHT 720
 # define HELP_WIDTH 600
@@ -16,11 +19,12 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <OpenCL/opencl.h>
 #include "../minilibx/mlx.h"
 #include "../libft/libft.h"
-#include <OpenCL/opencl.h>
 #include "keys.h"
 #include "color_schemes.h"
+#include "error_codes.h"
 
 typedef union	u_rgb
 {
@@ -60,6 +64,10 @@ typedef	struct	s_view
 	int			color_type;
 	float		mouse_re;
 	float		mouse_im;
+	int 		b;
+	int			pressed_button;
+	int 		zoom_x;
+	int 		zoom_y;
 
 }				t_view;
 
