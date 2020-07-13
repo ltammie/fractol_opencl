@@ -18,7 +18,7 @@ static int	mouse_button_press(int button, int x, int y, t_mlx *data)
 {
 	if (button == LEFT_MB || button == RIGHT_MB)
 	{
-		data->view.b = 1;
+		data->view.b = 1; // control r_mb
 		data->view.pressed_button = button;
 		data->view.zoom_x = x;
 		data->view.zoom_y = y;

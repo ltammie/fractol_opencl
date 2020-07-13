@@ -47,25 +47,32 @@ int		zoom(int key, t_mlx *data, int x, int y)
 		data->view.zf += 1.0f;
 	}
 	data->view.zoom = powf(ZOOM, data->view.zf);
-	data->view.offsetX = MAX_RE / (WIDTH / 2.0) * (x - 640) * data->view.zoom;
+	data->view.offsetX = MAX_RE / (WIDTH / 2.0) * (x - 640);
 	if (y >= 360)
-		data->view.offsetY = MIN_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
+		data->view.offsetY = MIN_IM / (HEIGHT / 2.0)  * (360 - y);
 	else
-		data->view.offsetY = MAX_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
-	data->view.minX -= data->view.offsetX;
-	data->view.maxX -= data->view.offsetX;
-	data->view.minY -= data->view.offsetY;
-	data->view.maxY -= data->view.offsetY;
+		data->view.offsetY = MAX_IM / (HEIGHT / 2.0)  * (360 - y);
+	data->view.minX -= data->view.offsetX ;
+	data->view.maxX -= data->view.offsetX ;
+	data->view.minY -= data->view.offsetY ;
+	data->view.maxY -= data->view.offsetY ;
+	printf("translate\noffsetX = %f | offsetY = %f\n", data->view.offsetX, data->view.offsetY);
+	printf("minX = %f | maxX = %f\nminY = %f | maxY = %f\n\n", data->view.minX, data->view.maxX, data->view.minY, data->view.maxY);
 
 	data->view.minX *= data->view.zoom;
 	data->view.maxX *= data->view.zoom;
 	data->view.minY *= data->view.zoom;
 	data->view.maxY *= data->view.zoom;
 
-	data->view.minX += data->view.offsetX;
-	data->view.maxX += data->view.offsetX;
-	data->view.minY += data->view.offsetY;
-	data->view.maxY += data->view.offsetY;
+	printf("scale\noffsetX = %f | offsetY = %f\n", data->view.offsetX, data->view.offsetY);
+	printf("minX = %f | maxX = %f\nminY = %f | maxY = %f\n\n", data->view.minX, data->view.maxX, data->view.minY, data->view.maxY);
+
+	data->view.minX += data->view.offsetX * data->view.zoom;
+	data->view.maxX += data->view.offsetX * data->view.zoom;
+	data->view.minY += data->view.offsetY * data->view.zoom;
+	data->view.maxY += data->view.offsetY * data->view.zoom;
+	printf("translate back\noffsetX = %f | offsetY = %f\n", data->view.offsetX, data->view.offsetY);
+	printf("minX = %f | maxX = %f\nminY = %f | maxY = %f\n\n", data->view.minX, data->view.maxX, data->view.minY, data->view.maxY);
 
 
 	mlx_clear_window(data->mlx, data->win);
