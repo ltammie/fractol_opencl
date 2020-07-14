@@ -12,6 +12,7 @@ int 	redraw(int key, t_mlx *data)
 	if (key == SPACE)
 	{
 		init_view(&data->view);
+		data->max_iter = 100;
 		mlx_clear_window(data->mlx, data->win);
 		draw_image(data);
 	}
@@ -24,6 +25,7 @@ int 	refresh(int key, t_mlx *data)
 	{
 		mlx_clear_window(data->mlx, data->win);
 		mlx_do_sync(data->mlx);
+		printf("zoom_factor = %f\n", data->view.zf);
 		draw_image(data);
 	}
 	return (0);

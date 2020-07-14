@@ -42,58 +42,31 @@ int		zoom(int key, t_mlx *data, int x, int y)
 {
 	float interpolation;
 
+	interpolation = 1.0f;
 	if ((key == MIN || key == RIGHT_MB) && data->view.zf > 1)
 	{
 		data->max_iter -= 3;
 		data->view.zf -= 0.01f;
+		interpolation = 1.0f / (1.0f / 1.1f);
+
 	}
-	if (key == PLUS || key == LEFT_MB)
+	else if (key == PLUS || key == LEFT_MB)
 	{
 		data->max_iter += 3;
 		data->view.zf += 0.01f;
+		interpolation = 1.0f / 1.1f;
 	}
-	data->view.zoom = powf(ZOOM, data->view.zf);
 	data->view.mouse_re = (float)x / (WIDTH / (data->view.maxX - data->view.minX)) + data->view.minX;
 	data->view.mouse_im = (float)y / (HEIGHT / (data->view.maxY - data->view.minY)) + data->view.minY;
-	interpolation = 1.0f / data->view.zf;
 	data->view.minX = interpolate(data->view.mouse_re, data->view.minX, interpolation);
 	data->view.minY = interpolate(data->view.mouse_im, data->view.minY, interpolation);
 	data->view.maxX = interpolate(data->view.mouse_re, data->view.maxX, interpolation);
 	data->view.maxY = interpolate(data->view.mouse_im, data->view.maxY, interpolation);
-
-
-//	printf("mouseRe = %f | mouseIm = %f\n", data->view.mouse_re, data->view.mouse_im);
-
-//	data->view.minX -= data->view.offsetX ;
-//	data->view.maxX -= data->view.offsetX ;
-//	data->view.minY -= data->view.offsetY ;
-//	data->view.maxY -= data->view.offsetY ;
-//	printf("translate\noffsetX = %f | offsetY = %f\n", data->view.offsetX, data->view.offsetY);
-//	printf("minX = %f | maxX = %f\nminY = %f | maxY = %f\n\n", data->view.minX, data->view.maxX, data->view.minY, data->view.maxY);
-//
-//	data->view.minX *= data->view.zoom;
-//	data->view.maxX *= data->view.zoom;
-//	data->view.minY *= data->view.zoom;
-//	data->view.maxY *= data->view.zoom;
-//
-//	printf("scale\noffsetX = %f | offsetY = %f\n", data->view.offsetX, data->view.offsetY);
-//	printf("minX = %f | maxX = %f\nminY = %f | maxY = %f\n\n", data->view.minX, data->view.maxX, data->view.minY, data->view.maxY);
-//
-//	data->view.minX += data->view.offsetX * data->view.zoom;
-//	data->view.maxX += data->view.offsetX * data->view.zoom;
-//	data->view.minY += data->view.offsetY * data->view.zoom;
-//	data->view.maxY += data->view.offsetY * data->view.zoom;
-//	printf("translate back\noffsetX = %f | offsetY = %f\n", data->view.offsetX, data->view.offsetY);
-//	printf("minX = %f | maxX = %f\nminY = %f | maxY = %f\n\n", data->view.minX, data->view.maxX, data->view.minY, data->view.maxY);
-
-
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
 	mlx_do_sync(data->mlx);
-
 	return (0);
 }
-
 
 int 	arrow_move(int key, t_mlx *data)
 {
