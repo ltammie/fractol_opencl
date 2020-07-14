@@ -1,38 +1,5 @@
 #include "includes/fractol.h"
 
-//original zoom
-
-//int		zoom(int key, t_mlx *data, int x, int y)
-//{
-//
-//	if ((key == MIN || key == RIGHT_MB) && data->view.zf > 1)
-//	{
-//		data->max_iter -= 3;
-//		data->view.zf -= 1.0f;
-//	}
-//	if (key == PLUS || key == LEFT_MB)
-//	{
-//		data->max_iter += 3;
-//		data->view.zf += 1.0f;
-//	}
-//	data->view.zoom = powf(ZOOM, data->view.zf);
-//	data->view.offsetX += MAX_RE / (WIDTH / 2.0) * (x - 640) * data->view.zoom;
-//	if (y >= 360)
-//		data->view.offsetY += MIN_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
-//	else
-//		data->view.offsetY -= MAX_IM / (HEIGHT / 2.0)  * (360 - y) * data->view.zoom;
-//	data->view.minX = MIN_RE * data->view.zoom + data->view.offsetX;
-//	data->view.maxX = MAX_RE * data->view.zoom + data->view.offsetX;
-//	data->view.minY = MIN_IM * data->view.zoom + data->view.offsetY;
-//	data->view.maxY = MAX_IM * data->view.zoom + data->view.offsetY;
-//	mlx_clear_window(data->mlx, data->win);
-//	draw_image(data);
-//	mlx_do_sync(data->mlx);
-//	return (0);
-//}
-
-//translate, scale, translate back
-
 static float interpolate(float start, float end, float interpolation)
 {
 	return (start + ((end - start) * interpolation));
@@ -43,17 +10,17 @@ int		zoom(int key, t_mlx *data, int x, int y)
 	float interpolation;
 
 	interpolation = 1.0f;
-	if ((key == MIN || key == RIGHT_MB) && data->view.zf > 1)
+	if ((key == MIN || key == RIGHT_MB || key == WHEEL_DOWN) && data->view.zf > 1)
 	{
 		data->max_iter -= 3;
-		data->view.zf -= 0.01f;
+		data->view.zf -= 1.0f;
 		interpolation = 1.0f / (1.0f / 1.1f);
 
 	}
-	else if (key == PLUS || key == LEFT_MB)
+	else if (key == PLUS || key == LEFT_MB || key == WHEEL_UP)
 	{
 		data->max_iter += 3;
-		data->view.zf += 0.01f;
+		data->view.zf += 1.0f;
 		interpolation = 1.0f / 1.1f;
 	}
 	data->view.mouse_re = (float)x / (WIDTH / (data->view.maxX - data->view.minX)) + data->view.minX;
@@ -73,20 +40,29 @@ int 	arrow_move(int key, t_mlx *data)
 	float	offset;
 	float	zoom;
 
-	zoom = data->view.zoom;
+	zoom = 1.0f / (float)(pow(1.1f, (double)data->view.zf));
 	offset = OFFSET * zoom;
 	if (key == A)
-		data->view.offsetX -= offset;
+	{
+		data->view.minX += offset * -1;
+		data->view.maxX += offset * -1;
+	}
 	if (key == D)
-		data->view.offsetX += offset;
+	{
+		data->view.minX += offset * 1;
+		data->view.maxX += offset * 1;
+	}
 	if (key == W)
-		data->view.offsetY -= offset;
+	{
+		data->view.minY += offset * -1;
+		data->view.maxY += offset * -1;
+	}
 	if (key == S)
-		data->view.offsetY += offset;
-	data->view.minX = MIN_RE * zoom + data->view.offsetX;
-	data->view.maxX = MAX_RE * zoom + data->view.offsetX;
-	data->view.minY = MIN_IM * zoom + data->view.offsetY;
-	data->view.maxY = MAX_IM * zoom + data->view.offsetY;
+	{
+		data->view.minY += offset * 1;
+		data->view.maxY += offset * 1;
+	}
+
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
 	mlx_do_sync(data->mlx);
@@ -100,8 +76,8 @@ int		change_julia(int x, int y, t_mlx *data)
 
 	re_factor = (MAX_RE - MIN_RE) / (WIDTH);
 	im_factor = (MAX_IM - MIN_IM) / (HEIGHT);
-	data->view.mouse_re = MIN_RE + x * re_factor;
-	data->view.mouse_im = MAX_IM - y * im_factor;
+	data->view.mouse_re = MIN_RE + (float)x * re_factor;
+	data->view.mouse_im = MAX_IM - (float)y * im_factor;
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
 	mlx_do_sync(data->mlx);
