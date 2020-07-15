@@ -15,8 +15,8 @@ int		draw_image(t_mlx *data)
 	clSetKernelArg(data->cl.kernel, 4, sizeof(float), &data->view.maxY);
 	if (data->fractal_type == 2)
 	{
-		clSetKernelArg(data->cl.kernel, 5, sizeof(float), &data->view.mouse_re);
-		clSetKernelArg(data->cl.kernel, 6, sizeof(float), &data->view.mouse_im);
+		clSetKernelArg(data->cl.kernel, 5, sizeof(float), &data->view.julia_re);
+		clSetKernelArg(data->cl.kernel, 6, sizeof(float), &data->view.julia_im);
 		clSetKernelArg(data->cl.kernel, 7, sizeof(cl_mem), &output_buffer);
 	}
 	else

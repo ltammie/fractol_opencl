@@ -25,7 +25,6 @@ int 	refresh(int key, t_mlx *data)
 	{
 		mlx_clear_window(data->mlx, data->win);
 		mlx_do_sync(data->mlx);
-		printf("zoom_factor = %f\n", data->view.zf);
 		draw_image(data);
 	}
 	return (0);
@@ -48,7 +47,7 @@ int		help_menu(int key, t_mlx *data)
 			if (!(data->help = mlx_new_window(data->mlx, HELP_WIDTH, HELP_HEIGHT, "Help")))
 				error(MLX_HELP_WINDOW_CREATE_ERROR);
 			data->help_status = 1;
-			mlx_hook(data->help, 2, (1L << 0), close_menu, data);
+			mlx_hook(data->help, 2, 0, close_menu, data);
 		}
 		else
 		{

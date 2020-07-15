@@ -2,36 +2,32 @@
 
 void			color_fractal(t_mlx *data)
 {
-	for (int i = 0; i < HEIGHT ; ++i)
+	int i;
+	int j;
+
+	i = 0;
+	while (i < HEIGHT)
 	{
-		for (int j = 0; j < WIDTH; ++j)
+		j = 0;
+		while (j < WIDTH)
 		{
 			if (data->view.color_type == 1)
-				data->img.img_data[i * WIDTH + j] = basic_one(data->result[i * WIDTH + j], data->max_iter);
+				data->img.img_data[i * WIDTH + j] = basic_one(data->result[i * WIDTH + j], (float)data->max_iter);
 			if (data->view.color_type == 2)
-				data->img.img_data[i * WIDTH + j] = zerg(data->result[i * WIDTH + j], data->max_iter);
+				data->img.img_data[i * WIDTH + j] = zerg(data->result[i * WIDTH + j], (float)data->max_iter);
 			if (data->view.color_type == 3)
-				data->img.img_data[i * WIDTH + j] = black_hole(data->result[i * WIDTH + j], data->max_iter);
+				data->img.img_data[i * WIDTH + j] = black_hole(data->result[i * WIDTH + j], (float)data->max_iter);
 			if (data->view.color_type == 4)
-				data->img.img_data[i * WIDTH + j] = mix(data->result[i * WIDTH + j], data->max_iter);
-//			if (data->fractal_type == 4)
-//			{
-//				if (data->result[i * WIDTH + j] ==1)
-//					data->img.img_data[i * WIDTH + j] = RED;
-//				if (data->result[i * WIDTH + j] == 2)
-//					data->img.img_data[i * WIDTH + j] = YELLOW;
-//				if (data->result[i * WIDTH + j] == 3)
-//					data->img.img_data[i * WIDTH + j] = WHITE;
-//				if (data->result[i * WIDTH + j] == 4)
-//					data->img.img_data[i * WIDTH + j] = BLACK;
-//			};
+				data->img.img_data[i * WIDTH + j] = mix(data->result[i * WIDTH + j], (float)data->max_iter);
+			j++;
 		}
+		i++;
 	}
 	mlx_clear_window(data->mlx, data->win);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 }
 
-int				zerg(float x, int max)
+int				zerg(float x, float max)
 {
 	float k;
 	t_rgb color;
@@ -39,12 +35,12 @@ int				zerg(float x, int max)
 	if (x == max)
 		return (BLACK);
 	k = (x / max);
-	color = hsv_to_rgb(320, 0.8, 1 * k);
+	color = hsv_to_rgb(320, 0.8f, 1 * k);
 
-	return (color.c);
+	return ((int)color.c);
 }
 
-int				basic_one(float i, int max)
+int				basic_one(float i, float max)
 {
 	t_rgb color;
 	float k;
@@ -59,7 +55,7 @@ int				basic_one(float i, int max)
 	return (color.c);
 }
 
-int				black_hole(float i, int max)
+int				black_hole(float i, float max)
 {
 	float k;
 	t_rgb color;
@@ -72,7 +68,7 @@ int				black_hole(float i, int max)
 
 }
 
-int				mix(float i, int max)
+int				mix(float i, float max)
 {
 	t_rgb color;
 	float k;

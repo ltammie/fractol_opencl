@@ -13,7 +13,6 @@
 # define MAX_RE 2.0f
 # define MIN_IM -1.17f
 # define MAX_IM 1.17f
-# define ZOOM 0.9501f
 # define OFFSET 0.05f
 
 #include <stdlib.h>
@@ -50,22 +49,21 @@ typedef struct	s_image
 typedef	struct	s_view
 {
 	float 		zf;
-	float 		zoom;
 	float 		minX;
 	float 		maxX;
 	float 		minY;
 	float 		maxY;
-	float 		offsetX;
-	float 		offsetY;
+	float 		offset;
 	float 		prev_mouseX;
 	float 		prev_mouseY;
-	float 		mouseShiftX;
-	float 		mouseShiftY;
 	int			color_type;
 	float		mouse_re;
 	float		mouse_im;
+	float		julia_re;
+	float		julia_im;
 	int 		b;
 	int			pressed_button;
+	int 		julia_change_mod;
 	int 		zoom_x;
 	int 		zoom_y;
 
@@ -137,10 +135,10 @@ int				help_menu(int key, t_mlx *data);
  ** --------coloring_functions----------
  */
 
-int				zerg(float x, int max);
-int				basic_one(float i, int max);
-int				black_hole(float i, int max);
-int				mix(float i, int max);
+int				zerg(float x, float max);
+int				basic_one(float i, float max);
+int				black_hole(float i, float max);
+int				mix(float i, float max);
 void			color_fractal(t_mlx *data);
 int				change_color(int key, t_mlx *data);
 
@@ -152,7 +150,6 @@ int				change_color(int key, t_mlx *data);
 void			error(int err);
 t_rgb			new_rgb_color(unsigned char r, unsigned char g, unsigned char b);
 t_rgb			hsv_to_rgb(float h, float s, float v);
-t_rgb			*new_palette(t_rgb start, t_rgb end, int steps);
 
 #endif
 

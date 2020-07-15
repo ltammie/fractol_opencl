@@ -37,32 +37,27 @@ int		zoom(int key, t_mlx *data, int x, int y)
 
 int 	arrow_move(int key, t_mlx *data)
 {
-	float	offset;
-	float	zoom;
-
-	zoom = 1.0f / (float)(pow(1.1f, (double)data->view.zf));
-	offset = OFFSET * zoom;
+	data->view.offset = OFFSET * (1.0f / (float)(pow(1.1f, (double)data->view.zf)));
 	if (key == A)
 	{
-		data->view.minX += offset * -1;
-		data->view.maxX += offset * -1;
+		data->view.minX += data->view.offset * -1;
+		data->view.maxX += data->view.offset * -1;
 	}
 	if (key == D)
 	{
-		data->view.minX += offset * 1;
-		data->view.maxX += offset * 1;
+		data->view.minX += data->view.offset * 1;
+		data->view.maxX += data->view.offset * 1;
 	}
 	if (key == W)
 	{
-		data->view.minY += offset * -1;
-		data->view.maxY += offset * -1;
+		data->view.minY += data->view.offset * -1;
+		data->view.maxY += data->view.offset * -1;
 	}
 	if (key == S)
 	{
-		data->view.minY += offset * 1;
-		data->view.maxY += offset * 1;
+		data->view.minY += data->view.offset * 1;
+		data->view.maxY += data->view.offset * 1;
 	}
-
 	mlx_clear_window(data->mlx, data->win);
 	draw_image(data);
 	mlx_do_sync(data->mlx);
@@ -74,13 +69,16 @@ int		change_julia(int x, int y, t_mlx *data)
 	float re_factor;
 	float im_factor;
 
-	re_factor = (MAX_RE - MIN_RE) / (WIDTH);
-	im_factor = (MAX_IM - MIN_IM) / (HEIGHT);
-	data->view.mouse_re = MIN_RE + (float)x * re_factor;
-	data->view.mouse_im = MAX_IM - (float)y * im_factor;
-	mlx_clear_window(data->mlx, data->win);
-	draw_image(data);
-	mlx_do_sync(data->mlx);
+	if (data->view.julia_change_mod == 1)
+	{
+		re_factor = (MAX_RE - MIN_RE) / (WIDTH);
+		im_factor = (MAX_IM - MIN_IM) / (HEIGHT);
+		data->view.julia_re = MIN_RE + (float) x * re_factor;
+		data->view.julia_im = MAX_IM - (float) y * im_factor;
+		mlx_clear_window(data->mlx, data->win);
+		draw_image(data);
+		mlx_do_sync(data->mlx);
+	}
 	return (0);
 }
 

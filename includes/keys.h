@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 20:10:34 by ltammie           #+#    #+#             */
-/*   Updated: 2020/07/08 22:55:42 by sauron           ###   ########.fr       */
+/*   Updated: 2020/07/15 01:42:48 by sauron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define R 15
 # define H 4
 # define P 35
+# define M 46
 # define ESC 53
 # define SPACE 49
 # define ONE 18
@@ -30,8 +31,8 @@
 # define FOUR 21
 # define MIN 27
 # define PLUS 24
-# define WHEEL_UP -1
-# define WHEEL_DOWN -2
+# define WHEEL_UP 4
+# define WHEEL_DOWN 5
 # define AR_UP 126
 # define AR_DOWN 125
 # define AR_LEFT 123

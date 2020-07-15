@@ -18,7 +18,7 @@ static int	mouse_button_press(int button, int x, int y, t_mlx *data)
 {
 	if (button == LEFT_MB || button == RIGHT_MB)
 	{
-		data->view.b = 1; // control r_mb
+		data->view.b = 1;
 		data->view.pressed_button = button;
 		data->view.zoom_x = x;
 		data->view.zoom_y = y;
@@ -55,6 +55,8 @@ static int	key_press(int key, t_mlx *data)
 		}
 
 	}
+	if (key == M)
+		data->view.julia_change_mod = (data->view.julia_change_mod == 1) ? 0 : 1;
 	if (key == SPACE)
 		redraw(key, data);
 	if (key == ONE || key == TWO || key == THREE || key == FOUR)
@@ -74,10 +76,10 @@ int			main(int argc, char **argv)
 	data = init_data(ft_atoi(argv[1]));
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
 	draw_image(data);
-	mlx_hook(data->win, 2, (1L << 0), key_press, data);
-	mlx_hook(data->win, 4, (1L << 2), mouse_button_press, data);
-	mlx_hook(data->win, 5, (1L << 2), mouse_button_release, data);
-	mlx_hook(data->win, 6, (1L << 2), change_julia, data);// 4 for press, 5 for release, 6 for movement
+	mlx_hook(data->win, 2, 0, key_press, data);
+	mlx_hook(data->win, 4, 0, mouse_button_press, data);
+	mlx_hook(data->win, 5, 0, mouse_button_release, data);
+	mlx_hook(data->win, 6, 0, change_julia, data);
 	mlx_loop_hook(data->mlx, no_events, data);
 	mlx_loop(data->mlx);
 	return (0);
