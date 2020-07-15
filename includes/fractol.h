@@ -63,6 +63,7 @@ typedef	struct	s_view
 	float		julia_im;
 	int 		b;
 	int			pressed_button;
+	int 		music_status;
 	int 		julia_change_mod;
 	int 		zoom_x;
 	int 		zoom_y;
@@ -132,6 +133,8 @@ int				arrow_move(int key, t_mlx *data);
 void			close_fractol(t_mlx *data);
 int				change_julia(int x, int y, t_mlx *data);
 int				help_menu(int key, t_mlx *data);
+int				play_music(t_mlx *data);
+
 
 /*
  ** --------coloring_functions----------

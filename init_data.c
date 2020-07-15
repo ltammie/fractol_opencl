@@ -17,6 +17,7 @@ void	init_view(t_view *view)
 	view->julia_im = 0.0f;
 	view->b = 0;
 	view->pressed_button = -1;
+	view->music_status = 0;
 	view->julia_change_mod = 0;
 }
 

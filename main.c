@@ -45,16 +45,7 @@ static int	key_press(int key, t_mlx *data)
 	if (key == H)
 		help_menu(key, data);
 	if (key == P)
-	{
-		for (int i = 0; i < HEIGHT ; ++i)
-		{
-			for (int j = 0; j < WIDTH; ++j)
-			{
-				write(open("screenshot.jpeg",O_WRONLY), &data->img.img_data[i * WIDTH + j], 4);
-			}
-		}
-
-	}
+		play_music(data);
 	if (key == M)
 		data->view.julia_change_mod = (data->view.julia_change_mod == 1) ? 0 : 1;
 	if (key == SPACE)
