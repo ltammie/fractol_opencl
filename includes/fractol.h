@@ -79,6 +79,8 @@ typedef struct	s_cl
 	cl_kernel			kernel;
 	char 				**kernel_source;
 	int 				count;
+	size_t 				dim;
+	size_t				global_size[2];
 }				t_cl;
 
 typedef struct	s_mlx

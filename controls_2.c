@@ -32,6 +32,7 @@ int 	refresh(int key, t_mlx *data)
 
 void	close_fractol(t_mlx *data)
 {
+	cl_free(&data->cl);
 	mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_image(data->mlx, data->img.img_ptr);
 	(void)data;

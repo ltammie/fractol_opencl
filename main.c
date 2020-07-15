@@ -75,6 +75,7 @@ int			main(int argc, char **argv)
 	check_argv(ft_atoi(argv[1]));
 	data = init_data(ft_atoi(argv[1]));
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
+	cl_init(&data->cl);
 	draw_image(data);
 	mlx_hook(data->win, 2, 0, key_press, data);
 	mlx_hook(data->win, 4, 0, mouse_button_press, data);

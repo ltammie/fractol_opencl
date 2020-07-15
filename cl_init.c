@@ -101,6 +101,9 @@ void	cl_init(t_cl *cl)
 	cl->kernel = clCreateKernel(cl->program, "array_add", &ret);
 //	printf("kernel creation ret = %d\n", ret);
 	cl->queue = clCreateCommandQueue(cl->context, cl->device_id, 0, &ret);
+	cl->dim = 2;
+	cl->global_size[0] = WIDTH;
+	cl->global_size[1] = HEIGHT;
 //	printf("queue ret = %d\n", ret);
 //	printf("source code read\n");
 }
