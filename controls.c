@@ -14,14 +14,14 @@ int		zoom(int key, t_mlx *data, int x, int y)
 	{
 		data->max_iter -= 3;
 		data->view.zf -= 1.0f;
-		interpolation = 1.0f / (1.0f / 1.1f);
+		interpolation = 1.0f / (1.0f / 1.02f);
 
 	}
 	else if (key == PLUS || key == LEFT_MB || key == WHEEL_UP)
 	{
 		data->max_iter += 3;
 		data->view.zf += 1.0f;
-		interpolation = 1.0f / 1.1f;
+		interpolation = 1.0f / 1.02f;
 	}
 	data->view.mouse_re = (float)x / (WIDTH / (data->view.maxX - data->view.minX)) + data->view.minX;
 	data->view.mouse_im = (float)y / (HEIGHT / (data->view.maxY - data->view.minY)) + data->view.minY;
@@ -37,7 +37,7 @@ int		zoom(int key, t_mlx *data, int x, int y)
 
 int 	arrow_move(int key, t_mlx *data)
 {
-	data->view.offset = OFFSET * (1.0f / (float)(pow(1.1f, (double)data->view.zf)));
+	data->view.offset = OFFSET * (1.0f / (float)(pow(1.02f, (double)data->view.zf)));
 	if (key == A)
 	{
 		data->view.minX += data->view.offset * -1;
