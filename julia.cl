@@ -3,7 +3,8 @@ static float 	map(float value, float fmin, float fmax, float tmin, float tmax)
 	return ((value - fmin) * (tmax - tmin) / (fmax - fmin) + tmin);
 }
 
-__kernel void array_add(int max_iter, float minX, float maxX, float minY, float maxY, float re, float im, __global float *output)
+__kernel void array_add(int max_iter, float minX, float maxX, float minY, float maxY,  __global float *output,
+										float re, float im)
 {
 	int x = get_global_id(0);
 	int y = get_global_id(1);

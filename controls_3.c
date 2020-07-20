@@ -26,3 +26,19 @@ int 	max_iter_change(int key, t_mlx *data)
 	mlx_do_sync(data->mlx);
 	return (0);
 }
+
+int 	change_angle(int key, t_mlx *data)
+{
+	if (key == AR_LEFT)
+		data->view.angle -= 10.0f;
+	if (key == AR_RIGHT)
+		data->view.angle += 10.0f;
+	if (data->view.angle < 0.0f)
+		data->view.angle += 360.0f;
+	if (data->view.angle > 360.0f)
+		data->view.angle -= 360.0f;
+	mlx_clear_window(data->mlx, data->win);
+	draw_image(data);
+	mlx_do_sync(data->mlx);
+	return (0);
+}

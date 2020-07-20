@@ -53,6 +53,7 @@ typedef	struct	s_view
 	float 		maxX;
 	float 		minY;
 	float 		maxY;
+	float 		angle;
 	float 		offset;
 	float 		prev_mouseX;
 	float 		prev_mouseY;
@@ -120,7 +121,6 @@ char			**get_kernel_source(t_cl *cl, char *type);
  */
 
 int				draw_image(t_mlx *data);
-int				draw_spec_mandelbrot(t_mlx *data);
 
 /*
  ** --------------controls--------------
@@ -135,7 +135,7 @@ void			close_fractol(t_mlx *data);
 int				change_julia(int x, int y, t_mlx *data);
 int				help_menu(int key, t_mlx *data);
 int				play_music(t_mlx *data);
-
+int				change_angle(int key, t_mlx *data);
 
 /*
  ** --------coloring_functions----------

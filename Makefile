@@ -10,7 +10,6 @@ SRCS = main.c\
 		error.c\
 		init_data.c\
 		rgb.c\
-		draw_spec_mandelbrot.c
 
 OBJS = $(SRCS:.c=.o)
 HEAD = -c -I fractol.h

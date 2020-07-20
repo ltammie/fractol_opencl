@@ -7,6 +7,7 @@ void	init_view(t_view *view)
 	view->maxX = 2.0f;
 	view->minY = -1.17f;
 	view->maxY = 1.17f;
+	view->angle = 0.0f;
 	view->offset = 0.0f;
 	view->prev_mouseX = 0.0f;
 	view->prev_mouseY = 0.0f;

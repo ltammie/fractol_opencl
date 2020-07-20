@@ -59,7 +59,8 @@ static	int color(int iter, int max, float2 z, float2 d, float ang)
 	return ((reflection <= 0) ? ((12 << 16) | (5 << 8) | 555) : ((b << 16) | (b << 8) | b));
 }
 
-__kernel void array_add(int max_iter, float minX, float maxX, float minY, float maxY, __global float *output)
+__kernel void array_add(int max_iter, float minX, float maxX, float minY, float maxY, __global float *output,
+						float angle)
 {
 	int x = get_global_id(0);
 	int y = get_global_id(1);
@@ -84,5 +85,5 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 			break;
 		i++;
 	}
-	output[y * width + x] = color(i, max_iter, z, d, 45.0);
+	output[y * width + x] = color(i, max_iter, z, d, angle);
 }

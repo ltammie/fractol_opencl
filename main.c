@@ -40,6 +40,8 @@ static int	key_press(int key, t_mlx *data)
 		arrow_move(key, data);
 	if (key == Q || key == E)
 		max_iter_change(key, data);
+	if ((key == AR_LEFT || key == AR_RIGHT) && data->fractal_type == 6)
+		change_angle(key,data);
 	if (key == R)
 		refresh(key, data);
 	if (key == H)
@@ -67,9 +69,7 @@ int			main(int argc, char **argv)
 	data = init_data(ft_atoi(argv[1]));
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
 	cl_init(&data->cl);
-	if (data->fractal_type != 6)
-		draw_image(data);
-	else (draw_spec_mandelbrot(data));
+	draw_image(data);
 	mlx_hook(data->win, 2, 0, key_press, data);
 	mlx_hook(data->win, 4, 0, mouse_button_press, data);
 	mlx_hook(data->win, 5, 0, mouse_button_release, data);
