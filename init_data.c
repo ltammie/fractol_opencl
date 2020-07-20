@@ -33,6 +33,8 @@ static	char	*return_fractal_type(int argv)
 		return ("wrong_phoenix.cl");
 	if (argv == 5)
 		return ("classic_phoenix.cl");
+	if (argv == 6)
+		return ("mbrot_spec_color.cl");
 	return ("meow");
 }
 

@@ -83,7 +83,7 @@ void	cl_init(t_cl *cl)
 //	printf("log size ret = %d\n", ret);
 	char *log = (char *)malloc(sizeof(char) * log_size);
 	clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
-	write(open("log.txt", O_WRONLY), log, log_size);
+	write(open("log.txt", O_CREAT | O_WRONLY), log, log_size);
 
 	/* создать кернел, передваемое имя - название kernela в файле .cl */
 	cl->kernel = clCreateKernel(cl->program, "array_add", &ret);

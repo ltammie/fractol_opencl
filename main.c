@@ -2,7 +2,7 @@
 
 static	void check_argv(int type)
 {
-	if (type != 1 && type != 2 && type != 3 && type != 4  && type != 5)
+	if (type != 1 && type != 2 && type != 3 && type != 4  && type != 5 && type != 6)
 		error(1);
 }
 
@@ -67,7 +67,9 @@ int			main(int argc, char **argv)
 	data = init_data(ft_atoi(argv[1]));
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
 	cl_init(&data->cl);
-	draw_image(data);
+	if (data->fractal_type != 6)
+		draw_image(data);
+	else (draw_spec_mandelbrot(data));
 	mlx_hook(data->win, 2, 0, key_press, data);
 	mlx_hook(data->win, 4, 0, mouse_button_press, data);
 	mlx_hook(data->win, 5, 0, mouse_button_release, data);

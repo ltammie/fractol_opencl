@@ -120,6 +120,7 @@ char			**get_kernel_source(t_cl *cl, char *type);
  */
 
 int				draw_image(t_mlx *data);
+int				draw_spec_mandelbrot(t_mlx *data);
 
 /*
  ** --------------controls--------------
