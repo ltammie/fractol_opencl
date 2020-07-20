@@ -11,11 +11,14 @@ static void spec_color(t_mlx *data)
 		j = 0;
 		while (j < WIDTH)
 		{
-			data->img.img_data[i * WIDTH + j] = data->result[i * WIDTH + j];
+
+			data->img.img_data[i * WIDTH + j] = (int)data->result[i * WIDTH + j];
 			j++;
 		}
 		i++;
 	}
+	mlx_clear_window(data->mlx, data->win);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 }
 
 int		draw_spec_mandelbrot(t_mlx *data)

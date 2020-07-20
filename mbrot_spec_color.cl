@@ -32,31 +32,31 @@ static	float2	comp_mult(float2 a, float2 b)
     return (res);
 }
 
-static int 		color(int iter, int max, float z, float d, float ang)
+static	int color(int iter, int max, float2 z, float2 d, float ang)
 {
-	float			reflection = 0;
+	float			reflection = (float)(0.0);
 	unsigned int	b;
 
-	float		h = (float)1.3; // height factor of the incoming light
-	float		angle = (float)(ang / 360.0); // incoming direction of light
-	float2		v = (float2)(0.0, 0.0); // = exp(1j*angle*2*pi/360)
+	float		h = (float)1.3;
+	float		angle = (float)(ang / 360.0);
+	float2		v = (float2)(0.0, 0.0);
 	float2		u = (float2)(0.0, 0.0);
 	float2		u_tmp = (float2)(0.0, 0.0);
 
 	v.y = (2 * angle * M_PI_F);
 	v = exponent(v);
 
-	if (iter != max) // outside of M set
+	if (iter != max)
 	{
 		u = comp_div(z, d);
 		u_tmp.x = length(u);
 		u = comp_div(u, u_tmp);
 		reflection = dot(u, v);
 		reflection = reflection + h;
-		reflection = (float)(reflection / (1.0 + h)); // rescale so that t does not get bigger than 1
+		reflection = (float)(reflection / (1.0 + h));
 	}
 	b = (int)(255 * reflection);
-	return = (reflection <= 0) ? ((12 << 16) | (5 << 8) | 555) : ((b << 16) | (b << 8) | b);
+	return ((reflection <= 0) ? ((12 << 16) | (5 << 8) | 555) : ((b << 16) | (b << 8) | b));
 }
 
 __kernel void array_add(int max_iter, float minX, float maxX, float minY, float maxY, __global float *output)
@@ -78,11 +78,11 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 	{
 		d = comp_mult(two, d);
 		d = comp_mult(d, z);
-		d = comp_mult(d, one);
+		d = d + one;
 		z = comp_mult(z, z) + c;
 		if (dot(z,z) > 20.0)
 			break;
 		i++;
 	}
-	output[y * width + x] = color(i, max_iter, z, d, 45);
+	output[y * width + x] = color(i, max_iter, z, d, 45.0);
 }
