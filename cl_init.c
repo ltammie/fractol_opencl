@@ -87,6 +87,7 @@ void	cl_init(t_cl *cl)
 		clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, log_size + 1, log, NULL);
 		printf("%s\n", log);
 //		write(open("log.txt", O_CREAT | O_WRONLY), log, log_size);
+		free(log);
 	}
 
 	/* создать кернел, передваемое имя - название kernela в файле .cl */
