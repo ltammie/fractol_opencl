@@ -24,6 +24,15 @@ static int	mouse_button_press(int button, int x, int y, t_mlx *data)
 		data->view.zoom_y = y;
 		zoom(button, data, x, y);
 	}
+	else if (button == WHEEL_UP || button == WHEEL_DOWN)
+	{
+		data->view.b = 1;
+		data->view.pressed_button = button;
+		data->view.zoom_x = x;
+		data->view.zoom_y = y;
+		zoom(button, data, x, y);
+		data->view.b = 0;
+	}
 	return (0);
 }
 
