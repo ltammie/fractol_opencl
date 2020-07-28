@@ -85,5 +85,6 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 			break;
 		i++;
 	}
+	i = i == max_iter ? i : i - (log2(log2(dot(z,z)))) + 20.0;
 	output[y * width + x] = color(i, max_iter, z, d, angle);
 }
