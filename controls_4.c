@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colontrols3.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:45:08 by ltammie           #+#    #+#             */
+/*   Updated: 2020/08/01 15:47:00 by ltammie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "includes/fractol.h"
+
+int		mouse_button_release(int button, int x, int y, t_mlx *data)
+{
+	if (button == LEFT_MB || button == RIGHT_MB)
+		if (x && y)
+			data->v.b = 0;
+	return (0);
+}
+
+int		mouse_button_press(int button, int x, int y, t_mlx *data)
+{
+	if (button == LEFT_MB || button == RIGHT_MB
+		|| button == WHEEL_UP || button == WHEEL_DOWN)
+	{
+		data->v.b = 1;
+		data->v.pressed_button = button;
+		data->v.zoom_x = x;
+		data->v.zoom_y = y;
+		zoom(button, data, x, y);
+		if (button == WHEEL_UP || button == WHEEL_DOWN)
+			data->v.b = 0;
+	}
+	return (0);
+}
+
+int		no_events(t_mlx *data)
+{
+	if (data->v.b == 1)
+		zoom(data->v.pressed_button, data, data->v.zoom_x, data->v.zoom_y);
+	return (0);
+}
+
+int		key_press(int key, t_mlx *data)
+{
+	if (key == W || key == A || key == S || key == D)
+		arrow_move(key, data);
+	if (key == Q || key == E)
+		max_iter_change(key, data);
+	if ((key == AR_LEFT || key == AR_RIGHT) && data->fractal_type == 6)
+		change_angle(key, data);
+	if (key == R)
+		refresh(key, data);
+	if (key == H)
+		help_menu(key, data);
+	if (key == P)
+		play_music(data);
+	if (key == M)
+		data->v.julia_change_mod = (data->v.julia_change_mod == 1) ? 0 : 1;
+	if (key == SPACE)
+		redraw(key, data);
+	if (key == ONE || key == TWO || key == THREE || key == FOUR)
+		change_color(key, data);
+	if (key == ESC)
+		close_fractol(data);
+	return (0);
+}

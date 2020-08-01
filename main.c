@@ -1,67 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:07:06 by ltammie           #+#    #+#             */
+/*   Updated: 2020/08/01 15:44:32 by ltammie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/fractol.h"
 
-static	void check_argv(int type)
+static	void	check_argv(int type)
 {
-	if (type != 1 && type != 2 && type != 3 && type != 4  && type != 5 && type != 6)
+	if (type != 1 && type != 2 && type != 3
+	&& type != 4 && type != 5 && type != 6)
 		error(1);
 }
 
-static int	mouse_button_release(int button, int x, int y, t_mlx *data)
-{
-	if (button == LEFT_MB || button == RIGHT_MB)
-		if (x && y)
-			data->view.b = 0;
-	return (0);
-}
-
-static int	mouse_button_press(int button, int x, int y, t_mlx *data)
-{
-	if (button == LEFT_MB || button == RIGHT_MB || button == WHEEL_UP || button == WHEEL_DOWN)
-	{
-		data->view.b = 1;
-		data->view.pressed_button = button;
-		data->view.zoom_x = x;
-		data->view.zoom_y = y;
-		zoom(button, data, x, y);
-		if (button == WHEEL_UP || button == WHEEL_DOWN)
-			data->view.b = 0;
-	}
-	return (0);
-}
-
-static int no_events(t_mlx *data)
-{
-	if (data->view.b == 1)
-		zoom(data->view.pressed_button, data, data->view.zoom_x, data->view.zoom_y);
-	return (0);
-}
-
-static int	key_press(int key, t_mlx *data)
-{
-	if (key == W || key == A || key == S || key == D)
-		arrow_move(key, data);
-	if (key == Q || key == E)
-		max_iter_change(key, data);
-	if ((key == AR_LEFT || key == AR_RIGHT) && data->fractal_type == 6)
-		change_angle(key,data);
-	if (key == R)
-		refresh(key, data);
-	if (key == H)
-		help_menu(key, data);
-	if (key == P)
-		play_music(data);
-	if (key == M)
-		data->view.julia_change_mod = (data->view.julia_change_mod == 1) ? 0 : 1;
-	if (key == SPACE)
-		redraw(key, data);
-	if (key == ONE || key == TWO || key == THREE || key == FOUR)
-		change_color(key,data);
-	if (key == ESC)
-		close_fractol(data);
-	return (0);
-}
-
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_mlx *data;
 

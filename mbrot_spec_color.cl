@@ -59,7 +59,7 @@ static	int color(int iter, int max, float2 z, float2 d, float ang)
 	return ((reflection <= 0) ? ((12 << 16) | (5 << 8) | 555) : ((b << 16) | (b << 8) | b));
 }
 
-__kernel void array_add(int max_iter, float minX, float maxX, float minY, float maxY, __global float *output,
+__kernel void array_add(int max_iter, float min_x, float max_x, float min_y, float max_y, __global float *output,
 						float angle)
 {
 	int x = get_global_id(0);
@@ -73,8 +73,8 @@ __kernel void array_add(int max_iter, float minX, float maxX, float minY, float 
 	d = (float2)(0.0, 0.0);
 	two = (float2)(2.0, 0.0);
 	one = (float2)(1.0, 0.0);
-	c.x = map((float)x, 0, width - 1, minX, maxX);
-	c.y = map((float)y, 0, height - 1, minY, maxY);
+	c.x = map((float)x, 0, width - 1, min_x, max_x);
+	c.y = map((float)y, 0, height - 1, min_y, max_y);
 	while (i < max_iter)
 	{
 		d = comp_mult(two, d);

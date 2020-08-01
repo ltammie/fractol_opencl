@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rgb.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:07:18 by ltammie           #+#    #+#             */
+/*   Updated: 2020/08/01 15:07:18 by ltammie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/fractol.h"
 
 t_rgb	new_rgb_color(unsigned char r, unsigned char g, unsigned char b)
@@ -13,11 +25,11 @@ t_rgb	new_rgb_color(unsigned char r, unsigned char g, unsigned char b)
 
 t_rgb	hsv_to_rgb(float h, float s, float v)
 {
-	int i;
-	int f;
-	float p;
-	float q;
-	float t;
+	int		i;
+	int		f;
+	float	p;
+	float	q;
+	float	t;
 
 	if (s == 0.0)
 		return (new_rgb_color(v * 255, v * 255, v * 255));

@@ -1,30 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   coloring.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:06:07 by ltammie           #+#    #+#             */
+/*   Updated: 2020/08/01 15:32:28 by ltammie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/fractol.h"
 
-void			color_fractal(t_mlx *data)
+void			color_fractal(t_mlx *d)
 {
 	int i;
 	int j;
 
-	i = 0;
-	while (i < HEIGHT)
+	i = -1;
+	while (++i < HEIGHT)
 	{
-		j = 0;
-		while (j < WIDTH)
+		j = -1;
+		while (++j < WIDTH)
 		{
-			if (data->view.color_type == 1)
-				data->img.img_data[i * WIDTH + j] = basic_one(data->result[i * WIDTH + j], (float)data->max_iter);
-			if (data->view.color_type == 2)
-				data->img.img_data[i * WIDTH + j] = zerg(data->result[i * WIDTH + j], (float)data->max_iter);
-			if (data->view.color_type == 3)
-				data->img.img_data[i * WIDTH + j] = black_hole(data->result[i * WIDTH + j], (float)data->max_iter);
-			if (data->view.color_type == 4)
-				data->img.img_data[i * WIDTH + j] = mix(data->result[i * WIDTH + j], (float)data->max_iter);
-			j++;
+			if (d->v.color_type == 1)
+				d->img.img_data[i * WIDTH + j] =
+						basic_one(d->res[i * WIDTH + j], (float)d->max_iter);
+			if (d->v.color_type == 2)
+				d->img.img_data[i * WIDTH + j] =
+						zerg(d->res[i * WIDTH + j], (float)d->max_iter);
+			if (d->v.color_type == 3)
+				d->img.img_data[i * WIDTH + j] =
+						black_hole(d->res[i * WIDTH + j], (float)d->max_iter);
+			if (d->v.color_type == 4)
+				d->img.img_data[i * WIDTH + j] =
+						mix(d->res[i * WIDTH + j], (float)d->max_iter);
 		}
-		i++;
 	}
-	mlx_clear_window(data->mlx, data->win);
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(d->mlx, d->win, d->img.img_ptr, 0, 0);
 }
 
 int				zerg(float x, float max)
@@ -36,7 +49,6 @@ int				zerg(float x, float max)
 		return (BLACK);
 	k = (x / max);
 	color = hsv_to_rgb(320, 0.8f, 1 * k);
-
 	return ((int)color.c);
 }
 
@@ -65,7 +77,6 @@ int				black_hole(float i, float max)
 	k = (i / max);
 	color = hsv_to_rgb(15, 1, 1 * k);
 	return (color.c);
-
 }
 
 int				mix(float i, float max)

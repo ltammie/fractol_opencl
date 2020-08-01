@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/08/01 15:07:10 by ltammie           #+#    #+#              #
+#    Updated: 2020/08/01 16:00:33 by ltammie          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 GCC = gcc -Wall -Wextra -Werror
 NAME = fractol
 SRCS = main.c\
@@ -6,10 +18,11 @@ SRCS = main.c\
 		controls.c\
 		controls_2.c\
 		controls_3.c\
+		controls_4.c\
 		draw.c\
 		error.c\
 		init_data.c\
-		rgb.c\
+		rgb.c
 
 OBJS = $(SRCS:.c=.o)
 HEAD = -c -I fractol.h

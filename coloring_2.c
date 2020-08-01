@@ -1,6 +1,18 @@
-#include "../includes/fractol.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   coloring_2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:06:12 by ltammie           #+#    #+#             */
+/*   Updated: 2020/08/01 15:11:08 by ltammie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int				zerg_2(float x, int max)
+#include "includes/fractol.h"
+
+int		zerg_2(float x, int max)
 {
 	float k;
 	t_rgb color;
@@ -9,11 +21,10 @@ int				zerg_2(float x, int max)
 		return (BLACK);
 	k = (x / max);
 	color = hsv_to_rgb(250, 0.8, k);
-
 	return (color.c);
 }
 
-int				dark_red(float i, int max)
+int		dark_red(float i, int max)
 {
 	t_rgb color;
 	float k;
@@ -28,7 +39,7 @@ int				dark_red(float i, int max)
 	return (color.c);
 }
 
-int				mix(float i, int max)
+int		mixx(float i, int max)
 {
 	t_rgb color;
 	float k;

@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   controls_2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:06:45 by ltammie           #+#    #+#             */
+/*   Updated: 2020/08/01 15:12:43 by ltammie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/fractol.h"
 
-static int	close_menu(int key, t_mlx *data)
+static	int		close_menu(int key, t_mlx *data)
 {
 	if (key == H)
 		help_menu(key, data);
 	return (0);
 }
 
-int 	redraw(int key, t_mlx *data)
+int				redraw(int key, t_mlx *data)
 {
 	if (key == SPACE)
 	{
-		init_view(&data->view);
+		init_view(&data->v);
 		data->max_iter = 100;
 		mlx_clear_window(data->mlx, data->win);
 		draw_image(data);
@@ -19,7 +31,7 @@ int 	redraw(int key, t_mlx *data)
 	return (0);
 }
 
-int 	refresh(int key, t_mlx *data)
+int				refresh(int key, t_mlx *data)
 {
 	if (key == R)
 	{
@@ -30,9 +42,9 @@ int 	refresh(int key, t_mlx *data)
 	return (0);
 }
 
-void	close_fractol(t_mlx *data)
+void			close_fractol(t_mlx *data)
 {
-	if (data->view.music_status == 1)
+	if (data->v.music_status == 1)
 		play_music(data);
 	cl_free(&data->cl);
 	mlx_clear_window(data->mlx, data->win);
@@ -41,13 +53,14 @@ void	close_fractol(t_mlx *data)
 	exit(0);
 }
 
-int		help_menu(int key, t_mlx *data)
+int				help_menu(int key, t_mlx *data)
 {
 	if (key == H)
 	{
 		if (data->help_status == 0)
 		{
-			if (!(data->help = mlx_new_window(data->mlx, HELP_WIDTH, HELP_HEIGHT, "Help")))
+			if (!(data->help = mlx_new_window(data->mlx,
+					HELP_WIDTH, HELP_HEIGHT, "Help")))
 				error(MLX_HELP_WINDOW_CREATE_ERROR);
 			data->help_status = 1;
 			mlx_hook(data->help, 2, 0, close_menu, data);

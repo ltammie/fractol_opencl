@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keys.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 14:58:12 by ltammie           #+#    #+#             */
+/*   Updated: 2020/08/01 14:58:12 by ltammie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef KEYS_H
 # define KEYS_H
 
@@ -21,8 +33,6 @@
 # define PLUS 24
 # define WHEEL_UP 4
 # define WHEEL_DOWN 5
-# define AR_UP 126
-# define AR_DOWN 125
 # define AR_LEFT 123
 # define AR_RIGHT 124
 # define LEFT_MB 1

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cl_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:05:58 by ltammie           #+#    #+#             */
+/*   Updated: 2020/08/01 15:16:46 by ltammie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/fractol.h"
 
-static int get_lines(int fd)
+static	int		get_lines(int fd)
 {
 	int		count;
-	char 	*line;
+	char	*line;
 
 	count = 0;
 	line = NULL;
@@ -15,7 +27,7 @@ static int get_lines(int fd)
 	return (count);
 }
 
-char	**get_kernel_source(t_cl *cl, char *type)
+char			**get_kernel_source(t_cl *cl, char *type)
 {
 	int		i;
 	int		fd;
@@ -42,75 +54,30 @@ char	**get_kernel_source(t_cl *cl, char *type)
 	return (source);
 }
 
-void	cl_init(t_cl *cl)
+void			cl_init(t_cl *cl)
 {
 	cl_int				ret;
 
-
 	ret = clGetPlatformIDs(1, &cl->platform_id, NULL);
-//	printf("platfrom ret = %d\n", ret);
-	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_GPU, 1, &cl->device_id, NULL);
-//	printf("device ret = %d\n", ret);
-//	cl_uint tmp;
-//	clGetDeviceInfo(cl->device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(tmp), &tmp, NULL);
-//	printf("max compute_units = %d\n", tmp);
-//	clGetDeviceInfo(cl->device_id, CL_DEVICE_IMAGE_SUPPORT, sizeof(tmp), &tmp, NULL);
-//	printf("image support = %s\n", tmp ? "true" : "false");;
-//	clGetDeviceInfo(cl->device_id, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, sizeof(tmp), &tmp, NULL);
-//	printf("max dimensions = %d\n", tmp);
-//	clGetDeviceInfo(cl->device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(tmp), &tmp, NULL);
-//	printf("max work_group size = %d\n", tmp);
-//	char ext[4096];
-//	clGetDeviceInfo(cl->device_id, CL_DEVICE_EXTENSIONS, sizeof(ext), ext, NULL);
-//	printf("EXTENSIONS: %s\n",ext);
-
+	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_GPU, 1,
+			&cl->device_id, NULL);
 	cl->context = clCreateContext(NULL, 1, &cl->device_id, NULL, NULL, &ret);
-//	printf("context ret = %d\n", ret);
-
-	cl->program = clCreateProgramWithSource(cl->context, cl->count, (const char **)cl->kernel_source, NULL, &ret);
-//	printf("program creation ret = %d\n", ret);
-//	for (int i = 0; i < cl->count ; ++i)
-//		free(cl->kernel_source[i]);
-//	free(cl->kernel_source);
-
-
-	/* скомпилировать программу */
+	cl->program = clCreateProgramWithSource(cl->context, cl->count,
+			(const char **)cl->kernel_source, NULL, &ret);
 	ret = clBuildProgram(cl->program, 1, &cl->device_id, NULL, NULL, NULL);
-//	printf("program build ret = %d\n", ret);
-
-	if (ret < 0)
-	{
-		size_t log_size;
-		clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
-		char *log = (char *)malloc(sizeof(char) * log_size + 1);
-		log[log_size] = '\0';
-		clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, log_size + 1, log, NULL);
-		printf("%s\n", log);
-//		write(open("log.txt", O_CREAT | O_WRONLY), log, log_size);
-		free(log);
-	}
-
-	/* создать кернел, передваемое имя - название kernela в файле .cl */
 	cl->kernel = clCreateKernel(cl->program, "array_add", &ret);
-//	printf("kernel creation ret = %d\n", ret);
 	cl->queue = clCreateCommandQueue(cl->context, cl->device_id, 0, &ret);
 	cl->dim = 2;
 	cl->global_size[0] = WIDTH;
 	cl->global_size[1] = HEIGHT;
-//	printf("queue ret = %d\n", ret);
-//	printf("source code read\n");
 }
 
-void	cl_free(t_cl *cl)
+void			cl_free(t_cl *cl)
 {
 	cl_int		ret;
 
 	ret = clReleaseKernel(cl->kernel);
-//	printf("kernel free ret = %d\n", ret);
 	ret = clReleaseProgram(cl->program);
-//	printf("program free ret = %d\n", ret);
 	ret = clReleaseCommandQueue(cl->queue);
-//	printf("queue free ret = %d\n", ret);
 	ret = clReleaseContext(cl->context);
-//	printf("context free ret = %d\n", ret);
 }
