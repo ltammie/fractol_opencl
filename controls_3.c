@@ -41,9 +41,9 @@ int		max_iter_change(int key, t_mlx *data)
 
 int		change_angle(int key, t_mlx *data)
 {
-	if (key == AR_LEFT)
+	if (key == A)
 		data->v.angle -= 10.0f;
-	if (key == AR_RIGHT)
+	if (key == D)
 		data->v.angle += 10.0f;
 	if (data->v.angle < 0.0f)
 		data->v.angle += 360.0f;

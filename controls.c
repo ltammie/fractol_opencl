@@ -49,22 +49,22 @@ int				arrow_move(int key, t_mlx *data)
 {
 	data->v.offset = OFFSET * (1.0f /
 			(float)(pow(1.02f, (double)data->v.zf)));
-	if (key == A)
+	if (key == AR_LEFT)
 	{
 		data->v.min_x += data->v.offset * -1;
 		data->v.max_x += data->v.offset * -1;
 	}
-	if (key == D)
+	if (key == AR_RIGHT)
 	{
 		data->v.min_x += data->v.offset * 1;
 		data->v.max_x += data->v.offset * 1;
 	}
-	if (key == W)
+	if (key == AR_UP)
 	{
 		data->v.min_y += data->v.offset * -1;
 		data->v.max_y += data->v.offset * -1;
 	}
-	if (key == S)
+	if (key == AR_DOWN)
 	{
 		data->v.min_y += data->v.offset * 1;
 		data->v.max_y += data->v.offset * 1;
