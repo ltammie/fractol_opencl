@@ -31,6 +31,7 @@ int				main(int argc, char **argv)
 	cl_init(&data->cl);
 	draw_image(data);
 	mlx_hook(data->win, 2, 0, key_press, data);
+	mlx_hook(data->win, 3, 0, key_release, data);
 	mlx_hook(data->win, 4, 0, mouse_button_press, data);
 	mlx_hook(data->win, 5, 0, mouse_button_release, data);
 	mlx_hook(data->win, 6, 0, change_julia, data);

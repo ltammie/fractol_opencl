@@ -6,11 +6,12 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:53 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 15:38:14 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/01 18:36:36 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fractol.h"
+#include <stdio.h>
 
 static	void	spec_color(t_mlx *data)
 {

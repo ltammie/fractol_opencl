@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 14:57:45 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 17:44:07 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/01 18:56:21 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define HELP_WIDTH 600
-# define HELP_HEIGHT 235
+# define HELP_WIDTH 770
+# define HELP_HEIGHT 270
 # define MIN_RE -2.0f
 # define MAX_RE 2.0f
 # define MIN_IM -1.17f
@@ -111,6 +111,7 @@ typedef struct			s_mlx
 
 t_mlx					*init_data(int argv);
 void					init_view(t_view *view);
+char					*return_fractal_type(int argv);
 
 /*
 ** ----------OpenCl functions---------
@@ -147,6 +148,8 @@ int						mouse_button_press(int button,
 		int x, int y, t_mlx *data);
 int						no_events(t_mlx *data);
 int						key_press(int key, t_mlx *data);
+int						change_fractal_type(int key, t_mlx *data);
+int						key_release(int key, t_mlx *data);
 
 /*
 ** --------coloring_functions----------

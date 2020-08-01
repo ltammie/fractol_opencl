@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:57 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 15:56:46 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/01 18:53:08 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void			init_view(t_view *view)
 	view->b = 0;
 	view->pressed_button = -1;
 	view->music_status = 0;
-	view->julia_change_mod = 0;
+	view->julia_change_mod = 1;
 }
 
-static	char	*return_fractal_type(int argv)
+char			*return_fractal_type(int argv)
 {
 	if (argv == 1)
 		return ("mandelbrot.cl");
@@ -59,10 +59,10 @@ t_mlx			*init_data(int argv)
 		error(MLX_INIT_ERROR);
 	if (!(data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "fractol")))
 		error(MLX_MAIN_WINDOW_CREATE_ERROR);
-	data->help_status = 0;
 	data->img.img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->img.img_data = (int *)mlx_get_data_addr(data->img.img_ptr,
 			&data->img.bpp, &data->img.size_l, &data->img.endian);
+	data->help_status = 0;
 	data->fractal_type = argv;
 	data->cl_source = return_fractal_type(argv);
 	init_view(&data->v);

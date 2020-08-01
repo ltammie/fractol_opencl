@@ -22,13 +22,13 @@ int				zoom(int key, t_mlx *d, int x, int y)
 	float interpolation;
 
 	interpolation = 1.0f;
-	if ((key == MIN || key == RIGHT_MB || key == WHEEL_DOWN) && d->v.zf > 1)
+	if ((key == RIGHT_MB || key == WHEEL_DOWN) && d->v.zf > 1)
 	{
 		d->max_iter -= 3;
 		d->v.zf -= 1.0f;
 		interpolation = 1.0f / (1.0f / 1.02f);
 	}
-	else if (key == PLUS || key == LEFT_MB || key == WHEEL_UP)
+	else if (key == LEFT_MB || key == WHEEL_UP)
 	{
 		d->max_iter += 3;
 		d->v.zf += 1.0f;

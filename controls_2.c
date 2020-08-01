@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:45 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 15:12:43 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/01 17:31:53 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void			close_fractol(t_mlx *data)
 	if (data->v.music_status == 1)
 		play_music(data);
 	cl_free(&data->cl);
+	free(data->res);
 	mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_image(data->mlx, data->img.img_ptr);
 	(void)data;

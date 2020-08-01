@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 14:58:12 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 17:42:35 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/01 18:04:05 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define TWO 19
 # define THREE 20
 # define FOUR 21
-# define MIN 27
-# define PLUS 24
+# define MORE_B 47
+# define LESS_B 43
 # define WHEEL_UP 4
 # define WHEEL_DOWN 5
 # define AR_LEFT 123

@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:05:58 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 15:16:46 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/01 18:58:56 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char			**get_kernel_source(t_cl *cl, char *type)
 	char	*line;
 
 	line = NULL;
-	fd = 0;
 	if (((fd = open(type, O_RDONLY)) < 0) || ((read(fd, line, 0)) < 0))
 		error(0);
 	cl->count = get_lines(fd);
@@ -74,10 +73,14 @@ void			cl_init(t_cl *cl)
 
 void			cl_free(t_cl *cl)
 {
-	cl_int		ret;
+	int i;
 
-	ret = clReleaseKernel(cl->kernel);
-	ret = clReleaseProgram(cl->program);
-	ret = clReleaseCommandQueue(cl->queue);
-	ret = clReleaseContext(cl->context);
+	i = -1;
+	clReleaseKernel(cl->kernel);
+	clReleaseProgram(cl->program);
+	clReleaseCommandQueue(cl->queue);
+	clReleaseContext(cl->context);
+	while (++i < cl->count)
+		free(cl->kernel_source[i]);
+	free(cl->kernel_source);
 }
