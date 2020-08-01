@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:45:08 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 17:44:07 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/01 17:54:19 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,31 @@ int		key_press(int key, t_mlx *data)
 	return (0);
 }
 
-int		show_menu(t_mlx *data)
+int		show_menu(t_mlx *d)
 {
-	mlx_string_put(data->mlx, data->help, 50, 15, WHITE, "LMB | RMB | WHEEL_UP | WHEEL_DOWN - zoom in/out");
-	mlx_string_put(data->mlx, data->help, 50, 35, WHITE, "ARROWS - move left/right/up and down");
-	mlx_string_put(data->mlx, data->help, 50, 55, WHITE, "1/2/3/4 - change colors");
-	mlx_string_put(data->mlx, data->help, 50, 75, WHITE, "Q | E - change maximum iterations");
-	mlx_string_put(data->mlx, data->help, 50, 95, WHITE, "R - refresh image");
-	mlx_string_put(data->mlx, data->help, 50, 115, WHITE, "SPACE - change settings to default");
-	mlx_string_put(data->mlx, data->help, 50, 135, WHITE, "P - play/stop music");
-	mlx_string_put(data->mlx, data->help, 50, 155, WHITE, "M - Enable/Disable Julia set change "
-													   "with mouse (only for Julia set aka 2)");
-	mlx_string_put(data->mlx, data->help, 50, 155, WHITE, "A / D - Change angle (only for "
-													   "Mandelbrot set special coloring mode)");
-	mlx_string_put(data->mlx, data->help, 50, 175, WHITE, "P - play/stop music");
-	mlx_string_put(data->mlx, data->help, 50, 195, WHITE, "H - show/hide help menu");
-	mlx_string_put(data->mlx, data->help, 50, 115, WHITE, "ESC - close program :(");
+	mlx_string_put(d->mlx, d->help, 50, 15, WHITE,
+			"LMB | RMB | WHEEL_UP | WHEEL_DOWN - zoom in/out");
+	mlx_string_put(d->mlx, d->help, 50, 35, WHITE,
+			"ARROWS - move left/right/up and down");
+	mlx_string_put(d->mlx, d->help, 50, 55, WHITE,
+			"1/2/3/4 - change colors");
+	mlx_string_put(d->mlx, d->help, 50, 75, WHITE,
+			"Q | E - change maximum iterations");
+	mlx_string_put(d->mlx, d->help, 50, 95, WHITE,
+			"R - refresh image");
+	mlx_string_put(d->mlx, d->help, 50, 115, WHITE,
+			"SPACE - change settings to default");
+	mlx_string_put(d->mlx, d->help, 50, 135, WHITE,
+			"P - play/stop music");
+	mlx_string_put(d->mlx, d->help, 50, 155, WHITE, "M - Enable/Disable "
+	"Julia set change with mouse (only for Julia set aka 2)");
+	mlx_string_put(d->mlx, d->help, 50, 155, WHITE, "A / D - Change angle"
+	" (only for Mandelbrot set special coloring mode)");
+	mlx_string_put(d->mlx, d->help, 50, 175, WHITE,
+			"P - play/stop music");
+	mlx_string_put(d->mlx, d->help, 50, 195, WHITE,
+			"H - show/hide help menu");
+	mlx_string_put(d->mlx, d->help, 50, 115, WHITE,
+			"ESC - close program :(");
 	return (0);
 }
