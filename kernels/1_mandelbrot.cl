@@ -12,7 +12,21 @@ static	float2	comp_mult(float2 a, float2 b)
     return (res);
 }
 
-__kernel void array_add(int max_iter, float min_x, float max_x, float min_y, float max_y, __global float *output)
+static float2 comp_pow(float2 a, int n)
+{
+    float2 tmp = a;
+    float2 res = a;
+
+    int i = 1;
+    while (i < n)
+    {
+        res = comp_mult(res, tmp);
+        i++;
+    }
+    return (res);
+}
+
+__kernel void array_add(int max_iter, float min_x, float max_x, float min_y, float max_y, __global float *output, int p)
 {
 	int x = get_global_id(0);
 	int y = get_global_id(1);
@@ -26,7 +40,7 @@ __kernel void array_add(int max_iter, float min_x, float max_x, float min_y, flo
 	c.y = map((float)y, 0, height - 1, min_y, max_y);
 	while (i < max_iter)
 	{
-	    z = comp_mult(z,z) + c;
+	    z = comp_pow(z, p) + c;
 		if (dot(z,z) > 20.0)
 			break;
 		i++;

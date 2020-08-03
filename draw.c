@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:53 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 18:00:50 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 19:03:06 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,15 @@ static	void	load_basic_args(t_mlx *data)
 	clSetKernelArg(data->cl.kernel, 2, sizeof(float), &data->v.max_x);
 	clSetKernelArg(data->cl.kernel, 3, sizeof(float), &data->v.min_y);
 	clSetKernelArg(data->cl.kernel, 4, sizeof(float), &data->v.max_y);
+	if (data->fractal_type == 1 || data->fractal_type == 2 || data->fractal_type == 3 || data->fractal_type == 6
+	|| data->fractal_type == 7 || data->fractal_type == 9)
+		clSetKernelArg(data->cl.kernel, 6, sizeof(int), &data->v.power);
 }
 
 static	void	load_julia_args(t_mlx *data)
 {
-	clSetKernelArg(data->cl.kernel, 6, sizeof(float), &data->v.julia_re);
-	clSetKernelArg(data->cl.kernel, 7, sizeof(float), &data->v.julia_im);
+	clSetKernelArg(data->cl.kernel, 7, sizeof(float), &data->v.julia_re);
+	clSetKernelArg(data->cl.kernel, 8, sizeof(float), &data->v.julia_im);
 }
 
 int				draw_image(t_mlx *data)
@@ -57,11 +60,11 @@ int				draw_image(t_mlx *data)
 	output_buffer = clCreateBuffer(data->cl.context, CL_MEM_WRITE_ONLY,
 			sizeof(float) * WIDTH * HEIGHT, NULL, NULL);
 	load_basic_args(data);
+	clSetKernelArg(data->cl.kernel, 5, sizeof(cl_mem), &output_buffer);
 	if (data->fractal_type == 2 || data->fractal_type == 7)
 		load_julia_args(data);
 	if (data->fractal_type == 6)
-		clSetKernelArg(data->cl.kernel, 6, sizeof(float), &data->v.angle);
-	clSetKernelArg(data->cl.kernel, 5, sizeof(cl_mem), &output_buffer);
+		clSetKernelArg(data->cl.kernel, 7, sizeof(float), &data->v.angle);
 	clEnqueueNDRangeKernel(data->cl.queue, data->cl.kernel, data->cl.dim, NULL,
 			data->cl.global_size, NULL, 0, NULL, NULL);
 	clFinish(data->cl.queue);

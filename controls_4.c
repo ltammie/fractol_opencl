@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:45:08 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 18:26:15 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 19:22:55 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int		key_press(int key, t_mlx *data)
 		play_music(data);
 	if (key == M)
 		data->v.julia_change_mod = (data->v.julia_change_mod == 1) ? 0 : 1;
+	if ((key == U || key == J) && data->fractal_type != 4 && data->fractal_type != 5 && data->fractal_type != 8)
+		change_power(key, data);
 	if (key == SPACE)
 		redraw(key, data);
 	if (key == ONE || key == TWO || key == THREE || key == FOUR)
@@ -79,20 +81,22 @@ int		show_menu(t_mlx *d)
 	mlx_string_put(d->mlx, d->help, 20, 75, WHITE,
 			"Q | E - change maximum iterations");
 	mlx_string_put(d->mlx, d->help, 20, 95, WHITE,
-			"R - refresh image");
+				   "U | J - increase / decrease fractal power");
 	mlx_string_put(d->mlx, d->help, 20, 115, WHITE,
-			"SPACE - change settings to default");
+			"R - refresh image");
 	mlx_string_put(d->mlx, d->help, 20, 135, WHITE,
+			"SPACE - change settings to default");
+	mlx_string_put(d->mlx, d->help, 20, 155, WHITE,
 			"P - play/stop music");
-	mlx_string_put(d->mlx, d->help, 20, 155, WHITE, "M - Enable/Disable "
+	mlx_string_put(d->mlx, d->help, 20, 175, WHITE, "M - Enable/Disable "
 	"Julia set change with mouse (only for Julia set aka 2)");
-	mlx_string_put(d->mlx, d->help, 20, 175, WHITE, "A / D - Change angle"
+	mlx_string_put(d->mlx, d->help, 20, 195, WHITE, "A / D - Change angle"
 	" (only for Mandelbrot set special coloring mode)");
-	mlx_string_put(d->mlx, d->help, 20, 195, WHITE,
-			"P - play/stop music");
 	mlx_string_put(d->mlx, d->help, 20, 215, WHITE,
-			"H - show/hide help menu");
+			"P - play/stop music");
 	mlx_string_put(d->mlx, d->help, 20, 235, WHITE,
+			"H - show/hide help menu");
+	mlx_string_put(d->mlx, d->help, 20, 255, WHITE,
 			"ESC - close program :(");
 	return (0);
 }

@@ -3,7 +3,30 @@ static float 	map(float value, float fmin, float fmax, float tmin, float tmax)
 	return ((value - fmin) * (tmax - tmin) / (fmax - fmin) + tmin);
 }
 
-__kernel void array_add(int max_iter, float min_x, float max_x, float min_y, float max_y, __global float *output)
+static	float2	comp_mult(float2 a, float2 b)
+{
+	float2 res = (float2)(0.0, 0.0);
+
+    res.x = (a.x * b.x - a.y * b.y);
+    res.y = (a.x * b.y + a.y * b.x);
+    return (res);
+}
+
+static float2 comp_pow(float2 a, int n)
+{
+    float2 tmp = a;
+    float2 res = a;
+
+    int i = 1;
+    while (i < n)
+    {
+        res = comp_mult(res, tmp);
+        i++;
+    }
+    return (res);
+}
+
+__kernel void array_add(int max_iter, float min_x, float max_x, float min_y, float max_y, __global float *output,int p)
 {
 	int x = get_global_id(0);
 	int y = get_global_id(1);
@@ -17,9 +40,7 @@ __kernel void array_add(int max_iter, float min_x, float max_x, float min_y, flo
 	c.y = map((float)y, 0, height - 1, min_y, max_y);
 	while (i < max_iter)
 	{
-		float2 tmp;
-		tmp = (float2)(z.x * z.x + (-1) * (z.y * z.y),z.y * z.x + z.x * z.y);
-		z = tmp + c;
+		z = comp_pow(z, p) + c;
 		z = (float2)(fabs(z.x), fabs(z.y));
 		if (dot(z,z) > 20.0)
 			break;

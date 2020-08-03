@@ -32,6 +32,20 @@ static	float2	comp_mult(float2 a, float2 b)
     return (res);
 }
 
+static float2 comp_pow(float2 a, int n)
+{
+    float2 tmp = a;
+    float2 res = a;
+
+    int i = 1;
+    while (i < n)
+    {
+        res = comp_mult(res, tmp);
+        i++;
+    }
+    return (res);
+}
+
 static	int color(int iter, int max, float2 z, float2 d, float ang)
 {
 	float			reflection = (float)(0.0);
@@ -59,7 +73,7 @@ static	int color(int iter, int max, float2 z, float2 d, float ang)
 	return ((reflection <= 0) ? ((12 << 16) | (5 << 8) | 555) : ((b << 16) | (b << 8) | b));
 }
 
-__kernel void array_add(int max_iter, float min_x, float max_x, float min_y, float max_y, __global float *output,
+__kernel void array_add(int max_iter, float min_x, float max_x, float min_y, float max_y,__global float *output, int p,
 						float angle)
 {
 	int x = get_global_id(0);
@@ -80,7 +94,7 @@ __kernel void array_add(int max_iter, float min_x, float max_x, float min_y, flo
 		d = comp_mult(two, d);
 		d = comp_mult(d, z);
 		d = d + one;
-		z = comp_mult(z, z) + c;
+		z = comp_pow(z, p) + c;
 		if (dot(z,z) > 20.0)
 			break;
 		i++;

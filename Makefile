@@ -19,6 +19,7 @@ SRCS = main.c\
 		controls_2.c\
 		controls_3.c\
 		controls_4.c\
+		controls_5.c\
 		draw.c\
 		error.c\
 		init_data.c\

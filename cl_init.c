@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:05:58 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 16:00:41 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 19:04:36 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,6 @@ void			cl_init(t_cl *cl)
 	cl->program = clCreateProgramWithSource(cl->context, cl->count,
 			(const char **)cl->kernel_source, NULL, &ret);
 	ret = clBuildProgram(cl->program, 1, &cl->device_id, NULL, NULL, NULL);
-//	printf("program build ret = %d\n", ret);
-//
-//	if (ret < 0)
-//	{
-//		size_t log_size;
-//		clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
-//		char *log = (char *)malloc(sizeof(char) * log_size + 1);
-//		log[log_size] = '\0';
-//		clGetProgramBuildInfo(cl->program, cl->device_id, CL_PROGRAM_BUILD_LOG, log_size + 1, log, NULL);
-//		printf("%s\n", log);
-//		//		write(open("log.txt", O_CREAT | O_WRONLY), log, log_size);
-//		free(log);
-//	}
 	cl->kernel = clCreateKernel(cl->program, "array_add", &ret);
 	cl->queue = clCreateCommandQueue(cl->context, cl->device_id, 0, &ret);
 	cl->dim = 2;

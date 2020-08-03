@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 14:57:45 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 18:56:21 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 18:49:28 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define HELP_WIDTH 770
-# define HELP_HEIGHT 270
+# define HELP_HEIGHT 295
 # define MIN_RE -2.0f
 # define MAX_RE 2.0f
 # define MIN_IM -1.17f
@@ -75,6 +75,7 @@ typedef	struct			s_view
 	int					julia_change_mod;
 	int					zoom_x;
 	int					zoom_y;
+	int 				power;
 }						t_view;
 
 typedef struct			s_cl
@@ -151,6 +152,7 @@ int						no_events(t_mlx *data);
 int						key_press(int key, t_mlx *data);
 int						change_fractal_type(int key, t_mlx *data);
 int						key_release(int key, t_mlx *data);
+int						change_power(int key, t_mlx *data);
 
 /*
 ** --------coloring_functions----------

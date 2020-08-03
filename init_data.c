@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:57 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 18:07:07 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 18:49:28 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void			init_view(t_view *view)
 	view->pressed_button = -1;
 	view->music_status = 0;
 	view->julia_change_mod = 1;
+	view->power = 1;
 }
 
 char			*return_fractal_type(int argv)
