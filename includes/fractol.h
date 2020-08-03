@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 14:57:45 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 18:49:28 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 19:27:58 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef	struct			s_view
 	int					julia_change_mod;
 	int					zoom_x;
 	int					zoom_y;
-	int 				power;
+	int					power;
 }						t_view;
 
 typedef struct			s_cl

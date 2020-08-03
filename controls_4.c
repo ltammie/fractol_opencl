@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:45:08 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 19:22:55 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 19:30:10 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int		key_press(int key, t_mlx *data)
 		play_music(data);
 	if (key == M)
 		data->v.julia_change_mod = (data->v.julia_change_mod == 1) ? 0 : 1;
-	if ((key == U || key == J) && data->fractal_type != 4 && data->fractal_type != 5 && data->fractal_type != 8)
+	if ((key == U || key == J) && data->fractal_type != 4
+		&& data->fractal_type != 5 && data->fractal_type != 8)
 		change_power(key, data);
 	if (key == SPACE)
 		redraw(key, data);
@@ -76,14 +77,12 @@ int		show_menu(t_mlx *d)
 			"LMB | RMB | WHEEL_UP | WHEEL_DOWN - zoom in/out");
 	mlx_string_put(d->mlx, d->help, 20, 35, WHITE,
 			"ARROWS - move left/right/up and down");
-	mlx_string_put(d->mlx, d->help, 20, 55, WHITE,
-			"1/2/3/4 - change colors");
+	mlx_string_put(d->mlx, d->help, 20, 55, WHITE, "1/2/3/4 - change colors");
 	mlx_string_put(d->mlx, d->help, 20, 75, WHITE,
 			"Q | E - change maximum iterations");
 	mlx_string_put(d->mlx, d->help, 20, 95, WHITE,
-				   "U | J - increase / decrease fractal power");
-	mlx_string_put(d->mlx, d->help, 20, 115, WHITE,
-			"R - refresh image");
+			"U | J - increase / decrease fractal power");
+	mlx_string_put(d->mlx, d->help, 20, 115, WHITE, "R - refresh image");
 	mlx_string_put(d->mlx, d->help, 20, 135, WHITE,
 			"SPACE - change settings to default");
 	mlx_string_put(d->mlx, d->help, 20, 155, WHITE,

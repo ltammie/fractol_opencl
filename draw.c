@@ -41,7 +41,8 @@ static	void	load_basic_args(t_mlx *data)
 	clSetKernelArg(data->cl.kernel, 2, sizeof(float), &data->v.max_x);
 	clSetKernelArg(data->cl.kernel, 3, sizeof(float), &data->v.min_y);
 	clSetKernelArg(data->cl.kernel, 4, sizeof(float), &data->v.max_y);
-	if (data->fractal_type == 1 || data->fractal_type == 2 || data->fractal_type == 3 || data->fractal_type == 6
+	if (data->fractal_type == 1 || data->fractal_type == 2
+	|| data->fractal_type == 3 || data->fractal_type == 6
 	|| data->fractal_type == 7 || data->fractal_type == 9)
 		clSetKernelArg(data->cl.kernel, 6, sizeof(int), &data->v.power);
 }
