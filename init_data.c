@@ -46,6 +46,8 @@ char			*return_fractal_type(int argv)
 		return ("classic_phoenix.cl");
 	if (argv == 6)
 		return ("mbrot_spec_color.cl");
+	if (argv == 7)
+		return ("glynn.cl");
 	return ("meow");
 }
 

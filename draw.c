@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:53 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 18:36:36 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 16:26:32 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ int				draw_image(t_mlx *data)
 			sizeof(float) * WIDTH * HEIGHT,
 						data->res, 0, NULL, NULL);
 	clFinish(data->cl.queue);
+	for (int i = 0; i < WIDTH * HEIGHT ; ++i)
+	{
+		printf("%f\n", data->res[i]);
+	}
 	if (data->fractal_type != 6)
 		color_fractal(data);
 	else

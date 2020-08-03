@@ -32,6 +32,7 @@
 # include "../libft/libft.h"
 # include "keys.h"
 # include "error_codes.h"
+# include <stdio.h>
 
 typedef union			u_rgb
 {
