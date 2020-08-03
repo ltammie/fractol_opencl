@@ -59,8 +59,8 @@ int		change_fractal_type(int key, t_mlx *data)
 		data->fractal_type--;
 	if (key == MORE_B)
 		data->fractal_type++;
-	data->fractal_type = data->fractal_type > 6 ? 1 : data->fractal_type;
-	data->fractal_type = data->fractal_type == 0 ? 6 : data->fractal_type;
+	data->fractal_type = data->fractal_type > 9 ? 1 : data->fractal_type;
+	data->fractal_type = data->fractal_type == 0 ? 9 : data->fractal_type;
 	cl_free(&data->cl);
 	init_view(&data->v);
 	if (data->fractal_type == 3)

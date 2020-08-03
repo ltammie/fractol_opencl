@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:53 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 16:26:32 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 18:00:50 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				draw_image(t_mlx *data)
 	output_buffer = clCreateBuffer(data->cl.context, CL_MEM_WRITE_ONLY,
 			sizeof(float) * WIDTH * HEIGHT, NULL, NULL);
 	load_basic_args(data);
-	if (data->fractal_type == 2)
+	if (data->fractal_type == 2 || data->fractal_type == 7)
 		load_julia_args(data);
 	if (data->fractal_type == 6)
 		clSetKernelArg(data->cl.kernel, 6, sizeof(float), &data->v.angle);
@@ -69,10 +69,6 @@ int				draw_image(t_mlx *data)
 			sizeof(float) * WIDTH * HEIGHT,
 						data->res, 0, NULL, NULL);
 	clFinish(data->cl.queue);
-	for (int i = 0; i < WIDTH * HEIGHT ; ++i)
-	{
-		printf("%f\n", data->res[i]);
-	}
 	if (data->fractal_type != 6)
 		color_fractal(data);
 	else

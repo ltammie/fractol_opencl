@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:57 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 18:53:08 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/03 18:07:07 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,23 @@ void			init_view(t_view *view)
 char			*return_fractal_type(int argv)
 {
 	if (argv == 1)
-		return ("mandelbrot.cl");
+		return ("kernels/1_mandelbrot.cl");
 	if (argv == 2)
-		return ("julia.cl");
+		return ("kernels/2_julia.cl");
 	if (argv == 3)
-		return ("ship.cl");
+		return ("kernels/3_ship.cl");
 	if (argv == 4)
-		return ("wrong_phoenix.cl");
+		return ("kernels/4_wrong_phoenix.cl");
 	if (argv == 5)
-		return ("classic_phoenix.cl");
+		return ("kernels/5_classic_phoenix.cl");
 	if (argv == 6)
-		return ("mbrot_spec_color.cl");
+		return ("kernels/6_mbrot_spec_color.cl");
 	if (argv == 7)
-		return ("glynn.cl");
+		return ("kernels/7_burning_julia.cl");
+	if (argv == 8)
+		return ("kernels/8_mbrot_z3.cl");
+	if (argv == 9)
+		return ("kernels/9_Tricorn.cl");
 	return ("meow");
 }
 
