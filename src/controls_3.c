@@ -6,18 +6,18 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:48 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 18:07:07 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/04 13:19:50 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "../includes/fractol.h"
 
 int		play_music(t_mlx *data)
 {
 	if (data->v.music_status == 0)
 	{
 		data->v.music_status = 1;
-		system("afplay Deb.mp3 &");
+		system("afplay src/Deb.mp3 &");
 	}
 	else
 	{
@@ -59,8 +59,8 @@ int		change_fractal_type(int key, t_mlx *data)
 		data->fractal_type--;
 	if (key == MORE_B)
 		data->fractal_type++;
-	data->fractal_type = data->fractal_type > 9 ? 1 : data->fractal_type;
-	data->fractal_type = data->fractal_type == 0 ? 9 : data->fractal_type;
+	data->fractal_type = data->fractal_type > 10 ? 1 : data->fractal_type;
+	data->fractal_type = data->fractal_type == 0 ? 10 : data->fractal_type;
 	cl_free(&data->cl);
 	init_view(&data->v);
 	if (data->fractal_type == 3)
@@ -68,6 +68,7 @@ int		change_fractal_type(int key, t_mlx *data)
 		data->v.max_y -= 0.6f;
 		data->v.min_y -= 0.6f;
 	}
+	data->v.power = 2;
 	data->cl_source = return_fractal_type(data->fractal_type);
 	data->max_iter = 100;
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);

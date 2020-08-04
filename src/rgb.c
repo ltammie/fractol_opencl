@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "../includes/fractol.h"
 
 t_rgb	new_rgb_color(unsigned char r, unsigned char g, unsigned char b)
 {

@@ -6,20 +6,24 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 18:43:02 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 18:51:41 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/04 13:11:24 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "../includes/fractol.h"
 
 int		change_power(int key, t_mlx *data)
 {
+	int tmp_p;
+
+	tmp_p = data->v.power;
 	if (key == U)
-		data->v.power++;
+		tmp_p++;
 	if (key == J)
-		data->v.power--;
-	data->v.power = data->v.power <= 0 ? 1 : data->v.power;
-	data->v.power = data->v.power > 10 ? 10 : data->v.power;
+		tmp_p--;
+	init_view(&data->v);
+	data->v.power = tmp_p <= 0 ? 1 : tmp_p;
+	data->v.power = tmp_p > 10 ? 10 : tmp_p;
 	mlx_clear_window(data->mlx, data->win);
 	mlx_do_sync(data->mlx);
 	draw_image(data);

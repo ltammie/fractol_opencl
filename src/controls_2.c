@@ -6,11 +6,11 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:45 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 17:31:53 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/04 13:11:24 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "../includes/fractol.h"
 
 static	int		close_menu(int key, t_mlx *data)
 {

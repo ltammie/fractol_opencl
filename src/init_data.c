@@ -6,11 +6,11 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:57 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 18:49:28 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/04 13:11:24 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "../includes/fractol.h"
 
 void			init_view(t_view *view)
 {
@@ -30,7 +30,6 @@ void			init_view(t_view *view)
 	view->pressed_button = -1;
 	view->music_status = 0;
 	view->julia_change_mod = 1;
-	view->power = 1;
 }
 
 char			*return_fractal_type(int argv)
@@ -53,6 +52,8 @@ char			*return_fractal_type(int argv)
 		return ("kernels/8_mbrot_z3.cl");
 	if (argv == 9)
 		return ("kernels/9_Tricorn.cl");
+	if (argv == 10)
+		return ("kernels/10_celestial_amoeba.cl");
 	return ("meow");
 }
 
@@ -78,6 +79,7 @@ t_mlx			*init_data(int argv)
 		data->v.max_y -= 0.6f;
 		data->v.min_y -= 0.6f;
 	}
+	data->v.power = 2;
 	data->max_iter = 100;
 	data->res = (float *)malloc(sizeof(float) * (WIDTH * HEIGHT));
 	return (data);

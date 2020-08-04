@@ -6,24 +6,24 @@
 #    By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/01 15:07:10 by ltammie           #+#    #+#              #
-#    Updated: 2020/08/01 16:00:33 by ltammie          ###   ########.fr        #
+#    Updated: 2020/08/04 13:11:24 by ltammie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 GCC = gcc -Wall -Wextra -Werror
 NAME = fractol
-SRCS = main.c\
-		cl_init.c\
-		coloring.c\
-		controls.c\
-		controls_2.c\
-		controls_3.c\
-		controls_4.c\
-		controls_5.c\
-		draw.c\
-		error.c\
-		init_data.c\
-		rgb.c
+SRCS = src/main.c\
+		src/cl_init.c\
+		src/coloring.c\
+		src/controls.c\
+		src/controls_2.c\
+		src/controls_3.c\
+		src/controls_4.c\
+		src/controls_5.c\
+		src/draw.c\
+		src/error.c\
+		src/init_data.c\
+		src/rgb.c
 
 OBJS = $(SRCS:.c=.o)
 HEAD = -c -I fractol.h
@@ -31,7 +31,7 @@ LIB = -L libft -lft -L minilibx -lmlx -Wdeprecated-declarations   -framework Ope
 
 all: $(NAME)
 
-%.o: %.c
+src%.o: %.c
 		$(GCC) -c $<
 
 lib:

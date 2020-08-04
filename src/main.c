@@ -6,16 +6,16 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:07:06 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/03 18:17:46 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/04 13:11:24 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "../includes/fractol.h"
 
 static	void	check_argv(int type)
 {
 	if (type != 1 && type != 2 && type != 3 && type != 4 && type != 5
-	&& type != 6 && type != 7 && type != 8 && type != 9)
+	&& type != 6 && type != 7 && type != 8 && type != 9 && type != 10)
 		error(1);
 }
 

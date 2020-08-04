@@ -6,11 +6,11 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:55 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/01 15:06:55 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/04 13:11:24 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/fractol.h"
+#include "../includes/fractol.h"
 
 void	error(int err)
 {
@@ -27,6 +27,7 @@ void	error(int err)
 		write(1, "7 - Burning Julia\n", 18);
 		write(1, "8 - Mandelbrot Z^3\n", 19);
 		write(1, "9 - Tricorn\n", 12);
+		write(1, "10 - Celestial_amoeba\n", 22);
 		exit(0);
 	}
 	else
