@@ -17,7 +17,7 @@
 # include <math.h>
 # include <OpenCL/opencl.h>
 # include "../minilibx/mlx.h"
-# include "../libft/libft.h"
+# include "../libft/includes/libft.h"
 # include "keys.h"
 # include "error_codes.h"
 
