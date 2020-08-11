@@ -14,19 +14,19 @@ SRCS = src/main.c\
 		src/rgb.c
 
 OBJS = $(SRCS:.c=.o)
-HEAD = -c -I fractol.h
-LIB = -L libft -lft -L minilibx -lmlx -Wdeprecated-declarations   -framework OpenGL -framework Appkit -framework OpenCL
+INC_DIR = includes/
+LIB = -L libft -lft -L minilibx -lmlx -Wdeprecated-declarations -framework OpenGL -framework Appkit -framework OpenCL
 
 all: $(NAME)
 
 src%.o: %.c
-		$(GCC) -c $<
+		$(GCC) -c $< -o $@ -I $(INC_DIR)
 
 lib:
 		make -C libft
 		make -C minilibx
 
-$(NAME): $(OBJS) lib
+$(NAME): $(OBJS) lib $(INC_DIR)*.h
 		$(GCC) $(OBJS) $(LIB) -o $(NAME)
 
 clean:
