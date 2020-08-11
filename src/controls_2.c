@@ -23,7 +23,7 @@ int				redraw(int key, t_mlx *data)
 {
 	if (key == SPACE)
 	{
-		init_view(&data->v);
+		init_view(&data->v, data->fractal_type);
 		data->max_iter = 100;
 		mlx_clear_window(data->mlx, data->win);
 		draw_image(data);

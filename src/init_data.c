@@ -6,13 +6,13 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:57 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/04 13:11:24 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/08 14:46:13 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-void			init_view(t_view *view)
+void			init_view(t_view *view, int fr_type)
 {
 	view->zf = 1.0f;
 	view->min_x = -2.0f;
@@ -30,6 +30,12 @@ void			init_view(t_view *view)
 	view->pressed_button = -1;
 	view->music_status = 0;
 	view->julia_change_mod = 1;
+	view->power = 2;
+	if (fr_type == 3)
+	{
+		view->max_y -= 0.6f;
+		view->min_y -= 0.6f;
+	}
 }
 
 char			*return_fractal_type(int argv)
@@ -67,20 +73,17 @@ t_mlx			*init_data(int argv)
 		error(MLX_INIT_ERROR);
 	if (!(data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "fractol")))
 		error(MLX_MAIN_WINDOW_CREATE_ERROR);
-	data->img.img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	data->img.img_data = (int *)mlx_get_data_addr(data->img.img_ptr,
-			&data->img.bpp, &data->img.size_l, &data->img.endian);
+	if (!(data->img.img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT)))
+		error(MLX_IMAGE_CREATE_ERROR);
+	if (!(data->img.img_data = (int *)mlx_get_data_addr(data->img.img_ptr,
+			&data->img.bpp, &data->img.size_l, &data->img.endian)))
+		error(MLX_IMAGE_DATA_ERROR);
 	data->help_status = 0;
 	data->fractal_type = argv;
 	data->cl_source = return_fractal_type(argv);
-	init_view(&data->v);
-	if (data->fractal_type == 3)
-	{
-		data->v.max_y -= 0.6f;
-		data->v.min_y -= 0.6f;
-	}
-	data->v.power = 2;
+	init_view(&data->v, data->fractal_type);
 	data->max_iter = 100;
-	data->res = (float *)malloc(sizeof(float) * (WIDTH * HEIGHT));
+	if (!(data->res = (float *)malloc(sizeof(float) * (WIDTH * HEIGHT))))
+		error(MLX_MALLOC_ERROR);
 	return (data);
 }

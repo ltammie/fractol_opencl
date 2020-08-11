@@ -32,7 +32,6 @@
 # include "../libft/libft.h"
 # include "keys.h"
 # include "error_codes.h"
-# include <stdio.h>
 
 typedef union			u_rgb
 {
@@ -112,7 +111,7 @@ typedef struct			s_mlx
 */
 
 t_mlx					*init_data(int argv);
-void					init_view(t_view *view);
+void					init_view(t_view *view, int fr_type);
 char					*return_fractal_type(int argv);
 
 /*
@@ -150,8 +149,6 @@ int						mouse_button_press(int button,
 		int x, int y, t_mlx *data);
 int						no_events(t_mlx *data);
 int						key_press(int key, t_mlx *data);
-int						change_fractal_type(int key, t_mlx *data);
-int						key_release(int key, t_mlx *data);
 int						change_power(int key, t_mlx *data);
 
 /*

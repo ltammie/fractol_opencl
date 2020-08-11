@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:06:48 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/04 13:19:50 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/08 14:57:59 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,37 +50,5 @@ int		change_angle(int key, t_mlx *data)
 		data->v.angle -= 360.0f;
 	draw_image(data);
 	mlx_do_sync(data->mlx);
-	return (0);
-}
-
-int		change_fractal_type(int key, t_mlx *data)
-{
-	if (key == LESS_B)
-		data->fractal_type--;
-	if (key == MORE_B)
-		data->fractal_type++;
-	data->fractal_type = data->fractal_type > 10 ? 1 : data->fractal_type;
-	data->fractal_type = data->fractal_type == 0 ? 10 : data->fractal_type;
-	cl_free(&data->cl);
-	init_view(&data->v);
-	if (data->fractal_type == 3)
-	{
-		data->v.max_y -= 0.6f;
-		data->v.min_y -= 0.6f;
-	}
-	data->v.power = 2;
-	data->cl_source = return_fractal_type(data->fractal_type);
-	data->max_iter = 100;
-	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_source);
-	cl_init(&data->cl);
-	draw_image(data);
-	mlx_do_sync(data->mlx);
-	return (0);
-}
-
-int		key_release(int key, t_mlx *data)
-{
-	if (key == MORE_B || key == LESS_B)
-		change_fractal_type(key, data);
 	return (0);
 }

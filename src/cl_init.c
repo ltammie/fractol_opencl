@@ -6,7 +6,7 @@
 /*   By: ltammie <ltammie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:05:58 by ltammie           #+#    #+#             */
-/*   Updated: 2020/08/04 13:11:24 by ltammie          ###   ########.fr       */
+/*   Updated: 2020/08/08 14:54:13 by ltammie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ char			**get_kernel_source(t_cl *cl, char *type)
 		error(0);
 	cl->count = get_lines(fd);
 	close(fd);
-	source = (char **)malloc(sizeof(char *) * cl->count);
+	if (!(source = (char **)malloc(sizeof(char *) * cl->count)))
+		error(MLX_MALLOC_ERROR);
 	fd = open(type, O_RDONLY);
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		source[i] = ft_strdup(line);
+		if (!(source[i] = ft_strdup(line)))
+			error(MLX_MALLOC_ERROR);
 		free(line);
 		line = NULL;
 		i++;
