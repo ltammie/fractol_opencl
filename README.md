@@ -29,4 +29,4 @@ After you started the program, press **H** to call a help menu to see all availa
 Press **ESC** to close the program
 
 # Some fancy examples
-[*](https://github.com/ltammie/fractol_opencl/blob/master/ex/mandelbrot.png)
+![](https://github.com/ltammie/fractol_opencl/blob/master/ex/mandelbrot.png)
