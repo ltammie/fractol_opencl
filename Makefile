@@ -20,22 +20,22 @@ LIB = -L libft -lft -L minilibx -lmlx -Wdeprecated-declarations -framework OpenG
 all: $(NAME)
 
 src%.o: %.c
-		$(GCC) -c $< -o $@ -I $(INC_DIR)
+		@$(GCC) -c $< -o $@ -I $(INC_DIR)
 
 lib:
-		make -C libft
-		make -C minilibx
+		@make -C libft
+		@make -C minilibx
 
 $(NAME): $(OBJS) lib $(INC_DIR)*.h
-		$(GCC) $(OBJS) $(LIB) -o $(NAME)
+		@$(GCC) $(OBJS) $(LIB) -o $(NAME)
 
 clean:
-		rm -f $(OBJS)
-		make -C libft clean
+		@rm -f $(OBJS)
+		@make -C libft clean
 
 fclean: clean
-		rm -f $(NAME)
-		make -C libft fclean
-		make -C minilibx clean
+		@rm -f $(NAME)
+		@make -C libft fclean
+		@make -C minilibx clean
 
 re: fclean all
