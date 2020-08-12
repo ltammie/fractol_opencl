@@ -9,11 +9,11 @@ Fractal rendering program with OpenCL ot speed up calculations
 
 # Usage
 run:  
-`git clone --recursive https://github.com/ltammie/fractol_opencl.git && cd fractol_opencl && make -s && make clean -s`  
+```git clone --recursive https://github.com/ltammie/fractol_opencl.git && cd fractol_opencl && make -s && make clean -s```
 to start a program:  
-`./fractol 1`  
+```./fractol 1```
 to see all available commands, start program with no arguments:  
-`./fractol`
+```./fractol```
 
 # Controls
 After you started the program, press **H** to call a help menu to see all available keyboard and mouse controls  
