@@ -37,7 +37,3 @@ Press **ESC** to close the program
 ![](https://github.com/ltammie/fractol_opencl/blob/master/ex/4.png)
 ![](https://github.com/ltammie/fractol_opencl/blob/master/ex/ms.png)
 ![](https://github.com/ltammie/fractol_opencl/blob/master/ex/amoeba.png)
-
-
-# Some fancy examples
-![](https://github.com/ltammie/fractol_opencl/blob/master/ex/mandelbrot.png)
