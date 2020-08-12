@@ -25,6 +25,7 @@ to see all available commands, start program with no arguments:
 * some other cool looking fractals I personally liked
 
 # Controls
-After you started the program, press **H** to call a help menu to see all available keyboard and mouse controls
+After you started the program, press **H** to call a help menu to see all available keyboard and mouse controls  
+Press **ESC** to close the program
 
 # Some fancy examples
