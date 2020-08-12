@@ -9,7 +9,7 @@ Fractal rendering program with OpenCL ot speed up calculations
 
 # Usage
 run:  
-`git clone https://github.com/ltammie/fractol_opencl.git && cd fractol_opencl && make && make clean`  
+<git clone https://github.com/ltammie/fractol_opencl.git && cd fractol_opencl && make && make clean>  
 to start a program:  
 `./fractol 1`  
 to see all available commands, start program with no arguments:  
